@@ -1,0 +1,4 @@
+six
+keystone-engine
+yara-python
+z3-solver

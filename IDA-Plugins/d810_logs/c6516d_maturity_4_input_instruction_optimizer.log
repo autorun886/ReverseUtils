@@ -1,0 +1,28 @@
+; STKD=E0 MINREF=E0/END=E0 ARGS: OFF=E4/MINREF=1E4/END=1E4/SHADOW=0
+; SAVEDREGS: ebx.4,ebp.4,esi.4
+; 1WAY-BLOCK 0 FAKE OUTBOUNDS: 1 [START=C6516D END=C6516D] MINREFS: STK=E0/ARG=1E4, MAXBSP: 0
+; DEF: (rax.8,cl.1,ebx.4,sp.2,rdi.8,cs.2,ds.2,arg+8.4)
+
+; 0WAY-BLOCK 1 PROP COMB INBOUNDS: 0 [START=C6516D END=C651EB] MINREFS: STK=E0/ARG=1E4, MAXBSP: E0
+; USE-DEF LISTS ARE NOT READY
+ mov     edx.4{1}, %0xDC.4{1}    ; C6516D u=edx.4      d=sp+DC..
+ mov      call !_byteswap_ushort<fast:"unsigned __int16"  high.2( xds.4(ax.2) ) > => "unsigned __int16" .2 {2}, dx.2{2} ; C65174 u=ax.2       d=dx.2
+ mov      call !__readeflags<fast:> => "unsigned int" .4 {3}, kr00_4.4{3} ; C65177 dontprop mbarrier u=           d=kr00_4.4
+ mov     kr00_4.4{3}, %0xD4.4{3} ; C65177 u=kr00_4.4   d=sp+D4.4
+ ext     dx.2{2},  #0xB1.1 , dx.2  ; C65183 u=dx.2       d=dx.2
+ mov     eax.4{4}, %0xC8.4{4}    ; C6518B u=eax.4      d=sp+C8.4
+ mov      #0.4 , %0xC4.4           ; C65197 u=           d=sp+C4.4
+ sub     di.2,  #1.2 , di.2{5}     ; C651A1 u=di.2       d=di.2
+ ext     di.2{5},  #0x81.1 , di.2  ; C651A8 u=di.2       d=di.2
+ add      ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) ,  #1.4 , esi.4{7} ; C651CB u=arg+8.4    d=esi.4
+ neg      (edi.4 &  bnot( ( #1.4  <<l sp.1) ) ) , edi.4 ; C651D6 u=sp.1,edi.4 d=edi.4
+ neg     esi.4{7}, esi.4{8}      ; C651DE u=esi.4      d=esi.4
+ mov     esi.4{8}, ebx.4{8}      ; 989695 u=esi.4      d=ebx.4
+ xor      (ebx.4{8} ^  [ds.2: (esi.4{8}- #4.4 ) ].4 ) ,  #0x2D5A3FF5.4 , eax.4{9} ; 9896BE u=ebx.4,esi.4,ds.2,(GLBLOW,GLBHIGH) d=eax.4
+ sub     eax.4{9},  #0x22BA7A27.4 , eax.4{11} ; C827B6 u=eax.4      d=eax.4
+ mov      call !__ROR4__<fast:_DWORD  ( call !__ROR4__<fast:_DWORD eax.4{11},char  #1.1 > => _DWORD .4 + #0x38145F1.4 ) ,char  #1.1 > => _DWORD .4 , eax.4{12} ; DD6D91 u=eax.4      d=eax.4
+ sub     eax.4{12},  #1.4 , eax.4{10} ; 999F1C u=eax.4      d=eax.4
+ ijmp    cs.2,  (eax.4{10}+&($loc_9896AA).4)  ; E0C4D5 u=eax.4,cs.2
+
+; STOP-BLOCK 2 FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=E0/ARG=1E4, MAXBSP: 0
+

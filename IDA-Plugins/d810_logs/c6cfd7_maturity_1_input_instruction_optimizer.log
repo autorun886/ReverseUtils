@@ -1,0 +1,1969 @@
+; STKD=18 MINREF=0/END=130 ARGS: OFF=134/MINREF=134/END=234/SHADOW=0
+; SAVEDREGS: ebp.4
+; ????-BLOCK 0 PROP FAKE [START=C6CFD7 END=C6CFD7] MINREFS: STK=0/ARG=134, MAXBSP: 0
+
+; ????-BLOCK 1 PROP PUSH [START=C6CFD7 END=C6CFF3] MINREFS: STK=0/ARG=134, MAXBSP: 12C
+; USE-DEF LISTS ARE NOT READY
+ mov     esp.4, ebp.4            ; C6CFD8 u=esp.4      d=ebp.4
+ mov     esp.4, et0.4            ; C6CFDA u=esp.4      d=et0.4
+ and     eax.4, et0.4, et0.4     ; C6CFDA u=eax.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; C6CFDA u=           d=cf.1
+ mov      #0.1 , of.1              ; C6CFDA u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; C6CFDA u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; C6CFDA u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; C6CFDA u=et0.4      d=sf.1
+ mov     esp.4, et1.4            ; C6CFDC u=esp.4      d=et1.4
+ sub     et1.4,  #0x114.4 , et1.4  ; C6CFDC u=et1.4      d=et1.4
+ mov     et1.4, esp.4            ; C6CFDC u=et1.4      d=esp.4
+ nop                             ; C6CFE3 u=
+ push    edi.4                   ; C6CFE3 u=esp.4,edi.4 d=esp.4,sp+14.4
+ mov      #0xF3.1 , t1.1           ; C6CFE4 u=           d=t1.1
+ cfshr   di.2, t1.1, tt.1        ; C6CFE4 u=di.2,t1.1  d=tt.1
+ mov      call !__ROR2__<fast:_WORD di.2,char t1.1> => _WORD .2 , di.2 ; C6CFE4 u=di.2,t1.1  d=di.2
+ mov     tt.1, cf.1              ; C6CFE4 u=tt.1       d=cf.1
+ und     of.1                    ; C6CFE4 u=           d=of.1
+ mov     ebp.4, eoff.4           ; C6CFE8 u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; C6CFE8 u=ss.2       d=seg.2
+ add     eoff.4,  #8.4 , eoff.4    ; C6CFE8 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; C6CFE8 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, edi.4            ; C6CFE8 u=et1.4      d=edi.4
+ lnot    cf.1, cf.1              ; C6CFEB u=cf.1       d=cf.1
+ mov     edi.4, et0.4            ; C6CFEC u=edi.4      d=et0.4
+ and     edi.4, et0.4, et0.4     ; C6CFEC u=edi.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; C6CFEC u=           d=cf.1
+ mov      #0.1 , of.1              ; C6CFEC u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; C6CFEC u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; C6CFEC u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; C6CFEC u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; C6CFEE u=cs.2       d=seg.2
+ mov      #0xE111C2.4 , eoff.4     ; C6CFEE u=           d=eoff.4
+ goto    $loc_E111C2             ; C6CFEE u=
+
+; ????-BLOCK 2 PROP [START=928DC9 END=928DCF] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; 928DC9 u=cs.2       d=seg.2
+ mov      #0x9B0124.4 , eoff.4     ; 928DC9 u=           d=eoff.4
+ lnot    cf.1, tt.1              ; 928DC9 u=cf.1       d=tt.1
+ jcnd    tt.1, $loc_9B0124       ; 928DC9 u=tt.1
+
+; ????-BLOCK 3 PROP [START=928DCF END=928DEE] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     edi.4, eoff.4           ; 928DCF u=edi.4      d=eoff.4
+ add     eax.4, eoff.4, eoff.4   ; 928DCF u=eax.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; 928DCF u=ds.2       d=seg.2
+ add     eoff.4,  #0x1C.4 , eoff.4 ; 928DCF u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; 928DCF u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, ecx.4            ; 928DCF u=et1.4      d=ecx.4
+ xds     bp.2, edx.4             ; 928DD3 u=bp.2       d=edx.4
+ mov     esi.4, et1.4            ; 928DD6 u=esi.4      d=et1.4
+ mul      #4.4 , et1.4, et1.4      ; 928DD6 u=et1.4      d=et1.4
+ add     ecx.4, et1.4, et1.4     ; 928DD6 u=ecx.4,et1.4 d=et1.4
+ mov     et1.4, edx.4            ; 928DD6 u=et1.4      d=edx.4
+ ofadd    #1.4 , ecx.4, of.1       ; 928DD9 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; 928DD9 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; 928DD9 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; 928DD9 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; 928DD9 u=ecx.4      d=sf.1
+ mov      #0x5B7D2172.4 , et1.4    ; 928DDA u=           d=et1.4
+ and     et1.4, ecx.4, ecx.4     ; 928DDA u=ecx.4,et1.4 d=ecx.4
+ mov      #0.1 , cf.1              ; 928DDA u=           d=cf.1
+ mov      #0.1 , of.1              ; 928DDA u=           d=of.1
+ setz    ecx.4,  #0.4 , zf.1       ; 928DDA u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; 928DDA u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; 928DDA u=ecx.4      d=sf.1
+ mov      call !_bittestandcomplement16<fast:"__int16 *" &(cx.2)<2/2>.4,"unsigned __int16" di.2> => "unsigned __int8" .1 , cf.1 ; 928DE0 u=cx.2,di.2,(ALLMEM) d=cf.1,cx.2,(ALLMEM)
+ und     zf.1                    ; 928DE0 u=           d=zf.1
+ und     sf.1                    ; 928DE0 u=           d=sf.1
+ und     of.1                    ; 928DE0 u=           d=of.1
+ und     pf.1                    ; 928DE0 u=           d=pf.1
+ mov     edi.4, eoff.4           ; 928DE4 u=edi.4      d=eoff.4
+ add     edx.4, eoff.4, eoff.4   ; 928DE4 u=edx.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; 928DE4 u=ds.2       d=seg.2
+ ldx     seg.2, eoff.4, et1.4    ; 928DE4 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, ecx.4            ; 928DE4 u=et1.4      d=ecx.4
+ mov     ecx.4, et0.4            ; 928DE7 u=ecx.4      d=et0.4
+ and     ecx.4, et0.4, et0.4     ; 928DE7 u=ecx.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; 928DE7 u=           d=cf.1
+ mov      #0.1 , of.1              ; 928DE7 u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; 928DE7 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; 928DE7 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; 928DE7 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; 928DE9 u=cs.2       d=seg.2
+ mov      #0xE289FD.4 , eoff.4     ; 928DE9 u=           d=eoff.4
+ goto    $loc_E289FD             ; 928DE9 u=
+
+; ????-BLOCK 4 PROP [START=97AFF7 END=97AFFF] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     al.1, t0.1              ; 97AFF7 u=al.1       d=t0.1
+ mov     esi.4, eoff.4           ; 97AFF7 u=esi.4      d=eoff.4
+ mov     ds.2, seg.2             ; 97AFF7 u=ds.2       d=seg.2
+ stx     t0.1, seg.2, eoff.4     ; 97AFF7 u=t0.1,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov     cs.2, seg.2             ; 97AFF9 u=cs.2       d=seg.2
+ mov      #0xBF186B.4 , eoff.4     ; 97AFF9 u=           d=eoff.4
+ jcnd    zf.1, $loc_BF186B       ; 97AFF9 u=zf.1
+
+; ????-BLOCK 5 PROP [START=97AFFF END=97B00F] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ ofadd    #1.4 , edx.4, of.1       ; 97AFFF u=edx.4      d=of.1
+ add     edx.4,  #1.4 , edx.4      ; 97AFFF u=edx.4      d=edx.4
+ setz    edx.4,  #0.4 , zf.1       ; 97AFFF u=edx.4      d=zf.1
+ setp    edx.4,  #0.4 , pf.1       ; 97AFFF u=edx.4      d=pf.1
+ sets    edx.4, sf.1             ; 97AFFF u=edx.4      d=sf.1
+ mov     di.2, t0.2              ; 97B000 u=di.2       d=t0.2
+ setb    t0.2, sp.2, cf.1        ; 97B000 u=sp.2,t0.2  d=cf.1
+ seto    t0.2, sp.2, of.1        ; 97B000 u=sp.2,t0.2  d=of.1
+ sub     t0.2, sp.2, t0.2        ; 97B000 u=sp.2,t0.2  d=t0.2
+ setz    t0.2,  #0.2 , zf.1        ; 97B000 u=t0.2       d=zf.1
+ setp    t0.2,  #0.2 , pf.1        ; 97B000 u=t0.2       d=pf.1
+ sets    t0.2, sf.1              ; 97B000 u=t0.2       d=sf.1
+ mov      #1.1 , cf.1              ; 97B003 u=           d=cf.1
+ mov      #0x104.4 , et1.4         ; 97B004 u=           d=et1.4
+ mov     edx.4, et0.4            ; 97B004 u=edx.4      d=et0.4
+ setb    et0.4, et1.4, cf.1      ; 97B004 u=et0.4,et1.4 d=cf.1
+ seto    et0.4, et1.4, of.1      ; 97B004 u=et0.4,et1.4 d=of.1
+ sub     et0.4, et1.4, et0.4     ; 97B004 u=et0.4,et1.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; 97B004 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; 97B004 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; 97B004 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; 97B00A u=cs.2       d=seg.2
+ mov      #0xBF1865.4 , eoff.4     ; 97B00A u=           d=eoff.4
+ goto    $loc_BF1865             ; 97B00A u=
+
+; ????-BLOCK 6 PROP PUSH [START=97F0EB END=97F0F0] MINREFS: STK=0/ARG=134, MAXBSP: 8
+; USE-DEF LISTS ARE NOT READY
+ mov      #0x97F0F0.4 , ett.4      ; 97F0EB u=           d=ett.4
+ nop                             ; 97F0EB u=
+ nop                             ; 97F0EB u=
+ mov     cs.2, seg.2             ; 97F0EB u=cs.2       d=seg.2
+ mov      #0xDADACA.4 , eoff.4     ; 97F0EB u=           d=eoff.4
+ call    $sub_DADACA             ; 97F0EB u=(rax.8,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,st7.8,fl.1,c0.1,c2.1,c3.1,df.1,if.1,xmm0.16,ALLMEM)
+
+; ????-BLOCK 7 PROP [START=97F0F0 END=97F104] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     esp.4, et1.4            ; 97F0F0 u=esp.4      d=et1.4
+ add     et1.4,  #4.4 , et1.4      ; 97F0F0 u=et1.4      d=et1.4
+ mov     et1.4, esp.4            ; 97F0F0 u=et1.4      d=esp.4
+ mov      #0.1 , cf.1              ; 97F0F4 u=           d=cf.1
+ mov      #0x4AD52163.4 , et1.4    ; 97F0F5 u=           d=et1.4
+ mov     esi.4, et0.4            ; 97F0F5 u=esi.4      d=et0.4
+ setb    et0.4, et1.4, cf.1      ; 97F0F5 u=et0.4,et1.4 d=cf.1
+ seto    et0.4, et1.4, of.1      ; 97F0F5 u=et0.4,et1.4 d=of.1
+ sub     et0.4, et1.4, et0.4     ; 97F0F5 u=et0.4,et1.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; 97F0F5 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; 97F0F5 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; 97F0F5 u=et0.4      d=sf.1
+ mov      #0xFFFFFFFF.4 , et1.4    ; 97F0FB u=           d=et1.4
+ mov     eax.4, et0.4            ; 97F0FB u=eax.4      d=et0.4
+ setb    et0.4, et1.4, cf.1      ; 97F0FB u=et0.4,et1.4 d=cf.1
+ seto    et0.4, et1.4, of.1      ; 97F0FB u=et0.4,et1.4 d=of.1
+ sub     et0.4, et1.4, et0.4     ; 97F0FB u=et0.4,et1.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; 97F0FB u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; 97F0FB u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; 97F0FB u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; 97F0FE u=cs.2       d=seg.2
+ mov      #0xDF7560.4 , eoff.4     ; 97F0FE u=           d=eoff.4
+ jcnd    zf.1, $loc_DF7560       ; 97F0FE u=zf.1
+
+; ????-BLOCK 8 PROP [START=97F104 END=97F10B] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     eax.4, et0.4            ; 97F104 u=eax.4      d=et0.4
+ and     eax.4, et0.4, et0.4     ; 97F104 u=eax.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; 97F104 u=           d=cf.1
+ mov      #0.1 , of.1              ; 97F104 u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; 97F104 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; 97F104 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; 97F104 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; 97F106 u=cs.2       d=seg.2
+ mov      #0xDC4FE7.4 , eoff.4     ; 97F106 u=           d=eoff.4
+ goto    $loc_DC4FE7             ; 97F106 u=
+
+; ????-BLOCK 9 PROP [START=98D387 END=98D38F] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, esp.4            ; 98D387 u=ebp.4      d=esp.4
+ mov     cs.2, seg.2             ; 98D38A u=cs.2       d=seg.2
+ mov      #0xD78955.4 , eoff.4     ; 98D38A u=           d=eoff.4
+ goto    $nullsub_5              ; 98D38A u=
+
+; ????-BLOCK 10 PROP [START=98E4F7 END=98E509] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ mov     edi.4, eoff.4           ; 98E4F7 u=edi.4      d=eoff.4
+ mov     ds.2, seg.2             ; 98E4F7 u=ds.2       d=seg.2
+ add     eoff.4,  #0x3C.4 , eoff.4 ; 98E4F7 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; 98E4F7 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, edx.4            ; 98E4F7 u=et1.4      d=edx.4
+ mov      #0.1 , cf.1              ; 98E4FA u=           d=cf.1
+ cfadd   edi.4, edx.4, cf.1      ; 98E4FB u=edx.4,edi.4 d=cf.1
+ ofadd   edi.4, edx.4, of.1      ; 98E4FB u=edx.4,edi.4 d=of.1
+ add     edi.4, edx.4, ett.4     ; 98E4FB u=edx.4,edi.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; 98E4FB u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; 98E4FB u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; 98E4FB u=ett.4      d=sf.1
+ mov     ett.4, edx.4            ; 98E4FB u=ett.4      d=edx.4
+ mov     edx.4, eoff.4           ; 98E4FD u=edx.4      d=eoff.4
+ mov     ds.2, seg.2             ; 98E4FD u=ds.2       d=seg.2
+ ldx     seg.2, eoff.4, et0.4    ; 98E4FD u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et0.4
+ mov      #0x4550.4 , et1.4        ; 98E4FD u=           d=et1.4
+ setb    et0.4, et1.4, cf.1      ; 98E4FD u=et0.4,et1.4 d=cf.1
+ seto    et0.4, et1.4, of.1      ; 98E4FD u=et0.4,et1.4 d=of.1
+ sub     et0.4, et1.4, et0.4     ; 98E4FD u=et0.4,et1.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; 98E4FD u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; 98E4FD u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; 98E4FD u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; 98E503 u=cs.2       d=seg.2
+ mov      #0xDDECBF.4 , eoff.4     ; 98E503 u=           d=eoff.4
+ lnot    zf.1, tt.1              ; 98E503 u=zf.1       d=tt.1
+ jcnd    tt.1, $loc_DDECBF       ; 98E503 u=tt.1
+
+; ????-BLOCK 11 PROP [START=98E509 END=98E511] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ mov     edx.4, eoff.4           ; 98E509 u=edx.4      d=eoff.4
+ mov     ds.2, seg.2             ; 98E509 u=ds.2       d=seg.2
+ add     eoff.4,  #0x78.4 , eoff.4 ; 98E509 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; 98E509 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, eax.4            ; 98E509 u=et1.4      d=eax.4
+ mov     cs.2, seg.2             ; 98E50C u=cs.2       d=seg.2
+ mov      #0xDD83C9.4 , eoff.4     ; 98E50C u=           d=eoff.4
+ goto    $loc_DD83C9             ; 98E50C u=
+
+; ????-BLOCK 12 PROP [START=9A0EEA END=9A0EF0] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; 9A0EEA u=cs.2       d=seg.2
+ mov      #0xDDFE57.4 , eoff.4     ; 9A0EEA u=           d=eoff.4
+ jcnd    zf.1, $loc_DDFE57       ; 9A0EEA u=zf.1
+
+; ????-BLOCK 13 PROP [START=9A0EF0 END=9A0F00] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     dl.1, t0.1              ; 9A0EF0 u=dl.1       d=t0.1
+ mov     eax.4, eoff.4           ; 9A0EF0 u=eax.4      d=eoff.4
+ add     ebx.4, eoff.4, eoff.4   ; 9A0EF0 u=ebx.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; 9A0EF0 u=ds.2       d=seg.2
+ stx     t0.1, seg.2, eoff.4     ; 9A0EF0 u=t0.1,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ xdu     ah.1, dx.2              ; 9A0EF3 u=ah.1       d=dx.2
+ mov     ebp.4, eoff.4           ; 9A0EF7 u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; 9A0EF7 u=ss.2       d=seg.2
+ add     eoff.4,  #8.4 , eoff.4    ; 9A0EF7 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; 9A0EF7 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, edx.4            ; 9A0EF7 u=et1.4      d=edx.4
+ ofadd    #1.4 , edx.4, of.1       ; 9A0EFA u=edx.4      d=of.1
+ add     edx.4,  #1.4 , edx.4      ; 9A0EFA u=edx.4      d=edx.4
+ setz    edx.4,  #0.4 , zf.1       ; 9A0EFA u=edx.4      d=zf.1
+ setp    edx.4,  #0.4 , pf.1       ; 9A0EFA u=edx.4      d=pf.1
+ sets    edx.4, sf.1             ; 9A0EFA u=edx.4      d=sf.1
+ mov     cs.2, seg.2             ; 9A0EFB u=cs.2       d=seg.2
+ mov      #0xC1841A.4 , eoff.4     ; 9A0EFB u=           d=eoff.4
+ goto    $loc_C1841A             ; 9A0EFB u=
+
+; ????-BLOCK 14 PROP [START=9B011E END=9B0124] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; 9B011E u=cs.2       d=seg.2
+ mov      #0xC6FD95.4 , eoff.4     ; 9B011E u=           d=eoff.4
+ lnot    zf.1, tt.1              ; 9B011E u=zf.1       d=tt.1
+ jcnd    tt.1, $loc_C6FD95       ; 9B011E u=tt.1
+
+; ????-BLOCK 15 PROP PUSH [START=9B0124 END=9B012F] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; 9B0124 u=
+ pop     esi.4                   ; 9B0124 u=esp.4,sp+C.4 d=esp.4,esi.4
+ mov      call !_bittestandcomplement16<fast:"__int16 *" &(di.2)<2/2>.4,"unsigned __int16" bx.2> => "unsigned __int8" .1 , cf.1 ; 9B0125 u=bx.2,di.2,(ALLMEM) d=cf.1,di.2,(ALLMEM)
+ und     zf.1                    ; 9B0125 u=           d=zf.1
+ und     sf.1                    ; 9B0125 u=           d=sf.1
+ und     of.1                    ; 9B0125 u=           d=of.1
+ und     pf.1                    ; 9B0125 u=           d=pf.1
+ nop                             ; 9B0129 u=
+ pop     ebx.4                   ; 9B0129 u=esp.4,sp+10.4 d=ebx.4,esp.4
+ mov      #0.4 , eax.4             ; 9B012A u=           d=eax.4
+ mov      #0.1 , cf.1              ; 9B012A u=           d=cf.1
+ mov      #0.1 , of.1              ; 9B012A u=           d=of.1
+ setz    eax.4,  #0.4 , zf.1       ; 9B012A u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; 9B012A u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; 9B012A u=eax.4      d=sf.1
+ xor     sf.1, of.1, tt.1        ; 9B012C u=sf.1,of.1  d=tt.1
+ lnot    tt.1, tt.1              ; 9B012C u=tt.1       d=tt.1
+ jcnd    tt.1, $loc_9B012F       ; 9B012C u=tt.1
+
+; ????-BLOCK 16 PROP FAKE [START=9B012C END=9B012F] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ mov     eax.4, edi.4            ; 9B012C u=eax.4      d=edi.4
+
+; ????-BLOCK 17 PROP PUSH [START=9B012F END=9B0135] MINREFS: STK=0/ARG=134, MAXBSP: 18
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; 9B012F u=
+ pop     edi.4                   ; 9B012F u=esp.4,sp+14.4 d=esp.4,edi.4
+ mov     cs.2, seg.2             ; 9B0130 u=cs.2       d=seg.2
+ mov      #0xDFF249.4 , eoff.4     ; 9B0130 u=           d=eoff.4
+ goto    $loc_DFF249             ; 9B0130 u=
+
+; ????-BLOCK 18 PROP [START=BF1865 END=BF186B] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; BF1865 u=cs.2       d=seg.2
+ mov      #0xC61A45.4 , eoff.4     ; BF1865 u=           d=eoff.4
+ jcnd    cf.1, $loc_C61A45       ; BF1865 u=cf.1
+
+; ????-BLOCK 19 PROP [START=BF186B END=BF1876] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, et1.4            ; BF186B u=ebp.4      d=et1.4
+ sub     et1.4,  #0x114.4 , et1.4  ; BF186B u=et1.4      d=et1.4
+ mov     et1.4, eax.4            ; BF186B u=et1.4      d=eax.4
+ mov     cs.2, seg.2             ; BF1871 u=cs.2       d=seg.2
+ mov      #0xC73F6B.4 , eoff.4     ; BF1871 u=           d=eoff.4
+ goto    $loc_C73F6B             ; BF1871 u=
+
+; ????-BLOCK 20 PROP [START=BF83F8 END=BF8401] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ ofadd    #1.4 , esi.4, of.1       ; BF83F8 u=esi.4      d=of.1
+ add     esi.4,  #1.4 , esi.4      ; BF83F8 u=esi.4      d=esi.4
+ setz    esi.4,  #0.4 , zf.1       ; BF83F8 u=esi.4      d=zf.1
+ setp    esi.4,  #0.4 , pf.1       ; BF83F8 u=esi.4      d=pf.1
+ sets    esi.4, sf.1             ; BF83F8 u=esi.4      d=sf.1
+ mov      #9.1 , t1.1              ; BF83F9 u=           d=t1.1
+ mov     bl.1, t0.1              ; BF83F9 u=bl.1       d=t0.1
+ setb    t0.1, t1.1, cf.1        ; BF83F9 u=t0.1,t1.1  d=cf.1
+ seto    t0.1, t1.1, of.1        ; BF83F9 u=t0.1,t1.1  d=of.1
+ sub     t0.1, t1.1, t0.1        ; BF83F9 u=t0.1,t1.1  d=t0.1
+ setz    t0.1,  #0.1 , zf.1        ; BF83F9 u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; BF83F9 u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; BF83F9 u=t0.1       d=sf.1
+ mov     cs.2, seg.2             ; BF83FC u=cs.2       d=seg.2
+ mov      #0xD666EC.4 , eoff.4     ; BF83FC u=           d=eoff.4
+ goto    $loc_D666EC             ; BF83FC u=
+
+; ????-BLOCK 21 PROP [START=BFA627 END=BFA62D] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; BFA627 u=cs.2       d=seg.2
+ mov      #0xC406D0.4 , eoff.4     ; BFA627 u=           d=eoff.4
+ jcnd    zf.1, $loc_C406D0       ; BFA627 u=zf.1
+
+; ????-BLOCK 22 PROP PUSH [START=BFA62D END=BFA634] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov      #0.4 , et0.4             ; BFA62D u=           d=et0.4
+ nop                             ; BFA62D u=
+ push     #0.4                     ; BFA62D u=esp.4      d=esp.4,sp+8.4
+ mov     cs.2, seg.2             ; BFA62F u=cs.2       d=seg.2
+ mov      #0xDF49B8.4 , eoff.4     ; BFA62F u=           d=eoff.4
+ goto    $loc_DF49B8             ; BFA62F u=
+
+; ????-BLOCK 23 PROP [START=BFBDF3 END=BFBDFB] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, esp.4            ; BFBDF3 u=ebp.4      d=esp.4
+ mov     cs.2, seg.2             ; BFBDF6 u=cs.2       d=seg.2
+ mov      #0x9B0253.4 , eoff.4     ; BFBDF6 u=           d=eoff.4
+ goto    $nullsub_2              ; BFBDF6 u=
+
+; ????-BLOCK 24 PROP [START=C069C8 END=C069CE] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; C069C8 u=cs.2       d=seg.2
+ mov      #0xDF3D77.4 , eoff.4     ; C069C8 u=           d=eoff.4
+ xor     sf.1, of.1, tt.1        ; C069C8 u=sf.1,of.1  d=tt.1
+ or      tt.1, zf.1, tt.1        ; C069C8 u=zf.1,tt.1  d=tt.1
+ jcnd    tt.1, $loc_DF3D77       ; C069C8 u=tt.1
+
+; ????-BLOCK 25 PROP [START=C069CE END=C069DB] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, eoff.4           ; C069CE u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; C069CE u=ss.2       d=seg.2
+ sub     eoff.4,  #4.4 , eoff.4    ; C069CE u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; C069CE u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, eax.4            ; C069CE u=et1.4      d=eax.4
+ mov     ebp.4, eoff.4           ; C069D1 u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; C069D1 u=ss.2       d=seg.2
+ sub     eoff.4,  #8.4 , eoff.4    ; C069D1 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; C069D1 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, esi.4            ; C069D1 u=et1.4      d=esi.4
+ mov     bp.2, t0.2              ; C069D4 u=bp.2       d=t0.2
+ setb    t0.2, sp.2, cf.1        ; C069D4 u=sp.2,t0.2  d=cf.1
+ seto    t0.2, sp.2, of.1        ; C069D4 u=sp.2,t0.2  d=of.1
+ sub     t0.2, sp.2, t0.2        ; C069D4 u=sp.2,t0.2  d=t0.2
+ setz    t0.2,  #0.2 , zf.1        ; C069D4 u=t0.2       d=zf.1
+ setp    t0.2,  #0.2 , pf.1        ; C069D4 u=t0.2       d=pf.1
+ sets    t0.2, sf.1              ; C069D4 u=t0.2       d=sf.1
+ lnot    cf.1, cf.1              ; C069D7 u=cf.1       d=cf.1
+ mov      #0xEA.1 , t1.1           ; C069D8 u=           d=t1.1
+ mov     ah.1, t0.1              ; C069D8 u=ah.1       d=t0.1
+ setb    t0.1, t1.1, cf.1        ; C069D8 u=t0.1,t1.1  d=cf.1
+ seto    t0.1, t1.1, of.1        ; C069D8 u=t0.1,t1.1  d=of.1
+ sub     t0.1, t1.1, t0.1        ; C069D8 u=t0.1,t1.1  d=t0.1
+ setz    t0.1,  #0.1 , zf.1        ; C069D8 u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; C069D8 u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; C069D8 u=t0.1       d=sf.1
+
+; ????-BLOCK 26 PROP [START=C069DB END=C069E4] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     edi.4, eoff.4           ; C069DB u=edi.4      d=eoff.4
+ add     eax.4, eoff.4, eoff.4   ; C069DB u=eax.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; C069DB u=ds.2       d=seg.2
+ add     eoff.4,  #0x14.4 , eoff.4 ; C069DB u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; C069DB u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     esi.4, et0.4            ; C069DB u=esi.4      d=et0.4
+ setb    et0.4, et1.4, cf.1      ; C069DB u=et0.4,et1.4 d=cf.1
+ seto    et0.4, et1.4, of.1      ; C069DB u=et0.4,et1.4 d=of.1
+ sub     et0.4, et1.4, et0.4     ; C069DB u=et0.4,et1.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; C069DB u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; C069DB u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; C069DB u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; C069DF u=cs.2       d=seg.2
+ mov      #0x928DC9.4 , eoff.4     ; C069DF u=           d=eoff.4
+ goto    $loc_928DC9             ; C069DF u=
+
+; ????-BLOCK 27 PROP [START=C1841A END=C18427] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ ofadd    #1.4 , eax.4, of.1       ; C1841A u=eax.4      d=of.1
+ add     eax.4,  #1.4 , eax.4      ; C1841A u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; C1841A u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; C1841A u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; C1841A u=eax.4      d=sf.1
+ mov      #1.1 , cf.1              ; C1841B u=           d=cf.1
+ lnot    cf.1, cf.1              ; C1841C u=cf.1       d=cf.1
+ mov     edx.4, et0.4            ; C1841D u=edx.4      d=et0.4
+ mov     ebp.4, eoff.4           ; C1841D u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; C1841D u=ss.2       d=seg.2
+ add     eoff.4,  #8.4 , eoff.4    ; C1841D u=eoff.4     d=eoff.4
+ stx     et0.4, seg.2, eoff.4    ; C1841D u=et0.4,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov     edx.4, et0.4            ; C18420 u=edx.4      d=et0.4
+ setb    et0.4, ecx.4, cf.1      ; C18420 u=ecx.4,et0.4 d=cf.1
+ seto    et0.4, ecx.4, of.1      ; C18420 u=ecx.4,et0.4 d=of.1
+ sub     et0.4, ecx.4, et0.4     ; C18420 u=ecx.4,et0.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; C18420 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; C18420 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; C18420 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; C18422 u=cs.2       d=seg.2
+ mov      #0xDDFE51.4 , eoff.4     ; C18422 u=           d=eoff.4
+ goto    $loc_DDFE51             ; C18422 u=
+
+; ????-BLOCK 28 PROP [START=C23B74 END=C23B7C] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, eoff.4           ; C23B74 u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; C23B74 u=ss.2       d=seg.2
+ add     eoff.4,  #0xC.4 , eoff.4  ; C23B74 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; C23B74 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, eax.4            ; C23B74 u=et1.4      d=eax.4
+ mov     cs.2, seg.2             ; C23B77 u=cs.2       d=seg.2
+ mov      #0xD7516A.4 , eoff.4     ; C23B77 u=           d=eoff.4
+ goto    $loc_D7516A             ; C23B77 u=
+
+; ????-BLOCK 29 PROP PUSH [START=C3310A END=C33110] MINREFS: STK=0/ARG=134, MAXBSP: 8
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; C3310A u=
+ push    edx.4                   ; C3310A u=edx.4,esp.4 d=esp.4,sp+4.4
+ mov     cs.2, seg.2             ; C3310B u=cs.2       d=seg.2
+ mov      #0xD5DAF2.4 , eoff.4     ; C3310B u=           d=eoff.4
+ goto    $loc_D5DAF2             ; C3310B u=
+
+; ????-BLOCK 30 PROP [START=C3E02C END=C3E033] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebx.4, et0.4            ; C3E02C u=ebx.4      d=et0.4
+ and     ebx.4, et0.4, et0.4     ; C3E02C u=ebx.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; C3E02C u=           d=cf.1
+ mov      #0.1 , of.1              ; C3E02C u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; C3E02C u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; C3E02C u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; C3E02C u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; C3E02E u=cs.2       d=seg.2
+ mov      #0xC58943.4 , eoff.4     ; C3E02E u=           d=eoff.4
+ goto    $loc_C58943             ; C3E02E u=
+
+; ????-BLOCK 31 PROP [START=C406D0 END=C406E1] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     esi.4, eoff.4           ; C406D0 u=esi.4      d=eoff.4
+ mov     ds.2, seg.2             ; C406D0 u=ds.2       d=seg.2
+ add     eoff.4,  #2.4 , eoff.4    ; C406D0 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, t1.1     ; C406D0 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=t1.1
+ mov     t1.1, cl.1              ; C406D0 u=t1.1       d=cl.1
+ mov      #0.1 , cf.1              ; C406D3 u=           d=cf.1
+ mov      #0x8A.1 , t1.1           ; C406D4 u=           d=t1.1
+ mov     ah.1, t0.1              ; C406D4 u=ah.1       d=t0.1
+ and     t1.1, t0.1, t0.1        ; C406D4 u=t0.1,t1.1  d=t0.1
+ mov      #0.1 , cf.1              ; C406D4 u=           d=cf.1
+ mov      #0.1 , of.1              ; C406D4 u=           d=of.1
+ setz    t0.1,  #0.1 , zf.1        ; C406D4 u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; C406D4 u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; C406D4 u=t0.1       d=sf.1
+ mov      #1.1 , cf.1              ; C406D7 u=           d=cf.1
+ mov      #2.4 , et1.4             ; C406D8 u=           d=et1.4
+ cfadd   et1.4, esi.4, cf.1      ; C406D8 u=esi.4,et1.4 d=cf.1
+ ofadd   et1.4, esi.4, of.1      ; C406D8 u=esi.4,et1.4 d=of.1
+ add     et1.4, esi.4, ett.4     ; C406D8 u=esi.4,et1.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; C406D8 u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; C406D8 u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; C406D8 u=ett.4      d=sf.1
+ mov     ett.4, esi.4            ; C406D8 u=ett.4      d=esi.4
+ mov      #1.1 , cf.1              ; C406DB u=           d=cf.1
+ mov     cs.2, seg.2             ; C406DC u=cs.2       d=seg.2
+ mov      #0xC9A267.4 , eoff.4     ; C406DC u=           d=eoff.4
+ goto    $loc_C9A267             ; C406DC u=
+
+; ????-BLOCK 32 PROP [START=C58943 END=C58949] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; C58943 u=cs.2       d=seg.2
+ mov      #0xC069DB.4 , eoff.4     ; C58943 u=           d=eoff.4
+ xor     sf.1, of.1, tt.1        ; C58943 u=sf.1,of.1  d=tt.1
+ jcnd    tt.1, $loc_C069DB       ; C58943 u=tt.1
+
+; ????-BLOCK 33 PROP [START=C58949 END=C5894E] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; C58949 u=cs.2       d=seg.2
+ mov      #0xDF3D7D.4 , eoff.4     ; C58949 u=           d=eoff.4
+ goto    $loc_DF3D7D             ; C58949 u=
+
+; ????-BLOCK 34 PROP [START=C61A29 END=C61A2F] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; C61A29 u=cs.2       d=seg.2
+ mov      #0xC23B74.4 , eoff.4     ; C61A29 u=           d=eoff.4
+ jcnd    zf.1, $loc_C23B74       ; C61A29 u=zf.1
+
+; ????-BLOCK 35 PROP [START=C61A2F END=C61A45] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, eoff.4           ; C61A2F u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; C61A2F u=ss.2       d=seg.2
+ add     eoff.4,  #0xC.4 , eoff.4  ; C61A2F u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; C61A2F u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, ebx.4            ; C61A2F u=et1.4      d=ebx.4
+ mov     esp.4, et0.4            ; C61A32 u=esp.4      d=et0.4
+ setb    et0.4, ebp.4, cf.1      ; C61A32 u=ebp.4,et0.4 d=cf.1
+ seto    et0.4, ebp.4, of.1      ; C61A32 u=ebp.4,et0.4 d=of.1
+ sub     et0.4, ebp.4, et0.4     ; C61A32 u=ebp.4,et0.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; C61A32 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; C61A32 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; C61A32 u=et0.4      d=sf.1
+ mov     ebp.4, et1.4            ; C61A34 u=ebp.4      d=et1.4
+ sub     et1.4,  #0x114.4 , et1.4  ; C61A34 u=et1.4      d=et1.4
+ mov     et1.4, eax.4            ; C61A34 u=et1.4      d=eax.4
+ cfshr   cl.1, cl.1, cf.1        ; C61A3A u=cl.1       d=cf.1
+ sar     cl.1, cl.1, cl.1        ; C61A3A u=cl.1       d=cl.1
+ und     of.1                    ; C61A3A u=           d=of.1
+ setz    cl.1,  #0.1 , zf.1        ; C61A3A u=cl.1       d=zf.1
+ setp    cl.1,  #0.1 , pf.1        ; C61A3A u=cl.1       d=pf.1
+ sets    cl.1, sf.1              ; C61A3A u=cl.1       d=sf.1
+ mov      #1.1 , cf.1              ; C61A3C u=           d=cf.1
+ setb    edx.4, edx.4, cf.1      ; C61A3D u=edx.4      d=cf.1
+ seto    edx.4, edx.4, of.1      ; C61A3D u=edx.4      d=of.1
+ mov      #0.4 , edx.4             ; C61A3D u=           d=edx.4
+ setz    edx.4,  #0.4 , zf.1       ; C61A3D u=edx.4      d=zf.1
+ setp    edx.4,  #0.4 , pf.1       ; C61A3D u=edx.4      d=pf.1
+ sets    edx.4, sf.1             ; C61A3D u=edx.4      d=sf.1
+ cfshl   cl.1, cl.1, cf.1        ; C61A3F u=cl.1       d=cf.1
+ shl     cl.1, cl.1, cl.1        ; C61A3F u=cl.1       d=cl.1
+ und     of.1                    ; C61A3F u=           d=of.1
+ setz    cl.1,  #0.1 , zf.1        ; C61A3F u=cl.1       d=zf.1
+ setp    cl.1,  #0.1 , pf.1        ; C61A3F u=cl.1       d=pf.1
+ sets    cl.1, sf.1              ; C61A3F u=cl.1       d=sf.1
+ setb    ebx.4, eax.4, cf.1      ; C61A41 u=eax.4,ebx.4 d=cf.1
+ seto    ebx.4, eax.4, of.1      ; C61A41 u=eax.4,ebx.4 d=of.1
+ sub     ebx.4, eax.4, ebx.4     ; C61A41 u=eax.4,ebx.4 d=ebx.4
+ setz    ebx.4,  #0.4 , zf.1       ; C61A41 u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; C61A41 u=ebx.4      d=pf.1
+ sets    ebx.4, sf.1             ; C61A41 u=ebx.4      d=sf.1
+
+; ????-BLOCK 36 PROP [START=C61A45 END=C61A70] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov      #0x18EF4CA5.4 , et1.4    ; C61A45 u=           d=et1.4
+ mov     et1.4, eax.4            ; C61A45 u=et1.4      d=eax.4
+ mov     dl.1, cl.1              ; C61A4A u=dl.1       d=cl.1
+ mov      call !_bittestandset<fast:"int *" &(esi.4)<4/4>.4,"unsigned int" ebx.4> => "unsigned __int8" .1 , cf.1 ; C61A4C u=ebx.4,esi.4,(ALLMEM) d=cf.1,esi.4,(ALLMEM)
+ und     zf.1                    ; C61A4C u=           d=zf.1
+ und     sf.1                    ; C61A4C u=           d=sf.1
+ und     of.1                    ; C61A4C u=           d=of.1
+ und     pf.1                    ; C61A4C u=           d=pf.1
+ mov      #0.1 , cf.1              ; C61A4F u=           d=cf.1
+ cfshl   eax.4, cl.1, tt.1       ; C61A50 u=eax.4,cl.1 d=tt.1
+ mov      call !__ROL4__<fast:_DWORD eax.4,char cl.1> => _DWORD .4 , eax.4 ; C61A50 u=eax.4,cl.1 d=eax.4
+ mov     tt.1, cf.1              ; C61A50 u=tt.1       d=cf.1
+ und     of.1                    ; C61A50 u=           d=of.1
+ lnot     call !_BitScanForward<fast:"unsigned int *" &(esi.4)<0/4>.4,"unsigned int" ebx.4> => "unsigned __int8" .1 , zf.1 ; C61A52 u=ebx.4      d=zf.1,esi.4
+ und     cf.1                    ; C61A52 u=           d=cf.1
+ und     sf.1                    ; C61A52 u=           d=sf.1
+ und     of.1                    ; C61A52 u=           d=of.1
+ und     pf.1                    ; C61A52 u=           d=pf.1
+ mov     edx.4, et1.4            ; C61A55 u=edx.4      d=et1.4
+ add     ebp.4, et1.4, et1.4     ; C61A55 u=ebp.4,et1.4 d=et1.4
+ sub     et1.4,  #0x114.4 , et1.4  ; C61A55 u=et1.4      d=et1.4
+ mov     et1.4, esi.4            ; C61A55 u=et1.4      d=esi.4
+ mov      #0x3857.2 , t1.2         ; C61A5C u=           d=t1.2
+ mov     di.2, t0.2              ; C61A5C u=di.2       d=t0.2
+ and     t1.2, t0.2, t0.2        ; C61A5C u=t0.2,t1.2  d=t0.2
+ mov      #0.1 , cf.1              ; C61A5C u=           d=cf.1
+ mov      #0.1 , of.1              ; C61A5C u=           d=of.1
+ setz    t0.2,  #0.2 , zf.1        ; C61A5C u=t0.2       d=zf.1
+ setp    t0.2,  #0.2 , pf.1        ; C61A5C u=t0.2       d=pf.1
+ sets    t0.2, sf.1              ; C61A5C u=t0.2       d=sf.1
+ mov      #0x4536.2 , t1.2         ; C61A61 u=           d=t1.2
+ mov     bx.2, t0.2              ; C61A61 u=bx.2       d=t0.2
+ setb    t0.2, t1.2, cf.1        ; C61A61 u=t0.2,t1.2  d=cf.1
+ seto    t0.2, t1.2, of.1        ; C61A61 u=t0.2,t1.2  d=of.1
+ sub     t0.2, t1.2, t0.2        ; C61A61 u=t0.2,t1.2  d=t0.2
+ setz    t0.2,  #0.2 , zf.1        ; C61A61 u=t0.2       d=zf.1
+ setp    t0.2,  #0.2 , pf.1        ; C61A61 u=t0.2       d=pf.1
+ sets    t0.2, sf.1              ; C61A61 u=t0.2       d=sf.1
+ cfadd   dl.1, al.1, cf.1        ; C61A66 u=al.1,dl.1  d=cf.1
+ ofadd   dl.1, al.1, of.1        ; C61A66 u=al.1,dl.1  d=of.1
+ add     dl.1, al.1, tt.1        ; C61A66 u=al.1,dl.1  d=tt.1
+ setz    tt.1,  #0.1 , zf.1        ; C61A66 u=tt.1       d=zf.1
+ setp    tt.1,  #0.1 , pf.1        ; C61A66 u=tt.1       d=pf.1
+ sets    tt.1, sf.1              ; C61A66 u=tt.1       d=sf.1
+ mov     tt.1, al.1              ; C61A66 u=tt.1       d=al.1
+ mov     esi.4, eoff.4           ; C61A68 u=esi.4      d=eoff.4
+ add     ebx.4, eoff.4, eoff.4   ; C61A68 u=ebx.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; C61A68 u=ds.2       d=seg.2
+ ldx     seg.2, eoff.4, t1.1     ; C61A68 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=t1.1
+ xor     t1.1, al.1, al.1        ; C61A68 u=al.1,t1.1  d=al.1
+ mov      #0.1 , cf.1              ; C61A68 u=           d=cf.1
+ mov      #0.1 , of.1              ; C61A68 u=           d=of.1
+ setz    al.1,  #0.1 , zf.1        ; C61A68 u=al.1       d=zf.1
+ setp    al.1,  #0.1 , pf.1        ; C61A68 u=al.1       d=pf.1
+ sets    al.1, sf.1              ; C61A68 u=al.1       d=sf.1
+ mov     cs.2, seg.2             ; C61A6B u=cs.2       d=seg.2
+ mov      #0x97AFF7.4 , eoff.4     ; C61A6B u=           d=eoff.4
+ goto    $loc_97AFF7             ; C61A6B u=
+
+; ????-BLOCK 37 PROP [START=C69764 END=C6977A] MINREFS: STK=0/ARG=134, MAXBSP: 8
+; USE-DEF LISTS ARE NOT READY
+ mov      #0.1 , t1.1              ; C69764 u=           d=t1.1
+ mov     t1.1, t0.1              ; C69764 u=t1.1       d=t0.1
+ mov     eax.4, eoff.4           ; C69764 u=eax.4      d=eoff.4
+ add     ebp.4, eoff.4, eoff.4   ; C69764 u=ebp.4,eoff.4 d=eoff.4
+ mov     ss.2, seg.2             ; C69764 u=ss.2       d=seg.2
+ sub     eoff.4,  #0x114.4 , eoff.4 ; C69764 u=eoff.4     d=eoff.4
+ stx     t0.1, seg.2, eoff.4     ; C69764 u=t0.1,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ xdu     bp.2, eax.4             ; C6976C u=bp.2       d=eax.4
+ xds     ax.2, eax.4             ; C6976F u=ax.2       d=eax^2.2
+ mov     ds.2, seg.2             ; C69770 u=ds.2       d=seg.2
+ mov      #0xDB10D8.4 , eoff.4     ; C69770 u=           d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; C69770 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, eax.4            ; C69770 u=et1.4      d=eax.4
+ mov     cs.2, seg.2             ; C69775 u=cs.2       d=seg.2
+ mov      #0xD81518.4 , eoff.4     ; C69775 u=           d=eoff.4
+ goto    $loc_D81518             ; C69775 u=
+
+; ????-BLOCK 38 PROP [START=C6FD8B END=C6FD91] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; C6FD8B u=cs.2       d=seg.2
+ mov      #0x9B0124.4 , eoff.4     ; C6FD8B u=           d=eoff.4
+ jcnd    zf.1, $loc_9B0124       ; C6FD8B u=zf.1
+
+; ????-BLOCK 39 PROP [START=C6FD91 END=C6FD95] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ah.1, t0.1              ; C6FD93 u=ah.1       d=t0.1
+ and     cl.1, t0.1, t0.1        ; C6FD93 u=cl.1,t0.1  d=t0.1
+ mov      #0.1 , cf.1              ; C6FD93 u=           d=cf.1
+ mov      #0.1 , of.1              ; C6FD93 u=           d=of.1
+ setz    t0.1,  #0.1 , zf.1        ; C6FD93 u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; C6FD93 u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; C6FD93 u=t0.1       d=sf.1
+
+; ????-BLOCK 40 PROP [START=C6FD95 END=C6FD9E] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov      #0x2E.1 , t1.1           ; C6FD95 u=           d=t1.1
+ mov     cl.1, t0.1              ; C6FD95 u=cl.1       d=t0.1
+ setb    t0.1, t1.1, cf.1        ; C6FD95 u=t0.1,t1.1  d=cf.1
+ seto    t0.1, t1.1, of.1        ; C6FD95 u=t0.1,t1.1  d=of.1
+ sub     t0.1, t1.1, t0.1        ; C6FD95 u=t0.1,t1.1  d=t0.1
+ setz    t0.1,  #0.1 , zf.1        ; C6FD95 u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; C6FD95 u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; C6FD95 u=t0.1       d=sf.1
+ mov     cs.2, seg.2             ; C6FD98 u=cs.2       d=seg.2
+ mov      #0xC779CD.4 , eoff.4     ; C6FD98 u=           d=eoff.4
+ jcnd    zf.1, $loc_C779CD       ; C6FD98 u=zf.1
+
+; ????-BLOCK 41 PROP [START=C6FD9E END=C6FDA6] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     esi.4, eoff.4           ; C6FD9E u=esi.4      d=eoff.4
+ mov     ds.2, seg.2             ; C6FD9E u=ds.2       d=seg.2
+ add     eoff.4,  #1.4 , eoff.4    ; C6FD9E u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, t1.1     ; C6FD9E u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=t1.1
+ mov     t1.1, cl.1              ; C6FD9E u=t1.1       d=cl.1
+ mov     cs.2, seg.2             ; C6FDA1 u=cs.2       d=seg.2
+ mov      #0xE2EBAE.4 , eoff.4     ; C6FDA1 u=           d=eoff.4
+ goto    $loc_E2EBAE             ; C6FDA1 u=
+
+; ????-BLOCK 42 PROP PUSH [START=C7360B END=C73623] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; C7360B u=
+ push    ebx.4                   ; C7360B u=ebx.4,esp.4 d=esp.4,sp+10.4
+ nop                             ; C7360C u=
+ push    esi.4                   ; C7360C u=esp.4,esi.4 d=esp.4,sp+C.4
+ mov     sp.2, t0.2              ; C7360D u=sp.2       d=t0.2
+ setb    t0.2, sp.2, cf.1        ; C7360D u=sp.2,t0.2  d=cf.1
+ seto    t0.2, sp.2, of.1        ; C7360D u=sp.2,t0.2  d=of.1
+ sub     t0.2, sp.2, t0.2        ; C7360D u=sp.2,t0.2  d=t0.2
+ setz    t0.2,  #0.2 , zf.1        ; C7360D u=t0.2       d=zf.1
+ setp    t0.2,  #0.2 , pf.1        ; C7360D u=t0.2       d=pf.1
+ sets    t0.2, sf.1              ; C7360D u=t0.2       d=sf.1
+ mov      #1.1 , cf.1              ; C73610 u=           d=cf.1
+ mov      #0.1 , cf.1              ; C73611 u=           d=cf.1
+ mov      #0xFFFFFFFF.4 , et1.4    ; C73612 u=           d=et1.4
+ or      et1.4, esi.4, esi.4     ; C73612 u=esi.4,et1.4 d=esi.4
+ mov      #0.1 , cf.1              ; C73612 u=           d=cf.1
+ mov      #0.1 , of.1              ; C73612 u=           d=of.1
+ setz    esi.4,  #0.4 , zf.1       ; C73612 u=esi.4      d=zf.1
+ setp    esi.4,  #0.4 , pf.1       ; C73612 u=esi.4      d=pf.1
+ sets    esi.4, sf.1             ; C73612 u=esi.4      d=sf.1
+ mov      #0x7F6F296A.4 , et1.4    ; C73615 u=           d=et1.4
+ mov     esp.4, et0.4            ; C73615 u=esp.4      d=et0.4
+ and     et1.4, et0.4, et0.4     ; C73615 u=et0.4,et1.4 d=et0.4
+ mov      #0.1 , cf.1              ; C73615 u=           d=cf.1
+ mov      #0.1 , of.1              ; C73615 u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; C73615 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; C73615 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; C73615 u=et0.4      d=sf.1
+ mov     edx.4, et0.4            ; C7361B u=edx.4      d=et0.4
+ mov     ebp.4, eoff.4           ; C7361B u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; C7361B u=ss.2       d=seg.2
+ sub     eoff.4,  #0x10.4 , eoff.4 ; C7361B u=eoff.4     d=eoff.4
+ stx     et0.4, seg.2, eoff.4    ; C7361B u=et0.4,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov     cs.2, seg.2             ; C7361E u=cs.2       d=seg.2
+ mov      #0xD78786.4 , eoff.4     ; C7361E u=           d=eoff.4
+ goto    $loc_D78786             ; C7361E u=
+
+; ????-BLOCK 43 PROP PUSH [START=C73F6B END=C73F7E] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; C73F6B u=
+ push    eax.4                   ; C73F6B u=eax.4,esp.4 d=esp.4,sp+8.4
+ xds     al.1, ax.2              ; C73F6C u=al.1       d=ah.1
+ bnot    ax.2, ax.2              ; C73F6E u=ax.2       d=ax.2
+ nop                             ; C73F71 u=
+ push    edi.4                   ; C73F71 u=esp.4,edi.4 d=esp.4,sp+4.4
+ xds     al.1, ax.2              ; C73F72 u=al.1       d=ah.1
+ mov     ds.2, seg.2             ; C73F74 u=ds.2       d=seg.2
+ mov      #0xDB10DC.4 , eoff.4     ; C73F74 u=           d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; C73F74 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, eax.4            ; C73F74 u=et1.4      d=eax.4
+ mov     cs.2, seg.2             ; C73F79 u=cs.2       d=seg.2
+ mov      #0xD8D1E6.4 , eoff.4     ; C73F79 u=           d=eoff.4
+ goto    $loc_D8D1E6             ; C73F79 u=
+
+; ????-BLOCK 44 PROP [START=C779CD END=C779DD] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     esi.4, ecx.4            ; C779CD u=esi.4      d=ecx.4
+ setb    ecx.4, eax.4, cf.1      ; C779CF u=eax.4,ecx.4 d=cf.1
+ seto    ecx.4, eax.4, of.1      ; C779CF u=eax.4,ecx.4 d=of.1
+ sub     ecx.4, eax.4, ecx.4     ; C779CF u=eax.4,ecx.4 d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; C779CF u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; C779CF u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; C779CF u=ecx.4      d=sf.1
+ mov      #0x104.4 , et1.4         ; C779D1 u=           d=et1.4
+ mov     ecx.4, et0.4            ; C779D1 u=ecx.4      d=et0.4
+ setb    et0.4, et1.4, cf.1      ; C779D1 u=et0.4,et1.4 d=cf.1
+ seto    et0.4, et1.4, of.1      ; C779D1 u=et0.4,et1.4 d=of.1
+ sub     et0.4, et1.4, et0.4     ; C779D1 u=et0.4,et1.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; C779D1 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; C779D1 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; C779D1 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; C779D7 u=cs.2       d=seg.2
+ mov      #0x9B0124.4 , eoff.4     ; C779D7 u=           d=eoff.4
+ lnot    cf.1, tt.1              ; C779D7 u=cf.1       d=tt.1
+ jcnd    tt.1, $loc_9B0124       ; C779D7 u=tt.1
+
+; ????-BLOCK 45 PROP [START=C779DD END=C779EB] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov      #0.4 , et1.4             ; C779DD u=           d=et1.4
+ mov     et1.4, et0.4            ; C779DD u=et1.4      d=et0.4
+ mov     ebp.4, eoff.4           ; C779DD u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; C779DD u=ss.2       d=seg.2
+ add     eoff.4,  #8.4 , eoff.4    ; C779DD u=eoff.4     d=eoff.4
+ stx     et0.4, seg.2, eoff.4    ; C779DD u=et0.4,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov     ecx.4, et0.4            ; C779E4 u=ecx.4      d=et0.4
+ and     ecx.4, et0.4, et0.4     ; C779E4 u=ecx.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; C779E4 u=           d=cf.1
+ mov      #0.1 , of.1              ; C779E4 u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; C779E4 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; C779E4 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; C779E4 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; C779E6 u=cs.2       d=seg.2
+ mov      #0xC8AAA5.4 , eoff.4     ; C779E6 u=           d=eoff.4
+ goto    $loc_C8AAA5             ; C779E6 u=
+
+; ????-BLOCK 46 PROP [START=C8AAA5 END=C8AAAB] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; C8AAA5 u=cs.2       d=seg.2
+ mov      #0xDDFE57.4 , eoff.4     ; C8AAA5 u=           d=eoff.4
+ or      cf.1, zf.1, tt.1        ; C8AAA5 u=cf.1,zf.1  d=tt.1
+ jcnd    tt.1, $loc_DDFE57       ; C8AAA5 u=tt.1
+
+; ????-BLOCK 47 PROP [START=C8AAAB END=C8AAB3] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, et1.4            ; C8AAAB u=ebp.4      d=et1.4
+ sub     et1.4,  #0x114.4 , et1.4  ; C8AAAB u=et1.4      d=et1.4
+ mov     et1.4, ebx.4            ; C8AAAB u=et1.4      d=ebx.4
+ setb    ebx.4, eax.4, cf.1      ; C8AAB1 u=eax.4,ebx.4 d=cf.1
+ seto    ebx.4, eax.4, of.1      ; C8AAB1 u=eax.4,ebx.4 d=of.1
+ sub     ebx.4, eax.4, ebx.4     ; C8AAB1 u=eax.4,ebx.4 d=ebx.4
+ setz    ebx.4,  #0.4 , zf.1       ; C8AAB1 u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; C8AAB1 u=ebx.4      d=pf.1
+ sets    ebx.4, sf.1             ; C8AAB1 u=ebx.4      d=sf.1
+
+; ????-BLOCK 48 PROP [START=C8AAB3 END=C8AABC] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     eax.4, eoff.4           ; C8AAB3 u=eax.4      d=eoff.4
+ mov     ds.2, seg.2             ; C8AAB3 u=ds.2       d=seg.2
+ ldx     seg.2, eoff.4, t1.1     ; C8AAB3 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=t1.1
+ mov     t1.1, dl.1              ; C8AAB3 u=t1.1       d=dl.1
+ mov     dl.1, t0.1              ; C8AAB5 u=dl.1       d=t0.1
+ and     dl.1, t0.1, t0.1        ; C8AAB5 u=dl.1,t0.1  d=t0.1
+ mov      #0.1 , cf.1              ; C8AAB5 u=           d=cf.1
+ mov      #0.1 , of.1              ; C8AAB5 u=           d=of.1
+ setz    t0.1,  #0.1 , zf.1        ; C8AAB5 u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; C8AAB5 u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; C8AAB5 u=t0.1       d=sf.1
+ mov     cs.2, seg.2             ; C8AAB7 u=cs.2       d=seg.2
+ mov      #0x9A0EEA.4 , eoff.4     ; C8AAB7 u=           d=eoff.4
+ goto    $loc_9A0EEA             ; C8AAB7 u=
+
+; ????-BLOCK 49 PROP [START=C9A267 END=C9A278] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ setb    edx.4, edx.4, cf.1      ; C9A267 u=edx.4      d=cf.1
+ seto    edx.4, edx.4, of.1      ; C9A267 u=edx.4      d=of.1
+ mov      #0.4 , edx.4             ; C9A267 u=           d=edx.4
+ setz    edx.4,  #0.4 , zf.1       ; C9A267 u=edx.4      d=zf.1
+ setp    edx.4,  #0.4 , pf.1       ; C9A267 u=edx.4      d=pf.1
+ sets    edx.4, sf.1             ; C9A267 u=edx.4      d=sf.1
+ mov      #0x7F687D6A.4 , et1.4    ; C9A269 u=           d=et1.4
+ mov     esi.4, et0.4            ; C9A269 u=esi.4      d=et0.4
+ setb    et0.4, et1.4, cf.1      ; C9A269 u=et0.4,et1.4 d=cf.1
+ seto    et0.4, et1.4, of.1      ; C9A269 u=et0.4,et1.4 d=of.1
+ sub     et0.4, et1.4, et0.4     ; C9A269 u=et0.4,et1.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; C9A269 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; C9A269 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; C9A269 u=et0.4      d=sf.1
+ mov      #1.1 , cf.1              ; C9A26F u=           d=cf.1
+ lnot    cf.1, cf.1              ; C9A270 u=cf.1       d=cf.1
+ mov     cl.1, t0.1              ; C9A271 u=cl.1       d=t0.1
+ and     cl.1, t0.1, t0.1        ; C9A271 u=cl.1,t0.1  d=t0.1
+ mov      #0.1 , cf.1              ; C9A271 u=           d=cf.1
+ mov      #0.1 , of.1              ; C9A271 u=           d=of.1
+ setz    t0.1,  #0.1 , zf.1        ; C9A271 u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; C9A271 u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; C9A271 u=t0.1       d=sf.1
+ mov     cs.2, seg.2             ; C9A273 u=cs.2       d=seg.2
+ mov      #0xDD6D9D.4 , eoff.4     ; C9A273 u=           d=eoff.4
+ goto    $loc_DD6D9D             ; C9A273 u=
+
+; ????-BLOCK 50 PROP PUSH [START=D5DAF2 END=D5DAF8] MINREFS: STK=0/ARG=134, MAXBSP: 4
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; D5DAF2 u=
+ push    eax.4                   ; D5DAF2 u=eax.4,esp.4 d=esp.4,sp+0.4
+ mov      #0xD5DAF8.4 , ett.4      ; D5DAF3 u=           d=ett.4
+ nop                             ; D5DAF3 u=
+ nop                             ; D5DAF3 u=
+ mov     cs.2, seg.2             ; D5DAF3 u=cs.2       d=seg.2
+ mov      #0xC6CFD7.4 , eoff.4     ; D5DAF3 u=           d=eoff.4
+ call    $sub_C6CFD7             ; D5DAF3 u=(rax.8,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,st7.8,fl.1,c0.1,c2.1,c3.1,df.1,if.1,xmm0.16,ALLMEM)
+
+; ????-BLOCK 51 PROP [START=D5DAF8 END=D5DB01] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov      #0xC.4 , et1.4           ; D5DAF8 u=           d=et1.4
+ cfadd   et1.4, esp.4, cf.1      ; D5DAF8 u=esp.4,et1.4 d=cf.1
+ ofadd   et1.4, esp.4, of.1      ; D5DAF8 u=esp.4,et1.4 d=of.1
+ add     et1.4, esp.4, ett.4     ; D5DAF8 u=esp.4,et1.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; D5DAF8 u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; D5DAF8 u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; D5DAF8 u=ett.4      d=sf.1
+ mov     ett.4, esp.4            ; D5DAF8 u=ett.4      d=esp.4
+ mov      call !_byteswap_ulong<fast:"unsigned int" esi.4> => "unsigned __int32" .4 , esi.4 ; D5DAFB u=esi.4      d=esi.4
+ lnot    sf.1, tt.1              ; D5DAFD u=sf.1       d=tt.1
+ lnot    tt.1, tt.1              ; D5DAFD u=tt.1       d=tt.1
+ jcnd    tt.1, $loc_D5DB01       ; D5DAFD u=tt.1
+
+; ????-BLOCK 52 PROP FAKE [START=D5DAFD END=D5DB01] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cx.2, di.2              ; D5DAFD u=cx.2       d=di.2
+
+; ????-BLOCK 53 PROP PUSH [START=D5DB01 END=D5DB08] MINREFS: STK=0/ARG=134, MAXBSP: 10
+; USE-DEF LISTS ARE NOT READY
+ mov     ebx.4, et0.4            ; D5DB01 u=ebx.4      d=et0.4
+ mov     esi.4, ebx.4            ; D5DB01 u=esi.4      d=ebx.4
+ mov     et0.4, esi.4            ; D5DB01 u=et0.4      d=esi.4
+ nop                             ; D5DB03 u=
+ pop     esi.4                   ; D5DB03 u=esp.4,sp+C.4 d=esp.4,esi.4
+ lnot    sf.1, tt.1              ; D5DB04 u=sf.1       d=tt.1
+ jcnd    tt.1, $loc_D5DB08       ; D5DB04 u=tt.1
+
+; ????-BLOCK 54 PROP FAKE [START=D5DB04 END=D5DB08] MINREFS: STK=0/ARG=134, MAXBSP: 10
+; USE-DEF LISTS ARE NOT READY
+ mov     ax.2, bx.2              ; D5DB04 u=ax.2       d=bx.2
+
+; ????-BLOCK 55 PROP PUSH [START=D5DB08 END=D5DB0F] MINREFS: STK=0/ARG=134, MAXBSP: 18
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; D5DB08 u=
+ pop     ebx.4                   ; D5DB08 u=esp.4,sp+10.4 d=ebx.4,esp.4
+ nop                             ; D5DB09 u=
+ pop     edi.4                   ; D5DB09 u=esp.4,sp+14.4 d=esp.4,edi.4
+ mov     cs.2, seg.2             ; D5DB0A u=cs.2       d=seg.2
+ mov      #0xD5F485.4 , eoff.4     ; D5DB0A u=           d=eoff.4
+ goto    $loc_D5F485             ; D5DB0A u=
+
+; ????-BLOCK 56 PROP PUSH [START=D5EA7A END=D5EA80] MINREFS: STK=0/ARG=134, MAXBSP: 4
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; D5EA7A u=
+ push    eax.4                   ; D5EA7A u=eax.4,esp.4 d=esp.4,sp+0.4
+ mov     cs.2, seg.2             ; D5EA7B u=cs.2       d=seg.2
+ mov      #0xE1D068.4 , eoff.4     ; D5EA7B u=           d=eoff.4
+ goto    $loc_E1D068             ; D5EA7B u=
+
+; ????-BLOCK 57 PROP [START=D5F485 END=D5F490] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, esp.4            ; D5F485 u=ebp.4      d=esp.4
+ mov      call !_byteswap_ushort<fast:"unsigned __int16" bp.2> => "unsigned __int16" .2 , bp.2 ; D5F487 u=bp.2       d=bp.2
+ mov     cs.2, seg.2             ; D5F48B u=cs.2       d=seg.2
+ mov      #0x98BB23.4 , eoff.4     ; D5F48B u=           d=eoff.4
+ goto    $nullsub_6              ; D5F48B u=
+
+; ????-BLOCK 58 PROP [START=D653ED END=D653F3] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; D653ED u=cs.2       d=seg.2
+ mov      #0x9B0124.4 , eoff.4     ; D653ED u=           d=eoff.4
+ jcnd    zf.1, $loc_9B0124       ; D653ED u=zf.1
+
+; ????-BLOCK 59 PROP [START=D653F3 END=D653FB] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     eax.4, et0.4            ; D653F3 u=eax.4      d=et0.4
+ setb    et0.4, edi.4, cf.1      ; D653F3 u=edi.4,et0.4 d=cf.1
+ seto    et0.4, edi.4, of.1      ; D653F3 u=edi.4,et0.4 d=of.1
+ sub     et0.4, edi.4, et0.4     ; D653F3 u=edi.4,et0.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; D653F3 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; D653F3 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; D653F3 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; D653F5 u=cs.2       d=seg.2
+ mov      #0xE0B064.4 , eoff.4     ; D653F5 u=           d=eoff.4
+ lnot    zf.1, tt.1              ; D653F5 u=zf.1       d=tt.1
+ jcnd    tt.1, $loc_E0B064       ; D653F5 u=tt.1
+
+; ????-BLOCK 60 PROP [START=D653FB END=D65404] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, eoff.4           ; D653FB u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; D653FB u=ss.2       d=seg.2
+ add     eoff.4,  #0x10.4 , eoff.4 ; D653FB u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, t0.1     ; D653FB u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=t0.1
+ mov      #0.1 , t1.1              ; D653FB u=           d=t1.1
+ setb    t0.1, t1.1, cf.1        ; D653FB u=t0.1,t1.1  d=cf.1
+ seto    t0.1, t1.1, of.1        ; D653FB u=t0.1,t1.1  d=of.1
+ sub     t0.1, t1.1, t0.1        ; D653FB u=t0.1,t1.1  d=t0.1
+ setz    t0.1,  #0.1 , zf.1        ; D653FB u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; D653FB u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; D653FB u=t0.1       d=sf.1
+ mov     cs.2, seg.2             ; D653FF u=cs.2       d=seg.2
+ mov      #0xC61A29.4 , eoff.4     ; D653FF u=           d=eoff.4
+ goto    $loc_C61A29             ; D653FF u=
+
+; ????-BLOCK 61 PROP [START=D666EC END=D666F2] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; D666EC u=cs.2       d=seg.2
+ mov      #0xD95F22.4 , eoff.4     ; D666EC u=           d=eoff.4
+ or      cf.1, zf.1, tt.1        ; D666EC u=cf.1,zf.1  d=tt.1
+ lnot    tt.1, tt.1              ; D666EC u=tt.1       d=tt.1
+ jcnd    tt.1, $loc_D95F22       ; D666EC u=tt.1
+
+; ????-BLOCK 62 PROP [START=D666F2 END=D66703] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ xds     cl.1, ecx.4             ; D666F2 u=cl.1       d=ecx^1.3
+ mov     edx.4, et1.4            ; D666F5 u=edx.4      d=et1.4
+ mul      #4.4 , et1.4, et1.4      ; D666F5 u=et1.4      d=et1.4
+ add     edx.4, et1.4, et1.4     ; D666F5 u=edx.4,et1.4 d=et1.4
+ mov     et1.4, edx.4            ; D666F5 u=et1.4      d=edx.4
+ mov     edx.4, et1.4            ; D666F8 u=edx.4      d=et1.4
+ mul      #2.4 , et1.4, et1.4      ; D666F8 u=et1.4      d=et1.4
+ add     ecx.4, et1.4, et1.4     ; D666F8 u=ecx.4,et1.4 d=et1.4
+ sub     et1.4,  #0x30.4 , et1.4   ; D666F8 u=et1.4      d=et1.4
+ mov     et1.4, edx.4            ; D666F8 u=et1.4      d=edx.4
+ mov     esi.4, eoff.4           ; D666FC u=esi.4      d=eoff.4
+ mov     ds.2, seg.2             ; D666FC u=ds.2       d=seg.2
+ ldx     seg.2, eoff.4, t1.1     ; D666FC u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=t1.1
+ mov     t1.1, cl.1              ; D666FC u=t1.1       d=cl.1
+ mov     cs.2, seg.2             ; D666FE u=cs.2       d=seg.2
+ mov      #0xD8B6BA.4 , eoff.4     ; D666FE u=           d=eoff.4
+ goto    $loc_D8B6BA             ; D666FE u=
+
+; ????-BLOCK 63 PROP [START=D6C0B1 END=D6C0BE] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, esp.4            ; D6C0B1 u=ebp.4      d=esp.4
+ xdu     di.2, ebp.4             ; D6C0B3 u=di.2       d=ebp.4
+ mov     edi.4, ebp.4            ; D6C0B6 u=edi.4      d=ebp.4
+ mov     cs.2, seg.2             ; D6C0B9 u=cs.2       d=seg.2
+ mov      #0xC2E883.4 , eoff.4     ; D6C0B9 u=           d=eoff.4
+ goto    $nullsub_4              ; D6C0B9 u=
+
+; ????-BLOCK 64 PROP PUSH [START=D721DD END=D721E3] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; D721DD u=
+ push    ecx.4                   ; D721DD u=ecx.4,esp.4 d=esp.4,sp+8.4
+ mov     cs.2, seg.2             ; D721DE u=cs.2       d=seg.2
+ mov      #0xC69764.4 , eoff.4     ; D721DE u=           d=eoff.4
+ goto    $loc_C69764             ; D721DE u=
+
+; ????-BLOCK 65 PROP PUSH [START=D7516A END=D7517B] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; D7516A u=
+ push    eax.4                   ; D7516A u=eax.4,esp.4 d=esp.4,sp+8.4
+ nop                             ; D7516B u=
+ push    edi.4                   ; D7516B u=esp.4,edi.4 d=esp.4,sp+4.4
+ bnot    al.1, al.1              ; D7516C u=al.1       d=al.1
+ mov      call !_byteswap_ushort<fast:"unsigned __int16" ax.2> => "unsigned __int16" .2 , ax.2 ; D7516E u=ax.2       d=ax.2
+ mov     ds.2, seg.2             ; D75171 u=ds.2       d=seg.2
+ mov      #0xDB10DC.4 , eoff.4     ; D75171 u=           d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; D75171 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, eax.4            ; D75171 u=et1.4      d=eax.4
+ mov     cs.2, seg.2             ; D75176 u=cs.2       d=seg.2
+ mov      #0xDFD9D1.4 , eoff.4     ; D75176 u=           d=eoff.4
+ goto    $loc_DFD9D1             ; D75176 u=
+
+; ????-BLOCK 66 PROP [START=D78786 END=D78794] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     esi.4, et0.4            ; D78786 u=esi.4      d=et0.4
+ mov     ebp.4, eoff.4           ; D78786 u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; D78786 u=ss.2       d=seg.2
+ sub     eoff.4,  #8.4 , eoff.4    ; D78786 u=eoff.4     d=eoff.4
+ stx     et0.4, seg.2, eoff.4    ; D78786 u=et0.4,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov      #0xFFFF.4 , et1.4        ; D78789 u=           d=et1.4
+ mov     ecx.4, et0.4            ; D78789 u=ecx.4      d=et0.4
+ setb    et0.4, et1.4, cf.1      ; D78789 u=et0.4,et1.4 d=cf.1
+ seto    et0.4, et1.4, of.1      ; D78789 u=et0.4,et1.4 d=of.1
+ sub     et0.4, et1.4, et0.4     ; D78789 u=et0.4,et1.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; D78789 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; D78789 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; D78789 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; D7878F u=cs.2       d=seg.2
+ mov      #0xDCCCA8.4 , eoff.4     ; D7878F u=           d=eoff.4
+ goto    $loc_DCCCA8             ; D7878F u=
+
+; ????-BLOCK 67 PROP PUSH [START=D81518 END=D8151A] MINREFS: STK=0/ARG=134, MAXBSP: 8
+; USE-DEF LISTS ARE NOT READY
+ mov      #0xD8151A.4 , ett.4      ; D81518 u=           d=ett.4
+ nop                             ; D81518 u=
+ nop                             ; D81518 u=
+ icall   cs.2, eax.4             ; D81518 u=eax.4,cs.2,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,fl.1,c0.1,c2.1,c3.1,df.1,if.1,ALLMEM)
+
+; ????-BLOCK 68 PROP [START=D8151A END=D81522] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     eax.4, et0.4            ; D8151A u=eax.4      d=et0.4
+ and     eax.4, et0.4, et0.4     ; D8151A u=eax.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; D8151A u=           d=cf.1
+ mov      #0.1 , of.1              ; D8151A u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; D8151A u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; D8151A u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; D8151A u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; D8151C u=cs.2       d=seg.2
+ mov      #0xD653F3.4 , eoff.4     ; D8151C u=           d=eoff.4
+ lnot    zf.1, tt.1              ; D8151C u=zf.1       d=tt.1
+ jcnd    tt.1, $loc_D653F3       ; D8151C u=tt.1
+
+; ????-BLOCK 69 PROP PUSH [START=D81522 END=D8153F] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, et1.4            ; D81522 u=ebp.4      d=et1.4
+ sub     et1.4,  #0x114.4 , et1.4  ; D81522 u=et1.4      d=et1.4
+ mov     et1.4, edx.4            ; D81522 u=et1.4      d=edx.4
+ xds     al.1, ax.2              ; D81528 u=al.1       d=ah.1
+ mov      #0x43.1 , t1.1           ; D8152C u=           d=t1.1
+ mov     t1.1, ah.1              ; D8152C u=t1.1       d=ah.1
+ xds     cx.2, eax.4             ; D8152F u=cx.2       d=eax.4
+ nop                             ; D81532 u=
+ push    edx.4                   ; D81532 u=edx.4,esp.4 d=esp.4,sp+8.4
+ mov     ax.2, t1.2              ; D81533 u=ax.2       d=t1.2
+ mov     t1.2, ax.2              ; D81533 u=t1.2       d=ax.2
+ mov     ds.2, seg.2             ; D81535 u=ds.2       d=seg.2
+ mov      #0xDB10D4.4 , eoff.4     ; D81535 u=           d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; D81535 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, eax.4            ; D81535 u=et1.4      d=eax.4
+ mov     cs.2, seg.2             ; D8153A u=cs.2       d=seg.2
+ mov      #0xD9BC60.4 , eoff.4     ; D8153A u=           d=eoff.4
+ goto    $loc_D9BC60             ; D8153A u=
+
+; ????-BLOCK 70 PROP [START=D8B6BA END=D8B6C1] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cl.1, t0.1              ; D8B6BA u=cl.1       d=t0.1
+ and     cl.1, t0.1, t0.1        ; D8B6BA u=cl.1,t0.1  d=t0.1
+ mov      #0.1 , cf.1              ; D8B6BA u=           d=cf.1
+ mov      #0.1 , of.1              ; D8B6BA u=           d=of.1
+ setz    t0.1,  #0.1 , zf.1        ; D8B6BA u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; D8B6BA u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; D8B6BA u=t0.1       d=sf.1
+ mov     cs.2, seg.2             ; D8B6BC u=cs.2       d=seg.2
+ mov      #0xD95F1C.4 , eoff.4     ; D8B6BC u=           d=eoff.4
+ goto    $loc_D95F1C             ; D8B6BC u=
+
+; ????-BLOCK 71 PROP PUSH [START=D8D1E6 END=D8D1E8] MINREFS: STK=0/ARG=134, MAXBSP: 4
+; USE-DEF LISTS ARE NOT READY
+ mov      #0xD8D1E8.4 , ett.4      ; D8D1E6 u=           d=ett.4
+ nop                             ; D8D1E6 u=
+ nop                             ; D8D1E6 u=
+ icall   cs.2, eax.4             ; D8D1E6 u=eax.4,cs.2,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,fl.1,c0.1,c2.1,c3.1,df.1,if.1,ALLMEM)
+
+; ????-BLOCK 72 PROP PUSH [START=D8D1E8 END=D8D1F0] MINREFS: STK=0/ARG=134, MAXBSP: 18
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; D8D1E8 u=
+ pop     esi.4                   ; D8D1E8 u=esp.4,sp+C.4 d=esp.4,esi.4
+ nop                             ; D8D1E9 u=
+ pop     ebx.4                   ; D8D1E9 u=esp.4,sp+10.4 d=ebx.4,esp.4
+ nop                             ; D8D1EA u=
+ pop     edi.4                   ; D8D1EA u=esp.4,sp+14.4 d=esp.4,edi.4
+ mov     cs.2, seg.2             ; D8D1EB u=cs.2       d=seg.2
+ mov      #0xD6C0B1.4 , eoff.4     ; D8D1EB u=           d=eoff.4
+ goto    $loc_D6C0B1             ; D8D1EB u=
+
+; ????-BLOCK 73 PROP [START=D8F04C END=D8F054] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     edx.4, et0.4            ; D8F04C u=edx.4      d=et0.4
+ mov     ebp.4, eoff.4           ; D8F04C u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; D8F04C u=ss.2       d=seg.2
+ add     eoff.4,  #8.4 , eoff.4    ; D8F04C u=eoff.4     d=eoff.4
+ stx     et0.4, seg.2, eoff.4    ; D8F04C u=et0.4,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov     cs.2, seg.2             ; D8F04F u=cs.2       d=seg.2
+ mov      #0xDF7563.4 , eoff.4     ; D8F04F u=           d=eoff.4
+ goto    $loc_DF7563             ; D8F04F u=
+
+; ????-BLOCK 74 PROP [START=D95F1C END=D95F22] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; D95F1C u=cs.2       d=seg.2
+ mov      #0xDD6DA3.4 , eoff.4     ; D95F1C u=           d=eoff.4
+ lnot    zf.1, tt.1              ; D95F1C u=zf.1       d=tt.1
+ jcnd    tt.1, $loc_DD6DA3       ; D95F1C u=tt.1
+
+; ????-BLOCK 75 PROP PUSH [START=D95F22 END=D95F29] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov      #0.4 , et0.4             ; D95F22 u=           d=et0.4
+ nop                             ; D95F22 u=
+ push     #0.4                     ; D95F22 u=esp.4      d=esp.4,sp+8.4
+ mov     cs.2, seg.2             ; D95F24 u=cs.2       d=seg.2
+ mov      #0xC3310A.4 , eoff.4     ; D95F24 u=           d=eoff.4
+ goto    $loc_C3310A             ; D95F24 u=
+
+; ????-BLOCK 76 PROP PUSH [START=D9BC60 END=D9BC62] MINREFS: STK=0/ARG=134, MAXBSP: 8
+; USE-DEF LISTS ARE NOT READY
+ mov      #0xD9BC62.4 , ett.4      ; D9BC60 u=           d=ett.4
+ nop                             ; D9BC60 u=
+ nop                             ; D9BC60 u=
+ icall   cs.2, eax.4             ; D9BC60 u=eax.4,cs.2,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,fl.1,c0.1,c2.1,c3.1,df.1,if.1,ALLMEM)
+
+; ????-BLOCK 77 PROP [START=D9BC62 END=D9BC69] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     eax.4, et0.4            ; D9BC62 u=eax.4      d=et0.4
+ and     eax.4, et0.4, et0.4     ; D9BC62 u=eax.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; D9BC62 u=           d=cf.1
+ mov      #0.1 , of.1              ; D9BC62 u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; D9BC62 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; D9BC62 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; D9BC62 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; D9BC64 u=cs.2       d=seg.2
+ mov      #0xD653ED.4 , eoff.4     ; D9BC64 u=           d=eoff.4
+ goto    $loc_D653ED             ; D9BC64 u=
+
+; ????-BLOCK 78 PROP [START=D9E497 END=D9E4A3] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     edi.4, eoff.4           ; D9E497 u=edi.4      d=eoff.4
+ add     eax.4, eoff.4, eoff.4   ; D9E497 u=eax.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; D9E497 u=ds.2       d=seg.2
+ add     eoff.4,  #0x18.4 , eoff.4 ; D9E497 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; D9E497 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, ebx.4            ; D9E497 u=et1.4      d=ebx.4
+ lnot    cf.1, cf.1              ; D9E49B u=cf.1       d=cf.1
+ mov     ebx.4, et0.4            ; D9E49C u=ebx.4      d=et0.4
+ and     ebx.4, et0.4, et0.4     ; D9E49C u=ebx.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; D9E49C u=           d=cf.1
+ mov      #0.1 , of.1              ; D9E49C u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; D9E49C u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; D9E49C u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; D9E49C u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; D9E49E u=cs.2       d=seg.2
+ mov      #0xDDE891.4 , eoff.4     ; D9E49E u=           d=eoff.4
+ goto    $loc_DDE891             ; D9E49E u=
+
+; ????-BLOCK 79 PROP PUSH [START=DACDE2 END=DACDF8] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; DACDE2 u=
+ pop     ebx.4                   ; DACDE2 u=esp.4,sp+10.4 d=ebx.4,esp.4
+ xds     ax.2, eax.4             ; DACDE3 u=ax.2       d=eax^2.2
+ xds     cx.2, eax.4             ; DACDE4 u=cx.2       d=eax.4
+ mov     edi.4, et1.4            ; DACDE7 u=edi.4      d=et1.4
+ add     ecx.4, et1.4, et1.4     ; DACDE7 u=ecx.4,et1.4 d=et1.4
+ mov     et1.4, eax.4            ; DACDE7 u=et1.4      d=eax.4
+ bnot    di.2, di.2              ; DACDEA u=di.2       d=di.2
+ nop                             ; DACDED u=
+ pop     edi.4                   ; DACDED u=esp.4,sp+14.4 d=esp.4,edi.4
+ mov     ebp.4, esp.4            ; DACDEE u=ebp.4      d=esp.4
+ mov     ebp.4, et2.4            ; DACDF0 u=ebp.4      d=et2.4
+ mov     et2.4, ebp.4            ; DACDF0 u=et2.4      d=ebp.4
+ mov      #0x767F.2 , t1.2         ; DACDF2 u=           d=t1.2
+ mov     t1.2, bp.2              ; DACDF2 u=t1.2       d=bp.2
+ nop                             ; DACDF7 u=
+ pop     eoff.4                  ; DACDF7 u=esp.4,RET  d=esp.4,eoff.4
+ mov     cs.2, seg.2             ; DACDF7 u=cs.2       d=seg.2
+ ijmp    seg.2, eoff.4           ; DACDF7 u=eoff.4,seg.2
+
+; ????-BLOCK 80 PROP PUSH [START=DC2F1B END=DC2F22] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, esp.4            ; DC2F1B u=ebp.4      d=esp.4
+ xdu     bx.2, ebp.4             ; DC2F1D u=bx.2       d=ebp.4
+ nop                             ; DC2F21 u=
+ pop     eoff.4                  ; DC2F21 u=esp.4,RET  d=esp.4,eoff.4
+ mov     cs.2, seg.2             ; DC2F21 u=cs.2       d=seg.2
+ ijmp    seg.2, eoff.4           ; DC2F21 u=eoff.4,seg.2
+
+; ????-BLOCK 81 PROP [START=DC4FE7 END=DC4FED] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; DC4FE7 u=cs.2       d=seg.2
+ mov      #0xDFC05A.4 , eoff.4     ; DC4FE7 u=           d=eoff.4
+ jcnd    zf.1, $loc_DFC05A       ; DC4FE7 u=zf.1
+
+; ????-BLOCK 82 PROP [START=DC4FED END=DC4FF6] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov      #1.4 , et1.4             ; DC4FED u=           d=et1.4
+ mov     eax.4, et0.4            ; DC4FED u=eax.4      d=et0.4
+ setb    et0.4, et1.4, cf.1      ; DC4FED u=et0.4,et1.4 d=cf.1
+ seto    et0.4, et1.4, of.1      ; DC4FED u=et0.4,et1.4 d=of.1
+ sub     et0.4, et1.4, et0.4     ; DC4FED u=et0.4,et1.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; DC4FED u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; DC4FED u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; DC4FED u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; DC4FF0 u=cs.2       d=seg.2
+ mov      #0xDF7563.4 , eoff.4     ; DC4FF0 u=           d=eoff.4
+ lnot    zf.1, tt.1              ; DC4FF0 u=zf.1       d=tt.1
+ jcnd    tt.1, $loc_DF7563       ; DC4FF0 u=tt.1
+
+; ????-BLOCK 83 PROP [START=DC4FF6 END=DC4FFF] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ ofadd    #1.4 , esi.4, of.1       ; DC4FF6 u=esi.4      d=of.1
+ add     esi.4,  #1.4 , esi.4      ; DC4FF6 u=esi.4      d=esi.4
+ setz    esi.4,  #0.4 , zf.1       ; DC4FF6 u=esi.4      d=zf.1
+ setp    esi.4,  #0.4 , pf.1       ; DC4FF6 u=esi.4      d=pf.1
+ sets    esi.4, sf.1             ; DC4FF6 u=esi.4      d=sf.1
+ mov     esi.4, et0.4            ; DC4FF7 u=esi.4      d=et0.4
+ mov     ebp.4, eoff.4           ; DC4FF7 u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; DC4FF7 u=ss.2       d=seg.2
+ add     eoff.4,  #8.4 , eoff.4    ; DC4FF7 u=eoff.4     d=eoff.4
+ stx     et0.4, seg.2, eoff.4    ; DC4FF7 u=et0.4,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov     cs.2, seg.2             ; DC4FFA u=cs.2       d=seg.2
+ mov      #0xE0152E.4 , eoff.4     ; DC4FFA u=           d=eoff.4
+ goto    $loc_E0152E             ; DC4FFA u=
+
+; ????-BLOCK 84 PROP [START=DCCCA8 END=DCCCAE] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; DCCCA8 u=cs.2       d=seg.2
+ mov      #0xD9E497.4 , eoff.4     ; DCCCA8 u=           d=eoff.4
+ or      cf.1, zf.1, tt.1        ; DCCCA8 u=cf.1,zf.1  d=tt.1
+ lnot    tt.1, tt.1              ; DCCCA8 u=tt.1       d=tt.1
+ jcnd    tt.1, $loc_D9E497       ; DCCCA8 u=tt.1
+
+; ????-BLOCK 85 PROP [START=DCCCAE END=DCCCBE] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     edi.4, eoff.4           ; DCCCAE u=edi.4      d=eoff.4
+ add     eax.4, eoff.4, eoff.4   ; DCCCAE u=eax.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; DCCCAE u=ds.2       d=seg.2
+ add     eoff.4,  #0x10.4 , eoff.4 ; DCCCAE u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; DCCCAE u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ setb    ecx.4, et1.4, cf.1      ; DCCCAE u=ecx.4,et1.4 d=cf.1
+ seto    ecx.4, et1.4, of.1      ; DCCCAE u=ecx.4,et1.4 d=of.1
+ sub     ecx.4, et1.4, ecx.4     ; DCCCAE u=ecx.4,et1.4 d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; DCCCAE u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; DCCCAE u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; DCCCAE u=ecx.4      d=sf.1
+ mov     ebx.4, et0.4            ; DCCCB2 u=ebx.4      d=et0.4
+ setb    et0.4, esp.4, cf.1      ; DCCCB2 u=esp.4,et0.4 d=cf.1
+ seto    et0.4, esp.4, of.1      ; DCCCB2 u=esp.4,et0.4 d=of.1
+ sub     et0.4, esp.4, et0.4     ; DCCCB2 u=esp.4,et0.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; DCCCB2 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; DCCCB2 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; DCCCB2 u=et0.4      d=sf.1
+ mov     edi.4, eoff.4           ; DCCCB4 u=edi.4      d=eoff.4
+ add     eax.4, eoff.4, eoff.4   ; DCCCB4 u=eax.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; DCCCB4 u=ds.2       d=seg.2
+ add     eoff.4,  #0x14.4 , eoff.4 ; DCCCB4 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; DCCCB4 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     ecx.4, et0.4            ; DCCCB4 u=ecx.4      d=et0.4
+ setb    et0.4, et1.4, cf.1      ; DCCCB4 u=et0.4,et1.4 d=cf.1
+ seto    et0.4, et1.4, of.1      ; DCCCB4 u=et0.4,et1.4 d=of.1
+ sub     et0.4, et1.4, et0.4     ; DCCCB4 u=et0.4,et1.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; DCCCB4 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; DCCCB4 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; DCCCB4 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; DCCCB8 u=cs.2       d=seg.2
+ mov      #0x9B0124.4 , eoff.4     ; DCCCB8 u=           d=eoff.4
+ lnot    cf.1, tt.1              ; DCCCB8 u=cf.1       d=tt.1
+ jcnd    tt.1, $loc_9B0124       ; DCCCB8 u=tt.1
+
+; ????-BLOCK 86 PROP [START=DCCCBE END=DCCCD2] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     edi.4, eoff.4           ; DCCCBE u=edi.4      d=eoff.4
+ add     eax.4, eoff.4, eoff.4   ; DCCCBE u=eax.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; DCCCBE u=ds.2       d=seg.2
+ add     eoff.4,  #0x1C.4 , eoff.4 ; DCCCBE u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; DCCCBE u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, edx.4            ; DCCCBE u=et1.4      d=edx.4
+ mov     ecx.4, et1.4            ; DCCCC2 u=ecx.4      d=et1.4
+ mul      #4.4 , et1.4, et1.4      ; DCCCC2 u=et1.4      d=et1.4
+ add     edx.4, et1.4, et1.4     ; DCCCC2 u=edx.4,et1.4 d=et1.4
+ mov     et1.4, ecx.4            ; DCCCC2 u=et1.4      d=ecx.4
+ mov     edi.4, eoff.4           ; DCCCC5 u=edi.4      d=eoff.4
+ add     ecx.4, eoff.4, eoff.4   ; DCCCC5 u=ecx.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; DCCCC5 u=ds.2       d=seg.2
+ ldx     seg.2, eoff.4, et1.4    ; DCCCC5 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, ecx.4            ; DCCCC5 u=et1.4      d=ecx.4
+ mov     eax.4, et0.4            ; DCCCC8 u=eax.4      d=et0.4
+ setb    et0.4, edi.4, cf.1      ; DCCCC8 u=edi.4,et0.4 d=cf.1
+ seto    et0.4, edi.4, of.1      ; DCCCC8 u=edi.4,et0.4 d=of.1
+ sub     et0.4, edi.4, et0.4     ; DCCCC8 u=edi.4,et0.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; DCCCC8 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; DCCCC8 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; DCCCC8 u=et0.4      d=sf.1
+ mov      #1.1 , cf.1              ; DCCCCA u=           d=cf.1
+ mov     ecx.4, et0.4            ; DCCCCB u=ecx.4      d=et0.4
+ and     ecx.4, et0.4, et0.4     ; DCCCCB u=ecx.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; DCCCCB u=           d=cf.1
+ mov      #0.1 , of.1              ; DCCCCB u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; DCCCCB u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; DCCCCB u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; DCCCCB u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; DCCCCD u=cs.2       d=seg.2
+ mov      #0xE1C17C.4 , eoff.4     ; DCCCCD u=           d=eoff.4
+ goto    $loc_E1C17C             ; DCCCCD u=
+
+; ????-BLOCK 87 PROP [START=DD6D9D END=DD6DA3] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; DD6D9D u=cs.2       d=seg.2
+ mov      #0xD95F22.4 , eoff.4     ; DD6D9D u=           d=eoff.4
+ jcnd    zf.1, $loc_D95F22       ; DD6D9D u=zf.1
+
+; ????-BLOCK 88 PROP [START=DD6DA3 END=DD6DAE] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cl.1, bl.1              ; DD6DA3 u=cl.1       d=bl.1
+ mov      #1.1 , cf.1              ; DD6DA5 u=           d=cf.1
+ mov      #0x30.1 , t1.1           ; DD6DA6 u=           d=t1.1
+ setb    bl.1, t1.1, cf.1        ; DD6DA6 u=bl.1,t1.1  d=cf.1
+ seto    bl.1, t1.1, of.1        ; DD6DA6 u=bl.1,t1.1  d=of.1
+ sub     bl.1, t1.1, bl.1        ; DD6DA6 u=bl.1,t1.1  d=bl.1
+ setz    bl.1,  #0.1 , zf.1        ; DD6DA6 u=bl.1       d=zf.1
+ setp    bl.1,  #0.1 , pf.1        ; DD6DA6 u=bl.1       d=pf.1
+ sets    bl.1, sf.1              ; DD6DA6 u=bl.1       d=sf.1
+ mov     cs.2, seg.2             ; DD6DA9 u=cs.2       d=seg.2
+ mov      #0xBF83F8.4 , eoff.4     ; DD6DA9 u=           d=eoff.4
+ goto    $loc_BF83F8             ; DD6DA9 u=
+
+; ????-BLOCK 89 PROP [START=DD83C9 END=DD83DA] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ mov     eax.4, et0.4            ; DD83C9 u=eax.4      d=et0.4
+ mov     ebp.4, eoff.4           ; DD83C9 u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; DD83C9 u=ss.2       d=seg.2
+ sub     eoff.4,  #4.4 , eoff.4    ; DD83C9 u=eoff.4     d=eoff.4
+ stx     et0.4, seg.2, eoff.4    ; DD83C9 u=et0.4,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov      #0x4746.2 , t1.2         ; DD83CC u=           d=t1.2
+ mov     si.2, t0.2              ; DD83CC u=si.2       d=t0.2
+ setb    t0.2, t1.2, cf.1        ; DD83CC u=t0.2,t1.2  d=cf.1
+ seto    t0.2, t1.2, of.1        ; DD83CC u=t0.2,t1.2  d=of.1
+ sub     t0.2, t1.2, t0.2        ; DD83CC u=t0.2,t1.2  d=t0.2
+ setz    t0.2,  #0.2 , zf.1        ; DD83CC u=t0.2       d=zf.1
+ setp    t0.2,  #0.2 , pf.1        ; DD83CC u=t0.2       d=pf.1
+ sets    t0.2, sf.1              ; DD83CC u=t0.2       d=sf.1
+ mov     eax.4, et0.4            ; DD83D1 u=eax.4      d=et0.4
+ setb    et0.4, esi.4, cf.1      ; DD83D1 u=esi.4,et0.4 d=cf.1
+ seto    et0.4, esi.4, of.1      ; DD83D1 u=esi.4,et0.4 d=of.1
+ sub     et0.4, esi.4, et0.4     ; DD83D1 u=esi.4,et0.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; DD83D1 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; DD83D1 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; DD83D1 u=et0.4      d=sf.1
+ mov     eax.4, et0.4            ; DD83D3 u=eax.4      d=et0.4
+ and     eax.4, et0.4, et0.4     ; DD83D3 u=eax.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; DD83D3 u=           d=cf.1
+ mov      #0.1 , of.1              ; DD83D3 u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; DD83D3 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; DD83D3 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; DD83D3 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; DD83D5 u=cs.2       d=seg.2
+ mov      #0xDEEA34.4 , eoff.4     ; DD83D5 u=           d=eoff.4
+ goto    $loc_DEEA34             ; DD83D5 u=
+
+; ????-BLOCK 90 PROP [START=DDE891 END=DDE897] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; DDE891 u=cs.2       d=seg.2
+ mov      #0xC069DB.4 , eoff.4     ; DDE891 u=           d=eoff.4
+ jcnd    zf.1, $loc_C069DB       ; DDE891 u=zf.1
+
+; ????-BLOCK 91 PROP [START=DDE897 END=DDE8B6] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     edi.4, eoff.4           ; DDE897 u=edi.4      d=eoff.4
+ add     eax.4, eoff.4, eoff.4   ; DDE897 u=eax.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; DDE897 u=ds.2       d=seg.2
+ add     eoff.4,  #0x20.4 , eoff.4 ; DDE897 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; DDE897 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, edx.4            ; DDE897 u=et1.4      d=edx.4
+ seto    ebx.4,  #1.4 , of.1       ; DDE89B u=ebx.4      d=of.1
+ sub     ebx.4,  #1.4 , ebx.4      ; DDE89B u=ebx.4      d=ebx.4
+ setz    ebx.4,  #0.4 , zf.1       ; DDE89B u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; DDE89B u=ebx.4      d=pf.1
+ sets    ebx.4, sf.1             ; DDE89B u=ebx.4      d=sf.1
+ cfadd   edi.4, edx.4, cf.1      ; DDE89C u=edx.4,edi.4 d=cf.1
+ ofadd   edi.4, edx.4, of.1      ; DDE89C u=edx.4,edi.4 d=of.1
+ add     edi.4, edx.4, ett.4     ; DDE89C u=edx.4,edi.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; DDE89C u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; DDE89C u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; DDE89C u=ett.4      d=sf.1
+ mov     ett.4, edx.4            ; DDE89C u=ett.4      d=edx.4
+ mov      #0.1 , cf.1              ; DDE89E u=           d=cf.1
+ mov      #0.4 , et1.4             ; DDE89F u=           d=et1.4
+ mov     et1.4, et0.4            ; DDE89F u=et1.4      d=et0.4
+ mov     ebp.4, eoff.4           ; DDE89F u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; DDE89F u=ss.2       d=seg.2
+ add     eoff.4,  #8.4 , eoff.4    ; DDE89F u=eoff.4     d=eoff.4
+ stx     et0.4, seg.2, eoff.4    ; DDE89F u=et0.4,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov      #0x37E32B68.4 , et1.4    ; DDE8A6 u=           d=et1.4
+ mov     edi.4, et0.4            ; DDE8A6 u=edi.4      d=et0.4
+ setb    et0.4, et1.4, cf.1      ; DDE8A6 u=et0.4,et1.4 d=cf.1
+ seto    et0.4, et1.4, of.1      ; DDE8A6 u=et0.4,et1.4 d=of.1
+ sub     et0.4, et1.4, et0.4     ; DDE8A6 u=et0.4,et1.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; DDE8A6 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; DDE8A6 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; DDE8A6 u=et0.4      d=sf.1
+ mov      #0.1 , cf.1              ; DDE8AC u=           d=cf.1
+ mov     edx.4, et0.4            ; DDE8AD u=edx.4      d=et0.4
+ mov     ebp.4, eoff.4           ; DDE8AD u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; DDE8AD u=ss.2       d=seg.2
+ sub     eoff.4,  #0xC.4 , eoff.4  ; DDE8AD u=eoff.4     d=eoff.4
+ stx     et0.4, seg.2, eoff.4    ; DDE8AD u=et0.4,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ lnot    cf.1, cf.1              ; DDE8B0 u=cf.1       d=cf.1
+ mov     cs.2, seg.2             ; DDE8B1 u=cs.2       d=seg.2
+ mov      #0xC3E02C.4 , eoff.4     ; DDE8B1 u=           d=eoff.4
+ goto    $loc_C3E02C             ; DDE8B1 u=
+
+; ????-BLOCK 92 PROP [START=DDECA6 END=DDECAC] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; DDECA6 u=cs.2       d=seg.2
+ mov      #0xDDECBF.4 , eoff.4     ; DDECA6 u=           d=eoff.4
+ jcnd    zf.1, $loc_DDECBF       ; DDECA6 u=zf.1
+
+; ????-BLOCK 93 PROP [START=DDECAC END=DDECBF] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ mov      #0x5A4D.4 , et1.4        ; DDECAC u=           d=et1.4
+ mov     et1.4, eax.4            ; DDECAC u=et1.4      d=eax.4
+ mov      #0x5728.2 , t1.2         ; DDECB1 u=           d=t1.2
+ mov     dx.2, t0.2              ; DDECB1 u=dx.2       d=t0.2
+ setb    t0.2, t1.2, cf.1        ; DDECB1 u=t0.2,t1.2  d=cf.1
+ seto    t0.2, t1.2, of.1        ; DDECB1 u=t0.2,t1.2  d=of.1
+ sub     t0.2, t1.2, t0.2        ; DDECB1 u=t0.2,t1.2  d=t0.2
+ setz    t0.2,  #0.2 , zf.1        ; DDECB1 u=t0.2       d=zf.1
+ setp    t0.2,  #0.2 , pf.1        ; DDECB1 u=t0.2       d=pf.1
+ sets    t0.2, sf.1              ; DDECB1 u=t0.2       d=sf.1
+ mov     edi.4, eoff.4           ; DDECB6 u=edi.4      d=eoff.4
+ mov     ds.2, seg.2             ; DDECB6 u=ds.2       d=seg.2
+ ldx     seg.2, eoff.4, t0.2     ; DDECB6 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=t0.2
+ setb    t0.2, ax.2, cf.1        ; DDECB6 u=ax.2,t0.2  d=cf.1
+ seto    t0.2, ax.2, of.1        ; DDECB6 u=ax.2,t0.2  d=of.1
+ sub     t0.2, ax.2, t0.2        ; DDECB6 u=ax.2,t0.2  d=t0.2
+ setz    t0.2,  #0.2 , zf.1        ; DDECB6 u=t0.2       d=zf.1
+ setp    t0.2,  #0.2 , pf.1        ; DDECB6 u=t0.2       d=pf.1
+ sets    t0.2, sf.1              ; DDECB6 u=t0.2       d=sf.1
+ mov     cs.2, seg.2             ; DDECB9 u=cs.2       d=seg.2
+ mov      #0x98E4F7.4 , eoff.4     ; DDECB9 u=           d=eoff.4
+ jcnd    zf.1, $loc_98E4F7       ; DDECB9 u=zf.1
+
+; ????-BLOCK 94 PROP PUSH [START=DDECBF END=DDECC7] MINREFS: STK=0/ARG=134, MAXBSP: 18
+; USE-DEF LISTS ARE NOT READY
+ setb    eax.4, eax.4, cf.1      ; DDECBF u=eax.4      d=cf.1
+ seto    eax.4, eax.4, of.1      ; DDECBF u=eax.4      d=of.1
+ mov      #0.4 , eax.4             ; DDECBF u=           d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; DDECBF u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; DDECBF u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; DDECBF u=eax.4      d=sf.1
+ nop                             ; DDECC1 u=
+ pop     edi.4                   ; DDECC1 u=esp.4,sp+14.4 d=esp.4,edi.4
+ mov     cs.2, seg.2             ; DDECC2 u=cs.2       d=seg.2
+ mov      #0xBFBDF3.4 , eoff.4     ; DDECC2 u=           d=eoff.4
+ goto    $loc_BFBDF3             ; DDECC2 u=
+
+; ????-BLOCK 95 PROP [START=DDFE51 END=DDFE57] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; DDFE51 u=cs.2       d=seg.2
+ mov      #0xC8AAB3.4 , eoff.4     ; DDFE51 u=           d=eoff.4
+ jcnd    cf.1, $loc_C8AAB3       ; DDFE51 u=cf.1
+
+; ????-BLOCK 96 PROP [START=DDFE57 END=DDFE67] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, eoff.4           ; DDFE57 u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; DDFE57 u=ss.2       d=seg.2
+ add     eoff.4,  #8.4 , eoff.4    ; DDFE57 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; DDFE57 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, eax.4            ; DDFE57 u=et1.4      d=eax.4
+ bnot    ch.1, ch.1              ; DDFE5A u=ch.1       d=ch.1
+ mov     ebp.4, et1.4            ; DDFE5C u=ebp.4      d=et1.4
+ sub     et1.4,  #0x114.4 , et1.4  ; DDFE5C u=et1.4      d=et1.4
+ mov     et1.4, ecx.4            ; DDFE5C u=et1.4      d=ecx.4
+ mov     cs.2, seg.2             ; DDFE62 u=cs.2       d=seg.2
+ mov      #0xD721DD.4 , eoff.4     ; DDFE62 u=           d=eoff.4
+ goto    $loc_D721DD             ; DDFE62 u=
+
+; ????-BLOCK 97 PROP [START=DEEA34 END=DEEA3A] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; DEEA34 u=cs.2       d=seg.2
+ mov      #0xDDECBF.4 , eoff.4     ; DEEA34 u=           d=eoff.4
+ jcnd    zf.1, $loc_DDECBF       ; DEEA34 u=zf.1
+
+; ????-BLOCK 98 PROP [START=DEEA3A END=DEEA42] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ mov     edx.4, eoff.4           ; DEEA3A u=edx.4      d=eoff.4
+ mov     ds.2, seg.2             ; DEEA3A u=ds.2       d=seg.2
+ add     eoff.4,  #0x7C.4 , eoff.4 ; DEEA3A u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; DEEA3A u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, edx.4            ; DEEA3A u=et1.4      d=edx.4
+ mov     cs.2, seg.2             ; DEEA3D u=cs.2       d=seg.2
+ mov      #0xC7360B.4 , eoff.4     ; DEEA3D u=           d=eoff.4
+ goto    $loc_C7360B             ; DEEA3D u=
+
+; ????-BLOCK 99 PROP PUSH [START=DF21B1 END=DF21BB] MINREFS: STK=0/ARG=134, MAXBSP: 10
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; DF21B1 u=
+ pop     esi.4                   ; DF21B1 u=esp.4,sp+C.4 d=esp.4,esi.4
+ mov     eax.4, ett.4            ; DF21B2 u=eax.4      d=ett.4
+ mov     ebx.4, eax.4            ; DF21B2 u=ebx.4      d=eax.4
+ mov     ett.4, ebx.4            ; DF21B2 u=ett.4      d=ebx.4
+ xds     ax.2, eax.4             ; DF21B3 u=ax.2       d=eax^2.2
+ mov     cs.2, seg.2             ; DF21B6 u=cs.2       d=seg.2
+ mov      #0xDACDE2.4 , eoff.4     ; DF21B6 u=           d=eoff.4
+ goto    $loc_DACDE2             ; DF21B6 u=
+
+; ????-BLOCK 100 PROP [START=DF3D77 END=DF3D7D] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, eoff.4           ; DF3D77 u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; DF3D77 u=ss.2       d=seg.2
+ add     eoff.4,  #0xC.4 , eoff.4  ; DF3D77 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; DF3D77 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, ecx.4            ; DF3D77 u=et1.4      d=ecx.4
+ mov     ebp.4, eoff.4           ; DF3D7A u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; DF3D7A u=ss.2       d=seg.2
+ sub     eoff.4,  #0xC.4 , eoff.4  ; DF3D7A u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; DF3D7A u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, edx.4            ; DF3D7A u=et1.4      d=edx.4
+
+; ????-BLOCK 101 PROP PUSH [START=DF3D7D END=DF3DA2] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, eoff.4           ; DF3D7D u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; DF3D7D u=ss.2       d=seg.2
+ add     eoff.4,  #8.4 , eoff.4    ; DF3D7D u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; DF3D7D u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, eax.4            ; DF3D7D u=et1.4      d=eax.4
+ mov     eax.4, et1.4            ; DF3D80 u=eax.4      d=et1.4
+ add     ebx.4, et1.4, et1.4     ; DF3D80 u=ebx.4,et1.4 d=et1.4
+ mov     et1.4, esi.4            ; DF3D80 u=et1.4      d=esi.4
+ xds     ax.2, eax.4             ; DF3D83 u=ax.2       d=eax^2.2
+ mov      call !_bittestandset16<fast:"__int16 *" &(ax.2)<2/2>.4,"unsigned __int16" bx.2> => "unsigned __int8" .1 , cf.1 ; DF3D86 u=ax.2,bx.2,(ALLMEM) d=cf.1,ax.2,(ALLMEM)
+ und     zf.1                    ; DF3D86 u=           d=zf.1
+ und     sf.1                    ; DF3D86 u=           d=sf.1
+ und     of.1                    ; DF3D86 u=           d=of.1
+ und     pf.1                    ; DF3D86 u=           d=pf.1
+ cfshr   ah.1, cl.1, tt.1        ; DF3D8A u=ah.1,cl.1  d=tt.1
+ mov      call !__ROR1__<fast:_BYTE ah.1,char cl.1> => _BYTE .1 , ah.1 ; DF3D8A u=ah.1,cl.1  d=ah.1
+ mov     tt.1, cf.1              ; DF3D8A u=tt.1       d=cf.1
+ und     of.1                    ; DF3D8A u=           d=of.1
+ mov     ebp.4, eoff.4           ; DF3D8C u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; DF3D8C u=ss.2       d=seg.2
+ add     eoff.4,  #0x10.4 , eoff.4 ; DF3D8C u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; DF3D8C u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, eax.4            ; DF3D8C u=et1.4      d=eax.4
+ nop                             ; DF3D8F u=
+ push    eax.4                   ; DF3D8F u=eax.4,esp.4 d=esp.4,sp+8.4
+ mov      #1.1 , t1.1              ; DF3D90 u=           d=t1.1
+ cfshr   esi.4, t1.1, cf.1       ; DF3D90 u=esi.4,t1.1 d=cf.1
+ sar     esi.4, t1.1, esi.4      ; DF3D90 u=esi.4,t1.1 d=esi.4
+ und     of.1                    ; DF3D90 u=           d=of.1
+ setz    esi.4,  #0.4 , zf.1       ; DF3D90 u=esi.4      d=zf.1
+ setp    esi.4,  #0.4 , pf.1       ; DF3D90 u=esi.4      d=pf.1
+ sets    esi.4, sf.1             ; DF3D90 u=esi.4      d=sf.1
+ mov      #0.1 , cf.1              ; DF3D92 u=           d=cf.1
+ neg     eax.4, eax.4            ; DF3D93 u=eax.4      d=eax.4
+ seto    eax.4,  #1.4 , of.1       ; DF3D93 u=eax.4      d=of.1
+ setnz   eax.4,  #0.4 , cf.1       ; DF3D93 u=eax.4      d=cf.1
+ setz    eax.4,  #0.4 , zf.1       ; DF3D93 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; DF3D93 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; DF3D93 u=eax.4      d=sf.1
+ mov      #0x83.1 , t1.1           ; DF3D95 u=           d=t1.1
+ cfshr   al.1, t1.1, cf.1        ; DF3D95 u=al.1,t1.1  d=cf.1
+ shr     al.1, t1.1, al.1        ; DF3D95 u=al.1,t1.1  d=al.1
+ und     of.1                    ; DF3D95 u=           d=of.1
+ setz    al.1,  #0.1 , zf.1        ; DF3D95 u=al.1       d=zf.1
+ setp    al.1,  #0.1 , pf.1        ; DF3D95 u=al.1       d=pf.1
+ sets    al.1, sf.1              ; DF3D95 u=al.1       d=sf.1
+ mov     esi.4, eoff.4           ; DF3D98 u=esi.4      d=eoff.4
+ mul      #4.4 , eoff.4, eoff.4    ; DF3D98 u=eoff.4     d=eoff.4
+ add     edx.4, eoff.4, eoff.4   ; DF3D98 u=edx.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; DF3D98 u=ds.2       d=seg.2
+ ldx     seg.2, eoff.4, et1.4    ; DF3D98 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, eax.4            ; DF3D98 u=et1.4      d=eax.4
+ cfadd   edi.4, eax.4, cf.1      ; DF3D9B u=eax.4,edi.4 d=cf.1
+ ofadd   edi.4, eax.4, of.1      ; DF3D9B u=eax.4,edi.4 d=of.1
+ add     edi.4, eax.4, ett.4     ; DF3D9B u=eax.4,edi.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; DF3D9B u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; DF3D9B u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; DF3D9B u=ett.4      d=sf.1
+ mov     ett.4, eax.4            ; DF3D9B u=ett.4      d=eax.4
+ mov     cs.2, seg.2             ; DF3D9D u=cs.2       d=seg.2
+ mov      #0x97F0EB.4 , eoff.4     ; DF3D9D u=           d=eoff.4
+ goto    $loc_97F0EB             ; DF3D9D u=
+
+; ????-BLOCK 102 PROP PUSH [START=DF49B8 END=DF49BE] MINREFS: STK=0/ARG=134, MAXBSP: 8
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; DF49B8 u=
+ push    ecx.4                   ; DF49B8 u=ecx.4,esp.4 d=esp.4,sp+4.4
+ mov     cs.2, seg.2             ; DF49B9 u=cs.2       d=seg.2
+ mov      #0xD5EA7A.4 , eoff.4     ; DF49B9 u=           d=eoff.4
+ goto    $loc_D5EA7A             ; DF49B9 u=
+
+; ????-BLOCK 103 PROP [START=DF7560 END=DF7563] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     esi.4, et1.4            ; DF7560 u=esi.4      d=et1.4
+ sub     et1.4,  #1.4 , et1.4      ; DF7560 u=et1.4      d=et1.4
+ mov     et1.4, ebx.4            ; DF7560 u=et1.4      d=ebx.4
+
+; ????-BLOCK 104 PROP [START=DF7563 END=DF756B] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, eoff.4           ; DF7563 u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; DF7563 u=ss.2       d=seg.2
+ add     eoff.4,  #8.4 , eoff.4    ; DF7563 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et0.4    ; DF7563 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et0.4
+ setb    et0.4, ebx.4, cf.1      ; DF7563 u=ebx.4,et0.4 d=cf.1
+ seto    et0.4, ebx.4, of.1      ; DF7563 u=ebx.4,et0.4 d=of.1
+ sub     et0.4, ebx.4, et0.4     ; DF7563 u=ebx.4,et0.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; DF7563 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; DF7563 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; DF7563 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; DF7566 u=cs.2       d=seg.2
+ mov      #0xC069C8.4 , eoff.4     ; DF7566 u=           d=eoff.4
+ goto    $loc_C069C8             ; DF7566 u=
+
+; ????-BLOCK 105 PROP [START=DFC05A END=DFC080] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, eoff.4           ; DFC05A u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; DFC05A u=ss.2       d=seg.2
+ sub     eoff.4,  #4.4 , eoff.4    ; DFC05A u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; DFC05A u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, ecx.4            ; DFC05A u=et1.4      d=ecx.4
+ mov      call !_byteswap_ushort<fast:"unsigned __int16" dx.2> => "unsigned __int16" .2 , dx.2 ; DFC05D u=dx.2       d=dx.2
+ mov      #0xE3.1 , t1.1           ; DFC060 u=           d=t1.1
+ mov     t1.1, al.1              ; DFC060 u=t1.1       d=al.1
+ xds     al.1, ax.2              ; DFC062 u=al.1       d=ah.1
+ mov     edi.4, eoff.4           ; DFC064 u=edi.4      d=eoff.4
+ add     ecx.4, eoff.4, eoff.4   ; DFC064 u=ecx.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; DFC064 u=ds.2       d=seg.2
+ add     eoff.4,  #0x24.4 , eoff.4 ; DFC064 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; DFC064 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, edx.4            ; DFC064 u=et1.4      d=edx.4
+ mov     esi.4, et1.4            ; DFC068 u=esi.4      d=et1.4
+ mul      #2.4 , et1.4, et1.4      ; DFC068 u=et1.4      d=et1.4
+ add     edx.4, et1.4, et1.4     ; DFC068 u=edx.4,et1.4 d=et1.4
+ mov     et1.4, eax.4            ; DFC068 u=et1.4      d=eax.4
+ mov      call !_byteswap_ushort<fast:"unsigned __int16" dx.2> => "unsigned __int16" .2 , dx.2 ; DFC06B u=dx.2       d=dx.2
+ mov     dx.2, t0.2              ; DFC06E u=dx.2       d=t0.2
+ mov     cx.2, dx.2              ; DFC06E u=cx.2       d=dx.2
+ mov     t0.2, cx.2              ; DFC06E u=t0.2       d=cx.2
+ mov     edi.4, eoff.4           ; DFC071 u=edi.4      d=eoff.4
+ add     eax.4, eoff.4, eoff.4   ; DFC071 u=eax.4,eoff.4 d=eoff.4
+ mov     ds.2, seg.2             ; DFC071 u=ds.2       d=seg.2
+ ldx     seg.2, eoff.4, t1.2     ; DFC071 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=t1.2
+ xdu     t1.2, ecx.4             ; DFC071 u=t1.2       d=ecx.4
+ mov     ebx.4, et1.4            ; DFC075 u=ebx.4      d=et1.4
+ add     et1.4,  #1.4 , et1.4      ; DFC075 u=et1.4      d=et1.4
+ mov     et1.4, edx.4            ; DFC075 u=et1.4      d=edx.4
+ mov     ecx.4, et0.4            ; DFC078 u=ecx.4      d=et0.4
+ mov     ebp.4, eoff.4           ; DFC078 u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; DFC078 u=ss.2       d=seg.2
+ sub     eoff.4,  #8.4 , eoff.4    ; DFC078 u=eoff.4     d=eoff.4
+ stx     et0.4, seg.2, eoff.4    ; DFC078 u=et0.4,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov     cs.2, seg.2             ; DFC07B u=cs.2       d=seg.2
+ mov      #0xD8F04C.4 , eoff.4     ; DFC07B u=           d=eoff.4
+ goto    $loc_D8F04C             ; DFC07B u=
+
+; ????-BLOCK 106 PROP PUSH [START=DFD9D1 END=DFD9D3] MINREFS: STK=0/ARG=134, MAXBSP: 4
+; USE-DEF LISTS ARE NOT READY
+ mov      #0xDFD9D3.4 , ett.4      ; DFD9D1 u=           d=ett.4
+ nop                             ; DFD9D1 u=
+ nop                             ; DFD9D1 u=
+ icall   cs.2, eax.4             ; DFD9D1 u=eax.4,cs.2,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,fl.1,c0.1,c2.1,c3.1,df.1,if.1,ALLMEM)
+
+; ????-BLOCK 107 PROP PUSH [START=DFD9D3 END=DFD9E1] MINREFS: STK=0/ARG=134, MAXBSP: 18
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; DFD9D3 u=
+ pop     esi.4                   ; DFD9D3 u=esp.4,sp+C.4 d=esp.4,esi.4
+ xdu     ah.1, bx.2              ; DFD9D4 u=ah.1       d=bx.2
+ mov     ebx.4, et1.4            ; DFD9D8 u=ebx.4      d=et1.4
+ mov     edi.4, ebx.4            ; DFD9D8 u=edi.4      d=ebx.4
+ mov     et1.4, edi.4            ; DFD9D8 u=et1.4      d=edi.4
+ nop                             ; DFD9DA u=
+ pop     ebx.4                   ; DFD9DA u=esp.4,sp+10.4 d=ebx.4,esp.4
+ nop                             ; DFD9DB u=
+ pop     edi.4                   ; DFD9DB u=esp.4,sp+14.4 d=esp.4,edi.4
+ mov     cs.2, seg.2             ; DFD9DC u=cs.2       d=seg.2
+ mov      #0x98D387.4 , eoff.4     ; DFD9DC u=           d=eoff.4
+ goto    $loc_98D387             ; DFD9DC u=
+
+; ????-BLOCK 108 PROP [START=DFF249 END=DFF251] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, esp.4            ; DFF249 u=ebp.4      d=esp.4
+ mov     cs.2, seg.2             ; DFF24C u=cs.2       d=seg.2
+ mov      #0xBF69D3.4 , eoff.4     ; DFF24C u=           d=eoff.4
+ goto    $nullsub_3              ; DFF24C u=
+
+; ????-BLOCK 109 PROP [START=E0152E END=E01533] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; E0152E u=cs.2       d=seg.2
+ mov      #0xDF7563.4 , eoff.4     ; E0152E u=           d=eoff.4
+ goto    $loc_DF7563             ; E0152E u=
+
+; ????-BLOCK 110 PROP [START=E03C57 END=E03C5E] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ mov     ecx.4, et0.4            ; E03C57 u=ecx.4      d=et0.4
+ and     ecx.4, et0.4, et0.4     ; E03C57 u=ecx.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; E03C57 u=           d=cf.1
+ mov      #0.1 , of.1              ; E03C57 u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; E03C57 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; E03C57 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; E03C57 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; E03C59 u=cs.2       d=seg.2
+ mov      #0xDDECA6.4 , eoff.4     ; E03C59 u=           d=eoff.4
+ goto    $loc_DDECA6             ; E03C59 u=
+
+; ????-BLOCK 111 PROP [START=E0B064 END=E0B076] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     esi.4, eoff.4           ; E0B064 u=esi.4      d=eoff.4
+ mov     ds.2, seg.2             ; E0B064 u=ds.2       d=seg.2
+ add     eoff.4,  #1.4 , eoff.4    ; E0B064 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, t0.1     ; E0B064 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=t0.1
+ mov      #0x23.1 , t1.1           ; E0B064 u=           d=t1.1
+ setb    t0.1, t1.1, cf.1        ; E0B064 u=t0.1,t1.1  d=cf.1
+ seto    t0.1, t1.1, of.1        ; E0B064 u=t0.1,t1.1  d=of.1
+ sub     t0.1, t1.1, t0.1        ; E0B064 u=t0.1,t1.1  d=t0.1
+ setz    t0.1,  #0.1 , zf.1        ; E0B064 u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; E0B064 u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; E0B064 u=t0.1       d=sf.1
+ xds     sp.2, ecx.4             ; E0B068 u=sp.2       d=ecx.4
+ xdu     sp.2, ecx.4             ; E0B06B u=sp.2       d=ecx.4
+ mov     esi.4, et1.4            ; E0B06E u=esi.4      d=et1.4
+ add     et1.4,  #1.4 , et1.4      ; E0B06E u=et1.4      d=et1.4
+ mov     et1.4, ecx.4            ; E0B06E u=et1.4      d=ecx.4
+ mov     cs.2, seg.2             ; E0B071 u=cs.2       d=seg.2
+ mov      #0xBFA627.4 , eoff.4     ; E0B071 u=           d=eoff.4
+ goto    $loc_BFA627             ; E0B071 u=
+
+; ????-BLOCK 112 PROP [START=E111C2 END=E111C8] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; E111C2 u=cs.2       d=seg.2
+ mov      #0xDDECBF.4 , eoff.4     ; E111C2 u=           d=eoff.4
+ jcnd    zf.1, $loc_DDECBF       ; E111C2 u=zf.1
+
+; ????-BLOCK 113 PROP [START=E111C8 END=E111D0] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, eoff.4           ; E111C8 u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; E111C8 u=ss.2       d=seg.2
+ add     eoff.4,  #0xC.4 , eoff.4  ; E111C8 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; E111C8 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, ecx.4            ; E111C8 u=et1.4      d=ecx.4
+ mov     cs.2, seg.2             ; E111CB u=cs.2       d=seg.2
+ mov      #0xE03C57.4 , eoff.4     ; E111CB u=           d=eoff.4
+ goto    $loc_E03C57             ; E111CB u=
+
+; ????-BLOCK 114 PROP [START=E1C17C END=E1C182] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; E1C17C u=cs.2       d=seg.2
+ mov      #0xE28A03.4 , eoff.4     ; E1C17C u=           d=eoff.4
+ lnot    zf.1, tt.1              ; E1C17C u=zf.1       d=tt.1
+ jcnd    tt.1, $loc_E28A03       ; E1C17C u=tt.1
+
+; ????-BLOCK 115 PROP PUSH [START=E1C182 END=E1C191] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; E1C182 u=
+ pop     esi.4                   ; E1C182 u=esp.4,sp+C.4 d=esp.4,esi.4
+ xdu     cf.1, tt.2              ; E1C183 u=cf.1       d=tt.2
+ cfadd   tt.2, di.2, cf.1        ; E1C183 u=di.2,tt.2  d=cf.1
+ ofadd   tt.2, di.2, of.1        ; E1C183 u=di.2,tt.2  d=of.1
+ add     tt.2, di.2, tt.2        ; E1C183 u=di.2,tt.2  d=tt.2
+ cfadd   di.2, tt.2, t2.1        ; E1C183 u=di.2,tt.2  d=t2.1
+ ofadd   di.2, tt.2, t2^1.1      ; E1C183 u=di.2,tt.2  d=t2^1.1
+ or      cf.1, t2.1, cf.1        ; E1C183 u=cf.1,t2.1  d=cf.1
+ or      of.1, t2^1.1, of.1      ; E1C183 u=of.1,t2^1.1 d=of.1
+ add     di.2, tt.2, di.2        ; E1C183 u=di.2,tt.2  d=di.2
+ setz    di.2,  #0.2 , zf.1        ; E1C183 u=di.2       d=zf.1
+ setp    di.2,  #0.2 , pf.1        ; E1C183 u=di.2       d=pf.1
+ sets    di.2, sf.1              ; E1C183 u=di.2       d=sf.1
+ nop                             ; E1C186 u=
+ pop     ebx.4                   ; E1C186 u=esp.4,sp+10.4 d=ebx.4,esp.4
+ mov      #0.4 , eax.4             ; E1C187 u=           d=eax.4
+ mov      #0.1 , cf.1              ; E1C187 u=           d=cf.1
+ mov      #0.1 , of.1              ; E1C187 u=           d=of.1
+ setz    eax.4,  #0.4 , zf.1       ; E1C187 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E1C187 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E1C187 u=eax.4      d=sf.1
+ mov     si.2, di.2              ; E1C189 u=si.2       d=di.2
+ nop                             ; E1C18C u=
+ pop     edi.4                   ; E1C18C u=esp.4,sp+14.4 d=esp.4,edi.4
+ mov     ebp.4, esp.4            ; E1C18D u=ebp.4      d=esp.4
+ nop                             ; E1C190 u=
+ pop     eoff.4                  ; E1C190 u=esp.4,RET  d=esp.4,eoff.4
+ mov     cs.2, seg.2             ; E1C190 u=cs.2       d=seg.2
+ ijmp    seg.2, eoff.4           ; E1C190 u=eoff.4,seg.2
+
+; ????-BLOCK 116 PROP PUSH [START=E1D068 END=E1D06D] MINREFS: STK=0/ARG=134, MAXBSP: 0
+; USE-DEF LISTS ARE NOT READY
+ mov      #0xE1D06D.4 , ett.4      ; E1D068 u=           d=ett.4
+ nop                             ; E1D068 u=
+ nop                             ; E1D068 u=
+ mov     cs.2, seg.2             ; E1D068 u=cs.2       d=seg.2
+ mov      #0xC6CFD7.4 , eoff.4     ; E1D068 u=           d=eoff.4
+ call    $sub_C6CFD7             ; E1D068 u=(rax.8,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,st7.8,fl.1,c0.1,c2.1,c3.1,df.1,if.1,xmm0.16,ALLMEM)
+
+; ????-BLOCK 117 PROP [START=E1D06D END=E1D077] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov      #0xC.4 , et1.4           ; E1D06D u=           d=et1.4
+ cfadd   et1.4, esp.4, cf.1      ; E1D06D u=esp.4,et1.4 d=cf.1
+ ofadd   et1.4, esp.4, of.1      ; E1D06D u=esp.4,et1.4 d=of.1
+ add     et1.4, esp.4, ett.4     ; E1D06D u=esp.4,et1.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; E1D06D u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; E1D06D u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; E1D06D u=ett.4      d=sf.1
+ mov     ett.4, esp.4            ; E1D06D u=ett.4      d=esp.4
+ mov      call !_byteswap_ushort<fast:"unsigned __int16" di.2> => "unsigned __int16" .2 , di.2 ; E1D070 u=di.2       d=di.2
+ xor     sf.1, of.1, tt.1        ; E1D073 u=sf.1,of.1  d=tt.1
+ or      tt.1, zf.1, tt.1        ; E1D073 u=zf.1,tt.1  d=tt.1
+ lnot    tt.1, tt.1              ; E1D073 u=tt.1       d=tt.1
+ jcnd    tt.1, $loc_E1D077       ; E1D073 u=tt.1
+
+; ????-BLOCK 118 PROP FAKE [START=E1D073 END=E1D077] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     dx.2, bx.2              ; E1D073 u=dx.2       d=bx.2
+
+; ????-BLOCK 119 PROP PUSH [START=E1D077 END=E1D07B] MINREFS: STK=0/ARG=134, MAXBSP: 10
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; E1D077 u=
+ pop     esi.4                   ; E1D077 u=esp.4,sp+C.4 d=esp.4,esi.4
+ lnot    zf.1, tt.1              ; E1D078 u=zf.1       d=tt.1
+ lnot    tt.1, tt.1              ; E1D078 u=tt.1       d=tt.1
+ jcnd    tt.1, $loc_E1D07B       ; E1D078 u=tt.1
+
+; ????-BLOCK 120 PROP FAKE [START=E1D078 END=E1D07B] MINREFS: STK=0/ARG=134, MAXBSP: 10
+; USE-DEF LISTS ARE NOT READY
+ mov     edi.4, ebx.4            ; E1D078 u=edi.4      d=ebx.4
+
+; ????-BLOCK 121 PROP PUSH [START=E1D07B END=E1D08C] MINREFS: STK=0/ARG=134, MAXBSP: 18
+; USE-DEF LISTS ARE NOT READY
+ nop                             ; E1D07B u=
+ pop     ebx.4                   ; E1D07B u=esp.4,sp+10.4 d=ebx.4,esp.4
+ bnot    edi.4, edi.4            ; E1D07C u=edi.4      d=edi.4
+ mov      #0x322E1626.4 , et1.4    ; E1D07E u=           d=et1.4
+ mov     et1.4, edi.4            ; E1D07E u=et1.4      d=edi.4
+ xds     bp.2, edi.4             ; E1D083 u=bp.2       d=edi.4
+ nop                             ; E1D086 u=
+ pop     edi.4                   ; E1D086 u=esp.4,sp+14.4 d=esp.4,edi.4
+ mov     cs.2, seg.2             ; E1D087 u=cs.2       d=seg.2
+ mov      #0xDC2F1B.4 , eoff.4     ; E1D087 u=           d=eoff.4
+ goto    $loc_DC2F1B             ; E1D087 u=
+
+; ????-BLOCK 122 PROP [START=E289FD END=E28A03] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     cs.2, seg.2             ; E289FD u=cs.2       d=seg.2
+ mov      #0x9B0124.4 , eoff.4     ; E289FD u=           d=eoff.4
+ jcnd    zf.1, $loc_9B0124       ; E289FD u=zf.1
+
+; ????-BLOCK 123 PROP [START=E28A03 END=E28A0B] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ecx.4, et0.4            ; E28A03 u=ecx.4      d=et0.4
+ setb    et0.4, eax.4, cf.1      ; E28A03 u=eax.4,et0.4 d=cf.1
+ seto    et0.4, eax.4, of.1      ; E28A03 u=eax.4,et0.4 d=of.1
+ sub     et0.4, eax.4, et0.4     ; E28A03 u=eax.4,et0.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; E28A03 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; E28A03 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; E28A03 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; E28A05 u=cs.2       d=seg.2
+ mov      #0xDF21B1.4 , eoff.4     ; E28A05 u=           d=eoff.4
+ jcnd    cf.1, $loc_DF21B1       ; E28A05 u=cf.1
+
+; ????-BLOCK 124 PROP [START=E28A0B END=E28A20] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     ebp.4, eoff.4           ; E28A0B u=ebp.4      d=eoff.4
+ mov     ss.2, seg.2             ; E28A0B u=ss.2       d=seg.2
+ sub     eoff.4,  #0x10.4 , eoff.4 ; E28A0B u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; E28A0B u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, edx.4            ; E28A0B u=et1.4      d=edx.4
+ mov     edx.4, et0.4            ; E28A0E u=edx.4      d=et0.4
+ setb    et0.4, edi.4, cf.1      ; E28A0E u=edi.4,et0.4 d=cf.1
+ seto    et0.4, edi.4, of.1      ; E28A0E u=edi.4,et0.4 d=of.1
+ sub     et0.4, edi.4, et0.4     ; E28A0E u=edi.4,et0.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; E28A0E u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; E28A0E u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; E28A0E u=et0.4      d=sf.1
+ mov      #0x5676.2 , t1.2         ; E28A10 u=           d=t1.2
+ mov     dx.2, t0.2              ; E28A10 u=dx.2       d=t0.2
+ and     t1.2, t0.2, t0.2        ; E28A10 u=t0.2,t1.2  d=t0.2
+ mov      #0.1 , cf.1              ; E28A10 u=           d=cf.1
+ mov      #0.1 , of.1              ; E28A10 u=           d=of.1
+ setz    t0.2,  #0.2 , zf.1        ; E28A10 u=t0.2       d=zf.1
+ setp    t0.2,  #0.2 , pf.1        ; E28A10 u=t0.2       d=pf.1
+ sets    t0.2, sf.1              ; E28A10 u=t0.2       d=sf.1
+ mov     eax.4, et1.4            ; E28A15 u=eax.4      d=et1.4
+ add     edx.4, et1.4, et1.4     ; E28A15 u=edx.4,et1.4 d=et1.4
+ mov     et1.4, edx.4            ; E28A15 u=et1.4      d=edx.4
+ mov     ecx.4, et0.4            ; E28A18 u=ecx.4      d=et0.4
+ setb    et0.4, edx.4, cf.1      ; E28A18 u=edx.4,et0.4 d=cf.1
+ seto    et0.4, edx.4, of.1      ; E28A18 u=edx.4,et0.4 d=of.1
+ sub     et0.4, edx.4, et0.4     ; E28A18 u=edx.4,et0.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; E28A18 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; E28A18 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; E28A18 u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; E28A1A u=cs.2       d=seg.2
+ mov      #0xDF21B1.4 , eoff.4     ; E28A1A u=           d=eoff.4
+ lnot    cf.1, tt.1              ; E28A1A u=cf.1       d=tt.1
+ jcnd    tt.1, $loc_DF21B1       ; E28A1A u=tt.1
+
+; ????-BLOCK 125 PROP [START=E28A20 END=E28A3F] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ mov     edi.4, et1.4            ; E28A20 u=edi.4      d=et1.4
+ add     ecx.4, et1.4, et1.4     ; E28A20 u=ecx.4,et1.4 d=et1.4
+ mov     et1.4, eax.4            ; E28A20 u=et1.4      d=eax.4
+ mov     eax.4, eoff.4           ; E28A23 u=eax.4      d=eoff.4
+ mov     ds.2, seg.2             ; E28A23 u=ds.2       d=seg.2
+ ldx     seg.2, eoff.4, t1.1     ; E28A23 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=t1.1
+ mov     t1.1, cl.1              ; E28A23 u=t1.1       d=cl.1
+ mov      #0.1 , cf.1              ; E28A25 u=           d=cf.1
+ mov      #0x5DB4.2 , t1.2         ; E28A26 u=           d=t1.2
+ mov     t1.2, si.2              ; E28A26 u=t1.2       d=si.2
+ mov      #0x43.1 , t1.1           ; E28A2A u=           d=t1.1
+ cfshr   esi.4, t1.1, tt.1       ; E28A2A u=esi.4,t1.1 d=tt.1
+ mov      call !__ROR4__<fast:_DWORD esi.4,char t1.1> => _DWORD .4 , esi.4 ; E28A2A u=esi.4,t1.1 d=esi.4
+ mov     tt.1, cf.1              ; E28A2A u=tt.1       d=cf.1
+ und     of.1                    ; E28A2A u=           d=of.1
+ mov     eax.4, esi.4            ; E28A2D u=eax.4      d=esi.4
+ mov      #0x7C1D5C51.4 , et1.4    ; E28A2F u=           d=et1.4
+ mov     ebp.4, et0.4            ; E28A2F u=ebp.4      d=et0.4
+ and     et1.4, et0.4, et0.4     ; E28A2F u=et0.4,et1.4 d=et0.4
+ mov      #0.1 , cf.1              ; E28A2F u=           d=cf.1
+ mov      #0.1 , of.1              ; E28A2F u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; E28A2F u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; E28A2F u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; E28A2F u=et0.4      d=sf.1
+ mov     si.2, t0.2              ; E28A35 u=si.2       d=t0.2
+ and     di.2, t0.2, t0.2        ; E28A35 u=di.2,t0.2  d=t0.2
+ mov      #0.1 , cf.1              ; E28A35 u=           d=cf.1
+ mov      #0.1 , of.1              ; E28A35 u=           d=of.1
+ setz    t0.2,  #0.2 , zf.1        ; E28A35 u=t0.2       d=zf.1
+ setp    t0.2,  #0.2 , pf.1        ; E28A35 u=t0.2       d=pf.1
+ sets    t0.2, sf.1              ; E28A35 u=t0.2       d=sf.1
+ mov     cl.1, t0.1              ; E28A38 u=cl.1       d=t0.1
+ and     cl.1, t0.1, t0.1        ; E28A38 u=cl.1,t0.1  d=t0.1
+ mov      #0.1 , cf.1              ; E28A38 u=           d=cf.1
+ mov      #0.1 , of.1              ; E28A38 u=           d=of.1
+ setz    t0.1,  #0.1 , zf.1        ; E28A38 u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; E28A38 u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; E28A38 u=t0.1       d=sf.1
+ mov     cs.2, seg.2             ; E28A3A u=cs.2       d=seg.2
+ mov      #0xC6FD8B.4 , eoff.4     ; E28A3A u=           d=eoff.4
+ goto    $loc_C6FD8B             ; E28A3A u=
+
+; ????-BLOCK 126 PROP [START=E2EBAE END=E2EBB6] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE-DEF LISTS ARE NOT READY
+ ofadd    #1.4 , esi.4, of.1       ; E2EBAE u=esi.4      d=of.1
+ add     esi.4,  #1.4 , esi.4      ; E2EBAE u=esi.4      d=esi.4
+ setz    esi.4,  #0.4 , zf.1       ; E2EBAE u=esi.4      d=zf.1
+ setp    esi.4,  #0.4 , pf.1       ; E2EBAE u=esi.4      d=pf.1
+ sets    esi.4, sf.1             ; E2EBAE u=esi.4      d=sf.1
+ mov     cl.1, t0.1              ; E2EBAF u=cl.1       d=t0.1
+ and     cl.1, t0.1, t0.1        ; E2EBAF u=cl.1,t0.1  d=t0.1
+ mov      #0.1 , cf.1              ; E2EBAF u=           d=cf.1
+ mov      #0.1 , of.1              ; E2EBAF u=           d=of.1
+ setz    t0.1,  #0.1 , zf.1        ; E2EBAF u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; E2EBAF u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; E2EBAF u=t0.1       d=sf.1
+ mov     cs.2, seg.2             ; E2EBB1 u=cs.2       d=seg.2
+ mov      #0x9B011E.4 , eoff.4     ; E2EBB1 u=           d=eoff.4
+ goto    $loc_9B011E             ; E2EBB1 u=
+
+; STOP-BLOCK 127 PROP FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=0/ARG=134, MAXBSP: 0
+

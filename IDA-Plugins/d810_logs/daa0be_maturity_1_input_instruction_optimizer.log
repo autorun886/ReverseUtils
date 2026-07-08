@@ -1,0 +1,199 @@
+; STKD=C0 MINREF=0/END=C0 ARGS: OFF=C4/MINREF=C4/END=1C4/SHADOW=0
+; ????-BLOCK 0 PROP FAKE [START=DAA0BE END=DAA0BE] MINREFS: STK=0/ARG=C4, MAXBSP: 0
+
+; ????-BLOCK 1 PROP [START=DAA0BE END=DAA0E9] MINREFS: STK=0/ARG=C4, MAXBSP: C0
+; USE-DEF LISTS ARE NOT READY
+ mov      #1.1 , t1.1              ; DAA0BE u=           d=t1.1
+ cfshr   edi.4, t1.1, tt.1       ; DAA0BE u=edi.4,t1.1 d=tt.1
+ mov      call !__ROR4__<fast:_DWORD edi.4,char t1.1> => _DWORD .4 , edi.4 ; DAA0BE u=edi.4,t1.1 d=edi.4
+ mov     tt.1, cf.1              ; DAA0BE u=tt.1       d=cf.1
+ und     of.1                    ; DAA0BE u=           d=of.1
+ mov      #0x249A.2 , t1.2         ; DAA0C0 u=           d=t1.2
+ setb    bp.2, t1.2, cf.1        ; DAA0C0 u=bp.2,t1.2  d=cf.1
+ seto    bp.2, t1.2, of.1        ; DAA0C0 u=bp.2,t1.2  d=of.1
+ sub     bp.2, t1.2, bp.2        ; DAA0C0 u=bp.2,t1.2  d=bp.2
+ setz    bp.2,  #0.2 , zf.1        ; DAA0C0 u=bp.2       d=zf.1
+ setp    bp.2,  #0.2 , pf.1        ; DAA0C0 u=bp.2       d=pf.1
+ sets    bp.2, sf.1              ; DAA0C0 u=bp.2       d=sf.1
+ mov      call !_bittest<fast:"const int *" &(ebp.4)<4/0>.4,"unsigned int" ebp.4> => "unsigned __int8" .1 , cf.1 ; DAA0C5 u=ebp.4,(ALLMEM) d=cf.1
+ und     zf.1                    ; DAA0C5 u=           d=zf.1
+ und     sf.1                    ; DAA0C5 u=           d=sf.1
+ und     of.1                    ; DAA0C5 u=           d=of.1
+ und     pf.1                    ; DAA0C5 u=           d=pf.1
+ mov      #0xA6.1 , t1.1           ; DAA0C8 u=           d=t1.1
+ cfshl   si.2, t1.1, cf.1        ; DAA0C8 u=si.2,t1.1  d=cf.1
+ shl     si.2, t1.1, si.2        ; DAA0C8 u=si.2,t1.1  d=si.2
+ und     of.1                    ; DAA0C8 u=           d=of.1
+ setz    si.2,  #0.2 , zf.1        ; DAA0C8 u=si.2       d=zf.1
+ setp    si.2,  #0.2 , pf.1        ; DAA0C8 u=si.2       d=pf.1
+ sets    si.2, sf.1              ; DAA0C8 u=si.2       d=sf.1
+ cfadd   eax.4, edi.4, cf.1      ; DAA0CC u=eax.4,edi.4 d=cf.1
+ ofadd   eax.4, edi.4, of.1      ; DAA0CC u=eax.4,edi.4 d=of.1
+ add     eax.4, edi.4, ett.4     ; DAA0CC u=eax.4,edi.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; DAA0CC u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; DAA0CC u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; DAA0CC u=ett.4      d=sf.1
+ mov     ett.4, edi.4            ; DAA0CC u=ett.4      d=edi.4
+ lnot     call !_BitScanForward<fast:"unsigned int *" &(eax.4)<0/4>.4,"unsigned int" edx.4> => "unsigned __int8" .1 , zf.1 ; DAA0CE u=edx.4      d=zf.1,eax.4
+ und     cf.1                    ; DAA0CE u=           d=cf.1
+ und     sf.1                    ; DAA0CE u=           d=sf.1
+ und     of.1                    ; DAA0CE u=           d=of.1
+ und     pf.1                    ; DAA0CE u=           d=pf.1
+ mov     esp.4, esi.4            ; DAA0D1 u=esp.4      d=esi.4
+ cfshl   bh.1, cl.1, cf.1        ; DAA0D3 u=cl.1,bh.1  d=cf.1
+ shl     bh.1, cl.1, bh.1        ; DAA0D3 u=cl.1,bh.1  d=bh.1
+ und     of.1                    ; DAA0D3 u=           d=of.1
+ setz    bh.1,  #0.1 , zf.1        ; DAA0D3 u=bh.1       d=zf.1
+ setp    bh.1,  #0.1 , pf.1        ; DAA0D3 u=bh.1       d=pf.1
+ sets    bh.1, sf.1              ; DAA0D3 u=bh.1       d=sf.1
+ mov      #0xED.1 , t1.1           ; DAA0D5 u=           d=t1.1
+ mov      call !_bittest<fast:"const int *" &(ebx.4)<4/0>.4,"unsigned __int8" t1.1> => "unsigned __int8" .1 , cf.1 ; DAA0D5 u=ebx.4,t1.1,(ALLMEM) d=cf.1
+ und     zf.1                    ; DAA0D5 u=           d=zf.1
+ und     sf.1                    ; DAA0D5 u=           d=sf.1
+ und     of.1                    ; DAA0D5 u=           d=of.1
+ und     pf.1                    ; DAA0D5 u=           d=pf.1
+ xdu     cx.2, eax.4             ; DAA0D9 u=cx.2       d=eax.4
+ mov      #0xC0.4 , et1.4          ; DAA0DC u=           d=et1.4
+ setb    esp.4, et1.4, cf.1      ; DAA0DC u=esp.4,et1.4 d=cf.1
+ seto    esp.4, et1.4, of.1      ; DAA0DC u=esp.4,et1.4 d=of.1
+ sub     esp.4, et1.4, esp.4     ; DAA0DC u=esp.4,et1.4 d=esp.4
+ setz    esp.4,  #0.4 , zf.1       ; DAA0DC u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; DAA0DC u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; DAA0DC u=esp.4      d=sf.1
+ mov      call !_bittestandset16<fast:"__int16 *" &(ax.2)<2/2>.4,"unsigned __int16" sp.2> => "unsigned __int8" .1 , cf.1 ; DAA0E2 u=ax.2,sp.2,(ALLMEM) d=cf.1,ax.2,(ALLMEM)
+ und     zf.1                    ; DAA0E2 u=           d=zf.1
+ und     sf.1                    ; DAA0E2 u=           d=sf.1
+ und     of.1                    ; DAA0E2 u=           d=of.1
+ und     pf.1                    ; DAA0E2 u=           d=pf.1
+ ext     bx.2, cl.1, bx.2        ; DAA0E6 u=cl.1,bx.2  d=bx.2
+
+; ????-BLOCK 2 PROP [START=DAA0E9 END=DAA107] MINREFS: STK=0/ARG=C4, MAXBSP: 0
+; USE-DEF LISTS ARE NOT READY
+ mov     edi.4, ebx.4            ; DAA0E9 u=edi.4      d=ebx.4
+ mov      #0xAD.1 , t1.1           ; DAA0EB u=           d=t1.1
+ mov      call !_bittest<fast:"const int *" &(ebp.4)<4/0>.4,"unsigned __int8" t1.1> => "unsigned __int8" .1 , cf.1 ; DAA0EB u=ebp.4,t1.1,(ALLMEM) d=cf.1
+ und     zf.1                    ; DAA0EB u=           d=zf.1
+ und     sf.1                    ; DAA0EB u=           d=sf.1
+ und     of.1                    ; DAA0EB u=           d=of.1
+ und     pf.1                    ; DAA0EB u=           d=pf.1
+ ext     ah.1, cl.1, ah.1        ; DAA0EF u=ah.1,cl.1  d=ah.1
+ xds     sp.2, ebp.4             ; DAA0F1 u=sp.2       d=ebp.4
+ mov      #0.4 , et1.4             ; DAA0F4 u=           d=et1.4
+ mov     et1.4, eax.4            ; DAA0F4 u=et1.4      d=eax.4
+ mov      call !_bittestandcomplement<fast:"int *" &(ebp.4)<4/4>.4,"unsigned int" esi.4> => "unsigned __int8" .1 , cf.1 ; DAA0F9 u=ebp.4,esi.4,(ALLMEM) d=cf.1,ebp.4,(ALLMEM)
+ und     zf.1                    ; DAA0F9 u=           d=zf.1
+ und     sf.1                    ; DAA0F9 u=           d=sf.1
+ und     of.1                    ; DAA0F9 u=           d=of.1
+ und     pf.1                    ; DAA0F9 u=           d=pf.1
+ mov      #0x365C63CF.4 , et1.4    ; DAA0FC u=           d=et1.4
+ setb    ebp.4, et1.4, cf.1      ; DAA0FC u=ebp.4,et1.4 d=cf.1
+ seto    ebp.4, et1.4, of.1      ; DAA0FC u=ebp.4,et1.4 d=of.1
+ sub     ebp.4, et1.4, ebp.4     ; DAA0FC u=ebp.4,et1.4 d=ebp.4
+ setz    ebp.4,  #0.4 , zf.1       ; DAA0FC u=ebp.4      d=zf.1
+ setp    ebp.4,  #0.4 , pf.1       ; DAA0FC u=ebp.4      d=pf.1
+ sets    ebp.4, sf.1             ; DAA0FC u=ebp.4      d=sf.1
+ setb    ebx.4, eax.4, cf.1      ; DAA102 u=eax.4,ebx.4 d=cf.1
+ seto    ebx.4, eax.4, of.1      ; DAA102 u=eax.4,ebx.4 d=of.1
+ sub     ebx.4, eax.4, ebx.4     ; DAA102 u=eax.4,ebx.4 d=ebx.4
+ setz    ebx.4,  #0.4 , zf.1       ; DAA102 u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; DAA102 u=ebx.4      d=pf.1
+ sets    ebx.4, sf.1             ; DAA102 u=ebx.4      d=sf.1
+ mov      call !_bittestandcomplement<fast:"int *" &(eax.4)<4/4>.4,"unsigned int" ecx.4> => "unsigned __int8" .1 , cf.1 ; DAA104 u=eax.4,ecx.4,(ALLMEM) d=cf.1,eax.4,(ALLMEM)
+ und     zf.1                    ; DAA104 u=           d=zf.1
+ und     sf.1                    ; DAA104 u=           d=sf.1
+ und     of.1                    ; DAA104 u=           d=of.1
+ und     pf.1                    ; DAA104 u=           d=pf.1
+
+; ????-BLOCK 3 PROP [START=DAA107 END=DAA129] MINREFS: STK=0/ARG=C4, MAXBSP: 0
+; USE-DEF LISTS ARE NOT READY
+ mov     &($loc_DAA107).4, et1.4 ; DAA107 u=           d=et1.4
+ mov     et1.4, ebp.4            ; DAA107 u=et1.4      d=ebp.4
+ mov      #0x19D.2 , t1.2          ; DAA10D u=           d=t1.2
+ xdu     cf.1, tt.2              ; DAA10D u=cf.1       d=tt.2
+ cfadd   tt.2, ax.2, cf.1        ; DAA10D u=ax.2,tt.2  d=cf.1
+ ofadd   tt.2, ax.2, of.1        ; DAA10D u=ax.2,tt.2  d=of.1
+ add     tt.2, ax.2, ax.2        ; DAA10D u=ax.2,tt.2  d=ax.2
+ cfadd   t1.2, ax.2, t2.1        ; DAA10D u=ax.2,t1.2  d=t2.1
+ ofadd   t1.2, ax.2, t2^1.1      ; DAA10D u=ax.2,t1.2  d=t2^1.1
+ or      cf.1, t2.1, cf.1        ; DAA10D u=cf.1,t2.1  d=cf.1
+ or      of.1, t2^1.1, of.1      ; DAA10D u=of.1,t2^1.1 d=of.1
+ add     t1.2, ax.2, ax.2        ; DAA10D u=ax.2,t1.2  d=ax.2
+ setz    ax.2,  #0.2 , zf.1        ; DAA10D u=ax.2       d=zf.1
+ setp    ax.2,  #0.2 , pf.1        ; DAA10D u=ax.2       d=pf.1
+ sets    ax.2, sf.1              ; DAA10D u=ax.2       d=sf.1
+ mov      #4.4 , et1.4             ; DAA111 u=           d=et1.4
+ setb    edi.4, et1.4, cf.1      ; DAA111 u=edi.4,et1.4 d=cf.1
+ seto    edi.4, et1.4, of.1      ; DAA111 u=edi.4,et1.4 d=of.1
+ sub     edi.4, et1.4, edi.4     ; DAA111 u=edi.4,et1.4 d=edi.4
+ setz    edi.4,  #0.4 , zf.1       ; DAA111 u=edi.4      d=zf.1
+ setp    edi.4,  #0.4 , pf.1       ; DAA111 u=edi.4      d=pf.1
+ sets    edi.4, sf.1             ; DAA111 u=edi.4      d=sf.1
+ mov      #0x16.1 , t1.1           ; DAA117 u=           d=t1.1
+ mov      call !_bittestandcomplement<fast:"int *" &(eax.4)<4/4>.4,"unsigned __int8" t1.1> => "unsigned __int8" .1 , cf.1 ; DAA117 u=eax.4,t1.1,(ALLMEM) d=cf.1,eax.4,(ALLMEM)
+ und     zf.1                    ; DAA117 u=           d=zf.1
+ und     sf.1                    ; DAA117 u=           d=sf.1
+ und     of.1                    ; DAA117 u=           d=of.1
+ und     pf.1                    ; DAA117 u=           d=pf.1
+ xds     al.1, ax.2              ; DAA11B u=al.1       d=ah.1
+ mov      #0x96.1 , t1.1           ; DAA11D u=           d=t1.1
+ and     t1.1, ah.1, ah.1        ; DAA11D u=ah.1,t1.1  d=ah.1
+ mov      #0.1 , cf.1              ; DAA11D u=           d=cf.1
+ mov      #0.1 , of.1              ; DAA11D u=           d=of.1
+ setz    ah.1,  #0.1 , zf.1        ; DAA11D u=ah.1       d=zf.1
+ setp    ah.1,  #0.1 , pf.1        ; DAA11D u=ah.1       d=pf.1
+ sets    ah.1, sf.1              ; DAA11D u=ah.1       d=sf.1
+ mov     edi.4, eoff.4           ; DAA120 u=edi.4      d=eoff.4
+ mov     ds.2, seg.2             ; DAA120 u=ds.2       d=seg.2
+ ldx     seg.2, eoff.4, et1.4    ; DAA120 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, eax.4            ; DAA120 u=et1.4      d=eax.4
+ xor     ebx.4, eax.4, eax.4     ; DAA122 u=eax.4,ebx.4 d=eax.4
+ mov      #0.1 , cf.1              ; DAA122 u=           d=cf.1
+ mov      #0.1 , of.1              ; DAA122 u=           d=of.1
+ setz    eax.4,  #0.4 , zf.1       ; DAA122 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; DAA122 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; DAA122 u=eax.4      d=sf.1
+ mov     cs.2, seg.2             ; DAA124 u=cs.2       d=seg.2
+ mov      #0xD9FA61.4 , eoff.4     ; DAA124 u=           d=eoff.4
+ goto    $loc_D9FA61             ; DAA124 u=
+
+; ????-BLOCK 4 PROP [START=D9FA61 END=D9FA67] MINREFS: STK=0/ARG=C4, MAXBSP: 0
+; USE-DEF LISTS ARE NOT READY
+ seto    eax.4,  #1.4 , of.1       ; D9FA61 u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; D9FA61 u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; D9FA61 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; D9FA61 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; D9FA61 u=eax.4      d=sf.1
+ mov     cs.2, seg.2             ; D9FA62 u=cs.2       d=seg.2
+ mov      #0xE305BC.4 , eoff.4     ; D9FA62 u=           d=eoff.4
+ goto    $loc_E305BC             ; D9FA62 u=
+
+; ????-BLOCK 5 PROP [START=E1DF4A END=E1DF55] MINREFS: STK=0/ARG=C4, MAXBSP: 0
+; USE-DEF LISTS ARE NOT READY
+ mov     eax.4, et1.4            ; E1DF4A u=eax.4      d=et1.4
+ add     et1.4,  #0x4A4B1526.4 , et1.4 ; E1DF4A u=et1.4      d=et1.4
+ mov     et1.4, eax.4            ; E1DF4A u=et1.4      d=eax.4
+ mov     cs.2, seg.2             ; E1DF50 u=cs.2       d=seg.2
+ mov      #0x968E51.4 , eoff.4     ; E1DF50 u=           d=eoff.4
+ goto    $loc_968E51             ; E1DF50 u=
+
+; ????-BLOCK 6 PROP [START=E305BC END=E305CA] MINREFS: STK=0/ARG=C4, MAXBSP: 0
+; USE-DEF LISTS ARE NOT READY
+ mov      #3.1 , t1.1              ; E305BC u=           d=t1.1
+ cfshr   eax.4, t1.1, tt.1       ; E305BC u=eax.4,t1.1 d=tt.1
+ mov      call !__ROR4__<fast:_DWORD eax.4,char t1.1> => _DWORD .4 , eax.4 ; E305BC u=eax.4,t1.1 d=eax.4
+ mov     tt.1, cf.1              ; E305BC u=tt.1       d=cf.1
+ und     of.1                    ; E305BC u=           d=of.1
+ mov      #0x33681F4B.4 , et1.4    ; E305BF u=           d=et1.4
+ mov     esi.4, et0.4            ; E305BF u=esi.4      d=et0.4
+ setb    et0.4, et1.4, cf.1      ; E305BF u=et0.4,et1.4 d=cf.1
+ seto    et0.4, et1.4, of.1      ; E305BF u=et0.4,et1.4 d=of.1
+ sub     et0.4, et1.4, et0.4     ; E305BF u=et0.4,et1.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; E305BF u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; E305BF u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; E305BF u=et0.4      d=sf.1
+ mov     cs.2, seg.2             ; E305C5 u=cs.2       d=seg.2
+ mov      #0xE1DF4A.4 , eoff.4     ; E305C5 u=           d=eoff.4
+ goto    $loc_E1DF4A             ; E305C5 u=
+
+; STOP-BLOCK 7 PROP FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=0/ARG=C4, MAXBSP: 0
+

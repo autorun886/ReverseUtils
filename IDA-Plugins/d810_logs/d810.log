@@ -1,0 +1,275 @@
+2026-06-18 19:42:22,569 - D810 - DEBUG - Rule configurations loaded: [<d810.conf.ProjectConfiguration object at 0x00000218C7914B50>, <d810.conf.ProjectConfiguration object at 0x00000218D7D94290>, <d810.conf.ProjectConfiguration object at 0x00000218D84E6310>, <d810.conf.ProjectConfiguration object at 0x00000218D84F1510>, <d810.conf.ProjectConfiguration object at 0x00000218D84DB190>]
+2026-06-18 19:42:22,697 - D810 - DEBUG - Instruction rules configured
+2026-06-18 19:42:22,698 - D810 - DEBUG - Block rules configured
+2026-06-18 19:42:22,698 - D810 - DEBUG - Project loaded.
+2026-06-18 19:42:31,337 - D810 - DEBUG - Instruction rules configured
+2026-06-18 19:42:31,337 - D810.optimizer - INFO - Whitelisted functions for Unflattener: [7650] -> ['']
+2026-06-18 19:42:31,339 - D810.optimizer - INFO - Whitelisted functions for UnflattenerSwitchCase: [4949] -> ['']
+2026-06-18 19:42:31,340 - D810 - DEBUG - Block rules configured
+2026-06-18 19:42:31,340 - D810 - DEBUG - Project loaded.
+2026-06-18 19:42:33,341 - D810 - DEBUG - Reloading manager...
+2026-06-18 19:42:33,509 - D810.optimizer - INFO - Adding cfg rule <d810.optimizers.flow.flattening.unflattener.Unflattener object at 0x00000218D7BA6AD0>
+2026-06-18 19:42:33,509 - D810.optimizer - INFO - Adding cfg rule <d810.optimizers.flow.flattening.unflattener_switch_case.UnflattenerSwitchCase object at 0x00000218D847DF90>
+2026-06-18 19:42:33,509 - D810.optimizer - INFO - Adding cfg rule <d810.optimizers.flow.flattening.unflattener_indirect.UnflattenerTigressIndirect object at 0x00000218D847E190>
+2026-06-18 19:42:33,509 - D810.optimizer - INFO - Adding cfg rule <d810.optimizers.flow.jumps.handler.JumpFixer object at 0x00000218D8476B50>
+2026-06-18 19:43:34,288 - D810 - INFO - Starting decompilation of function at 0xbe9e16
+2026-06-18 19:43:34,288 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_ZERO
+2026-06-18 19:43:34,292 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\be9e16_maturity_0_input_instruction_optimizer.log...
+2026-06-18 19:43:34,302 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GENERATED
+2026-06-18 19:43:34,304 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\be9e16_maturity_1_input_instruction_optimizer.log...
+2026-06-18 19:43:34,396 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_PREOPTIMIZED
+2026-06-18 19:43:34,400 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\be9e16_maturity_2_input_instruction_optimizer.log...
+2026-06-18 19:43:34,432 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:43:34,432 - D810.optimizer - INFO -   orig:  neg      (ebp.4+ #1.4 ) , ebp.4
+2026-06-18 19:43:34,432 - D810.optimizer - INFO -   new :  bnot    ebp.4, ebp.4
+2026-06-18 19:43:34,570 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_LOCOPT
+2026-06-18 19:43:34,573 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\be9e16_maturity_3_input_instruction_optimizer.log...
+2026-06-18 19:43:34,616 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_LOCOPT
+2026-06-18 19:43:35,260 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_CALLS
+2026-06-18 19:43:35,261 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\be9e16_maturity_4_input_instruction_optimizer.log...
+2026-06-18 19:43:35,363 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_CALLS
+2026-06-18 19:43:35,385 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GLBOPT1
+2026-06-18 19:43:35,387 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\be9e16_maturity_5_input_instruction_optimizer.log...
+2026-06-18 19:43:35,408 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_GLBOPT1
+2026-06-18 19:43:35,409 - D810 - INFO - glbopt finished for function at 0xbe9e16
+2026-06-18 19:43:35,409 - D810 - INFO - Instruction optimizer 'PatternOptimizer' has been used 1 times
+2026-06-18 19:43:35,409 - D810 - INFO - Instruction Rule 'Bnot_HackersDelightRule_1' has been used 1 times
+2026-06-18 19:43:35,422 - D810 - INFO - Starting decompilation of function at 0xc6b456
+2026-06-18 19:43:35,423 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_ZERO
+2026-06-18 19:43:35,424 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6b456_maturity_0_input_instruction_optimizer.log...
+2026-06-18 19:43:35,439 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GENERATED
+2026-06-18 19:43:35,440 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6b456_maturity_1_input_instruction_optimizer.log...
+2026-06-18 19:43:35,555 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_PREOPTIMIZED
+2026-06-18 19:43:35,556 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6b456_maturity_2_input_instruction_optimizer.log...
+2026-06-18 19:43:35,655 - D810.optimizer - INFO - Rule CstSimplificationRule16 matched:
+2026-06-18 19:43:35,655 - D810.optimizer - INFO -   orig:  bnot     (esi.4 ^  #0x71F41E29.4 ) , esi.4
+2026-06-18 19:43:35,655 - D810.optimizer - INFO -   new :  xor     esi.4,  #0x8E0BE1D6.4 , esi.4
+2026-06-18 19:43:35,987 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_LOCOPT
+2026-06-18 19:43:35,989 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6b456_maturity_3_input_instruction_optimizer.log...
+2026-06-18 19:43:36,232 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_LOCOPT
+2026-06-18 19:43:38,265 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_CALLS
+2026-06-18 19:43:38,267 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6b456_maturity_4_input_instruction_optimizer.log...
+2026-06-18 19:43:38,422 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_CALLS
+2026-06-18 19:43:38,452 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GLBOPT1
+2026-06-18 19:43:38,454 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6b456_maturity_5_input_instruction_optimizer.log...
+2026-06-18 19:43:38,471 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_GLBOPT1
+2026-06-18 19:43:38,471 - D810 - INFO - glbopt finished for function at 0xc6b456
+2026-06-18 19:43:38,471 - D810 - INFO - Instruction optimizer 'PatternOptimizer' has been used 1 times
+2026-06-18 19:43:38,471 - D810 - INFO - Instruction Rule 'CstSimplificationRule16' has been used 1 times
+2026-06-18 19:43:44,656 - D810 - INFO - Starting decompilation of function at 0xe0e0ca
+2026-06-18 19:43:44,657 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_ZERO
+2026-06-18 19:43:44,658 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\e0e0ca_maturity_0_input_instruction_optimizer.log...
+2026-06-18 19:43:44,718 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GENERATED
+2026-06-18 19:43:44,720 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\e0e0ca_maturity_1_input_instruction_optimizer.log...
+2026-06-18 19:43:44,954 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_PREOPTIMIZED
+2026-06-18 19:43:44,956 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\e0e0ca_maturity_2_input_instruction_optimizer.log...
+2026-06-18 19:43:45,099 - D810.optimizer - INFO - Rule BnotXor_FactorRule_1 matched:
+2026-06-18 19:43:45,100 - D810.optimizer - INFO -   orig:  xor      bnot(ebx.4) ,  #0x726D6B35.4 , ebx.4
+2026-06-18 19:43:45,100 - D810.optimizer - INFO -   new :  bnot     ( #0x726D6B35.4  ^ ebx.4) , ebx.4
+2026-06-18 19:43:45,163 - D810.optimizer - INFO - Rule CstSimplificationRule16 matched:
+2026-06-18 19:43:45,163 - D810.optimizer - INFO -   orig:  bnot     (ebx.4 ^  #0x726D6B35.4 ) , ebx.4
+2026-06-18 19:43:45,163 - D810.optimizer - INFO -   new :  xor     ebx.4,  #0x8D9294CA.4 , ebx.4
+2026-06-18 19:43:45,417 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_LOCOPT
+2026-06-18 19:43:45,419 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\e0e0ca_maturity_3_input_instruction_optimizer.log...
+2026-06-18 19:43:46,209 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_LOCOPT
+2026-06-18 19:43:47,579 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_CALLS
+2026-06-18 19:43:47,582 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\e0e0ca_maturity_4_input_instruction_optimizer.log...
+2026-06-18 19:43:47,765 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_CALLS
+2026-06-18 19:43:47,999 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GLBOPT1
+2026-06-18 19:43:48,001 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\e0e0ca_maturity_5_input_instruction_optimizer.log...
+2026-06-18 19:43:48,056 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_GLBOPT1
+2026-06-18 19:43:48,057 - D810 - INFO - glbopt finished for function at 0xe0e0ca
+2026-06-18 19:43:48,058 - D810 - INFO - Instruction optimizer 'PatternOptimizer' has been used 2 times
+2026-06-18 19:43:48,058 - D810 - INFO - Instruction Rule 'CstSimplificationRule16' has been used 1 times
+2026-06-18 19:43:48,058 - D810 - INFO - Instruction Rule 'BnotXor_FactorRule_1' has been used 1 times
+2026-06-18 19:43:48,082 - D810 - INFO - Starting decompilation of function at 0xe06e2e
+2026-06-18 19:43:48,082 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_ZERO
+2026-06-18 19:43:48,083 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\e06e2e_maturity_0_input_instruction_optimizer.log...
+2026-06-18 19:43:48,102 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GENERATED
+2026-06-18 19:43:48,104 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\e06e2e_maturity_1_input_instruction_optimizer.log...
+2026-06-18 19:43:48,155 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_PREOPTIMIZED
+2026-06-18 19:43:48,157 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\e06e2e_maturity_2_input_instruction_optimizer.log...
+2026-06-18 19:43:48,383 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_LOCOPT
+2026-06-18 19:43:48,384 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\e06e2e_maturity_3_input_instruction_optimizer.log...
+2026-06-18 19:43:48,510 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_LOCOPT
+2026-06-18 19:43:49,660 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_CALLS
+2026-06-18 19:43:49,662 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\e06e2e_maturity_4_input_instruction_optimizer.log...
+2026-06-18 19:43:49,793 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_CALLS
+2026-06-18 19:43:49,831 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GLBOPT1
+2026-06-18 19:43:49,832 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\e06e2e_maturity_5_input_instruction_optimizer.log...
+2026-06-18 19:43:49,869 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_GLBOPT1
+2026-06-18 19:43:49,870 - D810 - INFO - glbopt finished for function at 0xe06e2e
+2026-06-18 19:45:47,170 - D810 - INFO - Starting decompilation of function at 0xc6cfd7
+2026-06-18 19:45:47,172 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_ZERO
+2026-06-18 19:45:47,178 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_0_input_instruction_optimizer.log...
+2026-06-18 19:45:47,292 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GENERATED
+2026-06-18 19:45:47,294 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_1_input_instruction_optimizer.log...
+2026-06-18 19:45:47,795 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_PREOPTIMIZED
+2026-06-18 19:45:47,797 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_2_input_instruction_optimizer.log...
+2026-06-18 19:45:49,578 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_LOCOPT
+2026-06-18 19:45:49,580 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_3_input_instruction_optimizer.log...
+2026-06-18 19:45:50,176 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( ( SF(&(%0xC).4)  ^ of.1)  | zf.1) , .1: Z3 evaluation: Unknown opcode sets for sets(x_0, x_1)
+2026-06-18 19:45:50,190 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( ( SF(&(%0xC).4)  ^ of.1)  |  (&(%0xC).4 ==  #0.4 ) ) , .1: Z3 evaluation: Unknown opcode sets for sets(x_0, x_1)
+2026-06-18 19:45:50,234 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( ( SF(&(%0xC).4)  ^  OF( #0xC.4 +&(%0x0).4) )  |  (&(%0xC).4 ==  #0.4 ) ) , .1: Z3 evaluation: Unknown opcode sets for sets(x_0, x_1)
+2026-06-18 19:45:50,358 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( ( SF(&(%0xC).4)  ^  OF( #0xC.4 +&(%0x0).4) )  |  (&(%0xC).4 ==  #0.4 ) ) , .1: Z3 evaluation: Unknown opcode sets for sets(x_0, x_1)
+2026-06-18 19:45:50,400 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_LOCOPT
+2026-06-18 19:45:51,308 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( (bl.1 <u  #9.1 )  | zf.1) , .1: Z3 evaluation: Unknown opcode setb for (x_0 < 9)
+2026-06-18 19:45:51,739 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( (ecx.4 <u  #0xFFFF.4 )  | zf.1) , .1: Z3 evaluation: Unknown opcode setb for (x_0 < 65535)
+2026-06-18 19:45:56,948 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( ( SF(&(%0xC{143}).4)  ^  OF( #0xC.4 +&(%0x0{142}).4) )  |  (&(%0xC{143}).4 ==  #0.4 ) ) , .1: Z3 evaluation: Unknown opcode sets for sets(x_0, x_1)
+2026-06-18 19:45:57,976 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( ( SF(&(%0xC{143}).4)  ^  OF( #0xC.4 +&(%0x0{142}).4) )  |  (&(%0xC{143}).4 ==  #0.4 ) ) , .1: Z3 evaluation: Unknown opcode sets for sets(x_0, x_1)
+2026-06-18 19:45:58,578 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_CALLS
+2026-06-18 19:45:58,580 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_4_input_instruction_optimizer.log...
+2026-06-18 19:45:59,160 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_CALLS
+2026-06-18 19:45:59,940 - D810.optimizer - INFO - Rule ArithmeticChain matched:
+2026-06-18 19:45:59,940 - D810.optimizer - INFO -   orig:  add      (%lpProcName.4-&(%ModuleName).4) ,  (&(%ModuleName{22}).4+edx.4{23}) , .4
+2026-06-18 19:45:59,941 - D810.optimizer - INFO -   new :  sub      (%lpProcName.4+edx.4{23}) ,  #0.4 , .4
+2026-06-18 19:46:00,357 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GLBOPT1
+2026-06-18 19:46:00,359 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_5_input_instruction_optimizer.log...
+2026-06-18 19:46:00,665 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_GLBOPT1
+2026-06-18 19:46:00,950 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GLBOPT2
+2026-06-18 19:46:00,952 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_6_input_instruction_optimizer.log...
+2026-06-18 19:46:00,978 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_GLBOPT2
+2026-06-18 19:46:00,992 - D810 - INFO - glbopt finished for function at 0xc6cfd7
+2026-06-18 19:46:00,992 - D810 - INFO - Instruction optimizer 'ChainOptimizer' has been used 1 times
+2026-06-18 19:46:00,992 - D810 - INFO - Instruction Rule 'ArithmeticChain' has been used 1 times
+2026-06-18 19:46:33,282 - D810 - INFO - Starting decompilation of function at 0x9648c6
+2026-06-18 19:46:33,283 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_ZERO
+2026-06-18 19:46:33,284 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\9648c6_maturity_0_input_instruction_optimizer.log...
+2026-06-18 19:46:33,294 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GENERATED
+2026-06-18 19:46:33,295 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\9648c6_maturity_1_input_instruction_optimizer.log...
+2026-06-18 19:46:33,373 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_PREOPTIMIZED
+2026-06-18 19:46:33,375 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\9648c6_maturity_2_input_instruction_optimizer.log...
+2026-06-18 19:46:33,586 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_LOCOPT
+2026-06-18 19:46:33,588 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\9648c6_maturity_3_input_instruction_optimizer.log...
+2026-06-18 19:46:33,685 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_LOCOPT
+2026-06-18 19:46:34,691 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_CALLS
+2026-06-18 19:46:34,693 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\9648c6_maturity_4_input_instruction_optimizer.log...
+2026-06-18 19:46:34,866 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_CALLS
+2026-06-18 19:46:34,900 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GLBOPT1
+2026-06-18 19:46:34,901 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\9648c6_maturity_5_input_instruction_optimizer.log...
+2026-06-18 19:46:34,937 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_GLBOPT1
+2026-06-18 19:46:34,938 - D810 - INFO - glbopt finished for function at 0x9648c6
+2026-06-18 19:46:34,966 - D810 - INFO - Starting decompilation of function at 0xc6516d
+2026-06-18 19:46:34,967 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_ZERO
+2026-06-18 19:46:34,968 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6516d_maturity_0_input_instruction_optimizer.log...
+2026-06-18 19:46:34,982 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GENERATED
+2026-06-18 19:46:34,983 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6516d_maturity_1_input_instruction_optimizer.log...
+2026-06-18 19:46:35,050 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_PREOPTIMIZED
+2026-06-18 19:46:35,052 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6516d_maturity_2_input_instruction_optimizer.log...
+2026-06-18 19:46:35,358 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_LOCOPT
+2026-06-18 19:46:35,360 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6516d_maturity_3_input_instruction_optimizer.log...
+2026-06-18 19:46:35,428 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_LOCOPT
+2026-06-18 19:46:35,692 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     (esi.4{14} ?p  #0.4 ) , bh.1: Z3 evaluation: Unknown opcode setp for setp(x_0, 0)
+2026-06-18 19:46:35,695 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     (esi.4{14} ?p  #0.4 ) , bh.1: Z3 evaluation: Unknown opcode setp for setp(x_0, 0)
+2026-06-18 19:46:35,829 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     (esi.4{14} ?p  #0.4 ) , bh.1: Z3 evaluation: Unknown opcode setp for setp(x_0, 0)
+2026-06-18 19:46:35,832 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     (esi.4{14} ?p  #0.4 ) , bh.1: Z3 evaluation: Unknown opcode setp for setp(x_0, 0)
+2026-06-18 19:46:36,409 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     (esi.4{14} ?p  #0.4 ) , bh.1: Z3 evaluation: Unknown opcode setp for setp(x_0, 0)
+2026-06-18 19:46:36,412 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     (esi.4{14} ?p  #0.4 ) , bh.1: Z3 evaluation: Unknown opcode setp for setp(x_0, 0)
+2026-06-18 19:46:36,469 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     (esi.4{14} ?p  #0.4 ) , bh.1: Z3 evaluation: Unknown opcode setp for setp(x_0, 0)
+2026-06-18 19:46:36,472 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     (esi.4{14} ?p  #0.4 ) , bh.1: Z3 evaluation: Unknown opcode setp for setp(x_0, 0)
+2026-06-18 19:46:36,593 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     (esi.4{14} ?p  #0.4 ) , bh.1: Z3 evaluation: Unknown opcode setp for setp(x_0, 0)
+2026-06-18 19:46:36,596 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     (esi.4{14} ?p  #0.4 ) , bh.1: Z3 evaluation: Unknown opcode setp for setp(x_0, 0)
+2026-06-18 19:46:36,650 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_CALLS
+2026-06-18 19:46:36,652 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6516d_maturity_4_input_instruction_optimizer.log...
+2026-06-18 19:46:36,727 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:46:36,727 - D810.optimizer - INFO -   orig:  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , esi.4{8}
+2026-06-18 19:46:36,727 - D810.optimizer - INFO -   new :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , esi.4{8}
+2026-06-18 19:46:36,727 - D810 - ERROR - Invalid original instruction :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , esi.4{8} (original was  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , esi.4{8})
+2026-06-18 19:46:36,732 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:46:36,733 - D810.optimizer - INFO -   orig:  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , esi.4{8}
+2026-06-18 19:46:36,733 - D810.optimizer - INFO -   new :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , esi.4{8}
+2026-06-18 19:46:36,735 - D810 - ERROR - Invalid original instruction :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , esi.4{8} (original was  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , esi.4{8})
+2026-06-18 19:46:36,746 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:46:36,746 - D810.optimizer - INFO -   orig:  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8}
+2026-06-18 19:46:36,747 - D810.optimizer - INFO -   new :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8}
+2026-06-18 19:46:36,747 - D810 - ERROR - Invalid original instruction :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8} (original was  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8})
+2026-06-18 19:46:36,755 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:46:36,756 - D810.optimizer - INFO -   orig:  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8}
+2026-06-18 19:46:36,757 - D810.optimizer - INFO -   new :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8}
+2026-06-18 19:46:36,757 - D810 - ERROR - Invalid original instruction :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8} (original was  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8})
+2026-06-18 19:46:36,779 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:46:36,779 - D810.optimizer - INFO -   orig:  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8}
+2026-06-18 19:46:36,780 - D810.optimizer - INFO -   new :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8}
+2026-06-18 19:46:36,780 - D810 - ERROR - Invalid original instruction :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8} (original was  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8})
+2026-06-18 19:46:36,788 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:46:36,788 - D810.optimizer - INFO -   orig:  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8}
+2026-06-18 19:46:36,789 - D810.optimizer - INFO -   new :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8}
+2026-06-18 19:46:36,791 - D810 - ERROR - Invalid original instruction :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8} (original was  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8})
+2026-06-18 19:46:36,909 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:46:36,910 - D810.optimizer - INFO -   orig:  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8}
+2026-06-18 19:46:36,910 - D810.optimizer - INFO -   new :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8}
+2026-06-18 19:46:36,911 - D810 - ERROR - Invalid original instruction :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8} (original was  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8})
+2026-06-18 19:46:36,915 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:46:36,916 - D810.optimizer - INFO -   orig:  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8}
+2026-06-18 19:46:36,916 - D810.optimizer - INFO -   new :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8}
+2026-06-18 19:46:36,916 - D810 - ERROR - Invalid original instruction :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8} (original was  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8})
+2026-06-18 19:46:36,948 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_CALLS
+2026-06-18 19:46:36,960 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:46:36,960 - D810.optimizer - INFO -   orig:  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8}
+2026-06-18 19:46:36,961 - D810.optimizer - INFO -   new :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8}
+2026-06-18 19:46:36,961 - D810 - ERROR - Invalid original instruction :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8} (original was  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8})
+2026-06-18 19:46:36,966 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:46:36,966 - D810.optimizer - INFO -   orig:  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8}
+2026-06-18 19:46:36,966 - D810.optimizer - INFO -   new :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8}
+2026-06-18 19:46:36,967 - D810 - ERROR - Invalid original instruction :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8} (original was  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8})
+2026-06-18 19:46:37,000 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GLBOPT1
+2026-06-18 19:46:37,002 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6516d_maturity_5_input_instruction_optimizer.log...
+2026-06-18 19:46:37,017 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:46:37,017 - D810.optimizer - INFO -   orig:  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8}
+2026-06-18 19:46:37,017 - D810.optimizer - INFO -   new :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8}
+2026-06-18 19:46:37,018 - D810 - ERROR - Invalid original instruction :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8} (original was  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8})
+2026-06-18 19:46:37,023 - D810.optimizer - INFO - Rule Bnot_HackersDelightRule_1 matched:
+2026-06-18 19:46:37,023 - D810.optimizer - INFO -   orig:  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8}
+2026-06-18 19:46:37,023 - D810.optimizer - INFO -   new :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8}
+2026-06-18 19:46:37,024 - D810 - ERROR - Invalid original instruction :  bnot     ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) , ebx.4{8} (original was  neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8})
+2026-06-18 19:46:37,057 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_GLBOPT1
+2026-06-18 19:46:37,057 - D810 - INFO - glbopt finished for function at 0xc6516d
+2026-06-18 19:46:37,058 - D810 - INFO - Instruction Rule 'Bnot_HackersDelightRule_1' has been used 12 times
+2026-06-18 19:46:37,072 - D810 - INFO - Starting decompilation of function at 0xdaa0be
+2026-06-18 19:46:37,073 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_ZERO
+2026-06-18 19:46:37,076 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\daa0be_maturity_0_input_instruction_optimizer.log...
+2026-06-18 19:46:37,083 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GENERATED
+2026-06-18 19:46:37,084 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\daa0be_maturity_1_input_instruction_optimizer.log...
+2026-06-18 19:46:37,116 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_PREOPTIMIZED
+2026-06-18 19:46:37,117 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\daa0be_maturity_2_input_instruction_optimizer.log...
+2026-06-18 19:46:37,245 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_LOCOPT
+2026-06-18 19:46:37,247 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\daa0be_maturity_3_input_instruction_optimizer.log...
+2026-06-18 19:46:37,275 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_LOCOPT
+2026-06-18 19:46:38,127 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_CALLS
+2026-06-18 19:46:38,129 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\daa0be_maturity_4_input_instruction_optimizer.log...
+2026-06-18 19:46:38,214 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_CALLS
+2026-06-18 19:46:38,235 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GLBOPT1
+2026-06-18 19:46:38,237 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\daa0be_maturity_5_input_instruction_optimizer.log...
+2026-06-18 19:46:38,257 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_GLBOPT1
+2026-06-18 19:46:38,258 - D810 - INFO - glbopt finished for function at 0xdaa0be
+2026-06-18 21:39:40,869 - D810 - INFO - Starting decompilation of function at 0xc6cfd7
+2026-06-18 21:39:40,870 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_ZERO
+2026-06-18 21:39:40,871 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_0_input_instruction_optimizer.log...
+2026-06-18 21:39:40,970 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GENERATED
+2026-06-18 21:39:40,972 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_1_input_instruction_optimizer.log...
+2026-06-18 21:39:41,463 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_PREOPTIMIZED
+2026-06-18 21:39:41,465 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_2_input_instruction_optimizer.log...
+2026-06-18 21:39:43,241 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_LOCOPT
+2026-06-18 21:39:43,243 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_3_input_instruction_optimizer.log...
+2026-06-18 21:39:43,842 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( ( SF(&(%0xC).4)  ^ of.1)  | zf.1) , .1: Z3 evaluation: Unknown opcode sets for sets(x_0, x_1)
+2026-06-18 21:39:43,856 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( ( SF(&(%0xC).4)  ^ of.1)  |  (&(%0xC).4 ==  #0.4 ) ) , .1: Z3 evaluation: Unknown opcode sets for sets(x_0, x_1)
+2026-06-18 21:39:43,903 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( ( SF(&(%0xC).4)  ^  OF( #0xC.4 +&(%0x0).4) )  |  (&(%0xC).4 ==  #0.4 ) ) , .1: Z3 evaluation: Unknown opcode sets for sets(x_0, x_1)
+2026-06-18 21:39:44,013 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( ( SF(&(%0xC).4)  ^  OF( #0xC.4 +&(%0x0).4) )  |  (&(%0xC).4 ==  #0.4 ) ) , .1: Z3 evaluation: Unknown opcode sets for sets(x_0, x_1)
+2026-06-18 21:39:44,059 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_LOCOPT
+2026-06-18 21:39:44,979 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( (bl.1 <u  #9.1 )  | zf.1) , .1: Z3 evaluation: Unknown opcode setb for (x_0 < 9)
+2026-06-18 21:39:45,474 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( (ecx.4 <u  #0xFFFF.4 )  | zf.1) , .1: Z3 evaluation: Unknown opcode setb for (x_0 < 65535)
+2026-06-18 21:39:51,326 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( ( SF(&(%0xC{141}).4)  ^  OF( #0xC.4 +&(%0x0{140}).4) )  |  (&(%0xC{141}).4 ==  #0.4 ) ) , .1: Z3 evaluation: Unknown opcode sets for sets(x_0, x_1)
+2026-06-18 21:39:52,358 - D810.optimizer - ERROR - D810Exception during rule <d810.optimizers.instructions.z3.predicates.Z3lnotRuleGeneric object at 0x00000218D83CD650> for instruction  lnot     ( ( SF(&(%0xC{141}).4)  ^  OF( #0xC.4 +&(%0x0{140}).4) )  |  (&(%0xC{141}).4 ==  #0.4 ) ) , .1: Z3 evaluation: Unknown opcode sets for sets(x_0, x_1)
+2026-06-18 21:39:52,911 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_CALLS
+2026-06-18 21:39:52,913 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_4_input_instruction_optimizer.log...
+2026-06-18 21:39:53,425 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_CALLS
+2026-06-18 21:39:54,332 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GLBOPT1
+2026-06-18 21:39:54,334 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_5_input_instruction_optimizer.log...
+2026-06-18 21:39:54,695 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_GLBOPT1
+2026-06-18 21:39:55,008 - D810 - DEBUG - Instruction optimization function called at maturity: MMAT_GLBOPT2
+2026-06-18 21:39:55,010 - D810.helper - INFO - Dumping microcode in file D:\IDA\plugins\d810_logs\c6cfd7_maturity_6_input_instruction_optimizer.log...
+2026-06-18 21:39:55,036 - D810 - DEBUG - BlockOptimizer called at maturity: MMAT_GLBOPT2
+2026-06-18 21:39:55,106 - D810 - INFO - glbopt finished for function at 0xc6cfd7
+2026-06-18 22:41:00,067 - D810 - DEBUG - Removing InstructionOptimizer...
+2026-06-18 22:41:00,067 - D810 - DEBUG - Removing ControlFlowFixer...
+2026-06-18 22:41:00,068 - D810 - DEBUG - Removing HexraysDecompilationHook...

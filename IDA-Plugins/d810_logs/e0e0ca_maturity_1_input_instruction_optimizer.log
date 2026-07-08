@@ -1,0 +1,749 @@
+; STKD=0 MINREF=0/END=168 ARGS: OFF=16C/MINREF=16C/END=26C/SHADOW=0
+; SAVEDREGS: ebx.4,esi.4
+; ????-BLOCK 0 PROP FAKE [START=E0E0CA END=E0E0CA] MINREFS: STK=0/ARG=16C, MAXBSP: 0
+
+; ????-BLOCK 1 PROP PUSH [START=E0E0CA END=E0E21A] MINREFS: STK=0/ARG=16C, MAXBSP: 168
+; USE-DEF LISTS ARE NOT READY
+ ofadd    #1.1 , bl.1, of.1        ; E0E0CC u=bl.1       d=of.1
+ add     bl.1,  #1.1 , bl.1        ; E0E0CC u=bl.1       d=bl.1
+ setz    bl.1,  #0.1 , zf.1        ; E0E0CC u=bl.1       d=zf.1
+ setp    bl.1,  #0.1 , pf.1        ; E0E0CC u=bl.1       d=pf.1
+ sets    bl.1, sf.1              ; E0E0CC u=bl.1       d=sf.1
+ mov      #0x8B.1 , t1.1           ; E0E0CE u=           d=t1.1
+ cfshr   bl.1, t1.1, cf.1        ; E0E0CE u=bl.1,t1.1  d=cf.1
+ shr     bl.1, t1.1, bl.1        ; E0E0CE u=bl.1,t1.1  d=bl.1
+ und     of.1                    ; E0E0CE u=           d=of.1
+ setz    bl.1,  #0.1 , zf.1        ; E0E0CE u=bl.1       d=zf.1
+ setp    bl.1,  #0.1 , pf.1        ; E0E0CE u=bl.1       d=pf.1
+ sets    bl.1, sf.1              ; E0E0CE u=bl.1       d=sf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E0D1 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E0D1 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E0D1 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E0D1 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E0D1 u=ecx.4      d=sf.1
+ nop                             ; E0E0D3 u=
+ push    esi.4                   ; E0E0D3 u=esp.4,esi.4 d=esp.4,sp+1F.4
+ nop                             ; E0E0D4 u=
+ push    edx.4                   ; E0E0D4 u=edx.4,esp.4 d=esp.4,sp+1B.4
+ lnot     call !_BitScanReverse<fast:"unsigned int *" &(edx.4)<0/4>.4,"unsigned int" ebx.4> => "unsigned __int8" .1 , zf.1 ; E0E0D5 u=ebx.4      d=zf.1,edx.4
+ und     cf.1                    ; E0E0D5 u=           d=cf.1
+ und     sf.1                    ; E0E0D5 u=           d=sf.1
+ und     of.1                    ; E0E0D5 u=           d=of.1
+ und     pf.1                    ; E0E0D5 u=           d=pf.1
+ cfshl   ebx.4, cl.1, tt.1       ; E0E0D8 u=cl.1,ebx.4 d=tt.1
+ mov      call !__ROL4__<fast:_DWORD ebx.4,char cl.1> => _DWORD .4 , ebx.4 ; E0E0D8 u=cl.1,ebx.4 d=ebx.4
+ mov     tt.1, cf.1              ; E0E0D8 u=tt.1       d=cf.1
+ und     of.1                    ; E0E0D8 u=           d=of.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E0DA u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E0DA u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E0DA u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E0DA u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E0DA u=ecx.4      d=sf.1
+ nop                             ; E0E0DB u=
+ push    ebp.4                   ; E0E0DB u=esp.4,ebp.4 d=esp.4,sp+17.4
+ ofadd    #1.4 , ecx.4, of.1       ; E0E0DC u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E0DC u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E0DC u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E0DC u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E0DC u=ecx.4      d=sf.1
+ mov      #0x3A.1 , t1.1           ; E0E0DD u=           d=t1.1
+ ext     ch.1, t1.1, ch.1        ; E0E0DD u=ch.1,t1.1  d=ch.1
+ mov     ax.2, t0.2              ; E0E0E0 u=ax.2       d=t0.2
+ mov     dx.2, ax.2              ; E0E0E0 u=dx.2       d=ax.2
+ mov     t0.2, dx.2              ; E0E0E0 u=t0.2       d=dx.2
+ mov      #0xF3.1 , t1.1           ; E0E0E2 u=           d=t1.1
+ mov     t1.1, dh.1              ; E0E0E2 u=t1.1       d=dh.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E0E5 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E0E5 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E0E5 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E0E5 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E0E5 u=ecx.4      d=sf.1
+ nop                             ; E0E0E6 u=
+ push    esp.4                   ; E0E0E6 u=esp.4      d=esp.4,sp+13.4
+ mov      #0x55350FD7.4 , et1.4    ; E0E0E7 u=           d=et1.4
+ xdu     cf.1, ett.4             ; E0E0E7 u=cf.1       d=ett.4
+ add     ett.4, et1.4, ett.4     ; E0E0E7 u=et1.4,ett.4 d=ett.4
+ setb    edx.4, ett.4, cf.1      ; E0E0E7 u=edx.4,ett.4 d=cf.1
+ seto    edx.4, ett.4, of.1      ; E0E0E7 u=edx.4,ett.4 d=of.1
+ sub     edx.4, ett.4, edx.4     ; E0E0E7 u=edx.4,ett.4 d=edx.4
+ setz    edx.4,  #0.4 , zf.1       ; E0E0E7 u=edx.4      d=zf.1
+ setp    edx.4,  #0.4 , pf.1       ; E0E0E7 u=edx.4      d=pf.1
+ sets    edx.4, sf.1             ; E0E0E7 u=edx.4      d=sf.1
+ ofadd    #1.2 , bp.2, of.1        ; E0E0ED u=bp.2       d=of.1
+ add     bp.2,  #1.2 , bp.2        ; E0E0ED u=bp.2       d=bp.2
+ setz    bp.2,  #0.2 , zf.1        ; E0E0ED u=bp.2       d=zf.1
+ setp    bp.2,  #0.2 , pf.1        ; E0E0ED u=bp.2       d=pf.1
+ sets    bp.2, sf.1              ; E0E0ED u=bp.2       d=sf.1
+ cfadd   ebp.4, esi.4, cf.1      ; E0E0EF u=ebp.4,esi.4 d=cf.1
+ ofadd   ebp.4, esi.4, of.1      ; E0E0EF u=ebp.4,esi.4 d=of.1
+ add     ebp.4, esi.4, ett.4     ; E0E0EF u=ebp.4,esi.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; E0E0EF u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; E0E0EF u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; E0E0EF u=ett.4      d=sf.1
+ mov     ett.4, esi.4            ; E0E0EF u=ett.4      d=esi.4
+ ofadd    #1.4 , ecx.4, of.1       ; E0E0F1 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E0F1 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E0F1 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E0F1 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E0F1 u=ecx.4      d=sf.1
+ nop                             ; E0E0F2 u=
+ push    edx.4                   ; E0E0F2 u=edx.4,esp.4 d=esp.4,sp+F.4
+ ofadd    #1.4 , ecx.4, of.1       ; E0E0F3 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E0F3 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E0F3 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E0F3 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E0F3 u=ecx.4      d=sf.1
+ mov      #0x61.1 , t1.1           ; E0E0F4 u=           d=t1.1
+ mov     cf.1, tt.1              ; E0E0F4 u=cf.1       d=tt.1
+ cfadd   tt.1, ch.1, cf.1        ; E0E0F4 u=ch.1,tt.1  d=cf.1
+ ofadd   tt.1, ch.1, of.1        ; E0E0F4 u=ch.1,tt.1  d=of.1
+ add     tt.1, ch.1, ch.1        ; E0E0F4 u=ch.1,tt.1  d=ch.1
+ cfadd   t1.1, ch.1, t2.1        ; E0E0F4 u=ch.1,t1.1  d=t2.1
+ ofadd   t1.1, ch.1, t2^1.1      ; E0E0F4 u=ch.1,t1.1  d=t2^1.1
+ or      cf.1, t2.1, cf.1        ; E0E0F4 u=cf.1,t2.1  d=cf.1
+ or      of.1, t2^1.1, of.1      ; E0E0F4 u=of.1,t2^1.1 d=of.1
+ add     t1.1, ch.1, ch.1        ; E0E0F4 u=ch.1,t1.1  d=ch.1
+ setz    ch.1,  #0.1 , zf.1        ; E0E0F4 u=ch.1       d=zf.1
+ setp    ch.1,  #0.1 , pf.1        ; E0E0F4 u=ch.1       d=pf.1
+ sets    ch.1, sf.1              ; E0E0F4 u=ch.1       d=sf.1
+ seto    eax.4,  #1.4 , of.1       ; E0E0F7 u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; E0E0F7 u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E0F7 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E0F7 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E0F7 u=eax.4      d=sf.1
+ mov      #0x697925A2.4 , et1.4    ; E0E0F8 u=           d=et1.4
+ cfadd   et1.4, eax.4, cf.1      ; E0E0F8 u=eax.4,et1.4 d=cf.1
+ ofadd   et1.4, eax.4, of.1      ; E0E0F8 u=eax.4,et1.4 d=of.1
+ add     et1.4, eax.4, ett.4     ; E0E0F8 u=eax.4,et1.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; E0E0F8 u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; E0E0F8 u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; E0E0F8 u=ett.4      d=sf.1
+ mov     ett.4, eax.4            ; E0E0F8 u=ett.4      d=eax.4
+ mov      #0x4C.1 , t1.1           ; E0E0FE u=           d=t1.1
+ setb    dh.1, t1.1, cf.1        ; E0E0FE u=dh.1,t1.1  d=cf.1
+ seto    dh.1, t1.1, of.1        ; E0E0FE u=dh.1,t1.1  d=of.1
+ sub     dh.1, t1.1, dh.1        ; E0E0FE u=dh.1,t1.1  d=dh.1
+ setz    dh.1,  #0.1 , zf.1        ; E0E0FE u=dh.1       d=zf.1
+ setp    dh.1,  #0.1 , pf.1        ; E0E0FE u=dh.1       d=pf.1
+ sets    dh.1, sf.1              ; E0E0FE u=dh.1       d=sf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E101 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E101 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E101 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E101 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E101 u=ecx.4      d=sf.1
+ nop                             ; E0E102 u=
+ push    ebx.4                   ; E0E102 u=ebx.4,esp.4 d=esp.4,sp+B.4
+ mov      #0xEE.1 , t1.1           ; E0E103 u=           d=t1.1
+ mov     cf.1, tt.1              ; E0E103 u=cf.1       d=tt.1
+ add     tt.1, t1.1, tt.1        ; E0E103 u=t1.1,tt.1  d=tt.1
+ setb    bl.1, tt.1, cf.1        ; E0E103 u=bl.1,tt.1  d=cf.1
+ seto    bl.1, tt.1, of.1        ; E0E103 u=bl.1,tt.1  d=of.1
+ sub     bl.1, tt.1, bl.1        ; E0E103 u=bl.1,tt.1  d=bl.1
+ setz    bl.1,  #0.1 , zf.1        ; E0E103 u=bl.1       d=zf.1
+ setp    bl.1,  #0.1 , pf.1        ; E0E103 u=bl.1       d=pf.1
+ sets    bl.1, sf.1              ; E0E103 u=bl.1       d=sf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E106 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E106 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E106 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E106 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E106 u=ecx.4      d=sf.1
+ nop                             ; E0E107 u=
+ push    eax.4                   ; E0E107 u=eax.4,esp.4 d=esp.4,sp+7.4
+ mov      #0.4 , et1.4             ; E0E108 u=           d=et1.4
+ mov     et1.4, edx.4            ; E0E108 u=et1.4      d=edx.4
+ seto    eax.4,  #1.4 , of.1       ; E0E10D u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; E0E10D u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E10D u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E10D u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E10D u=eax.4      d=sf.1
+ ext     dx.2, dx.2              ; E0E10E u=dx.2       d=dx.2
+ ofadd    #1.2 , cx.2, of.1        ; E0E110 u=cx.2       d=of.1
+ add     cx.2,  #1.2 , cx.2        ; E0E110 u=cx.2       d=cx.2
+ setz    cx.2,  #0.2 , zf.1        ; E0E110 u=cx.2       d=zf.1
+ setp    cx.2,  #0.2 , pf.1        ; E0E110 u=cx.2       d=pf.1
+ sets    cx.2, sf.1              ; E0E110 u=cx.2       d=sf.1
+ mov      #0x41525D85.4 , et1.4    ; E0E112 u=           d=et1.4
+ cfadd   et1.4, esi.4, cf.1      ; E0E112 u=esi.4,et1.4 d=cf.1
+ ofadd   et1.4, esi.4, of.1      ; E0E112 u=esi.4,et1.4 d=of.1
+ add     et1.4, esi.4, ett.4     ; E0E112 u=esi.4,et1.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; E0E112 u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; E0E112 u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; E0E112 u=ett.4      d=sf.1
+ mov     ett.4, esi.4            ; E0E112 u=ett.4      d=esi.4
+ mov      #0xB4.1 , t1.1           ; E0E118 u=           d=t1.1
+ cfshl   dl.1, t1.1, cf.1        ; E0E118 u=dl.1,t1.1  d=cf.1
+ shl     dl.1, t1.1, dl.1        ; E0E118 u=dl.1,t1.1  d=dl.1
+ und     of.1                    ; E0E118 u=           d=of.1
+ setz    dl.1,  #0.1 , zf.1        ; E0E118 u=dl.1       d=zf.1
+ setp    dl.1,  #0.1 , pf.1        ; E0E118 u=dl.1       d=pf.1
+ sets    dl.1, sf.1              ; E0E118 u=dl.1       d=sf.1
+ seto    ecx.4,  #1.4 , of.1       ; E0E11B u=ecx.4      d=of.1
+ sub     ecx.4,  #1.4 , ecx.4      ; E0E11B u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E11B u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E11B u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E11B u=ecx.4      d=sf.1
+ mov     edx.4, et0.4            ; E0E11C u=edx.4      d=et0.4
+ setb    et0.4, ebp.4, cf.1      ; E0E11C u=ebp.4,et0.4 d=cf.1
+ seto    et0.4, ebp.4, of.1      ; E0E11C u=ebp.4,et0.4 d=of.1
+ sub     et0.4, ebp.4, et0.4     ; E0E11C u=ebp.4,et0.4 d=et0.4
+ setz    et0.4,  #0.4 , zf.1       ; E0E11C u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; E0E11C u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; E0E11C u=et0.4      d=sf.1
+ seto    esp.4,  #1.4 , of.1       ; E0E11E u=esp.4      d=of.1
+ sub     esp.4,  #1.4 , esp.4      ; E0E11E u=esp.4      d=esp.4
+ setz    esp.4,  #0.4 , zf.1       ; E0E11E u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E11E u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E11E u=esp.4      d=sf.1
+ ext     bp.2, ax.2              ; E0E11F u=bp.2       d=ax.2
+ seto    esp.4,  #1.4 , of.1       ; E0E121 u=esp.4      d=of.1
+ sub     esp.4,  #1.4 , esp.4      ; E0E121 u=esp.4      d=esp.4
+ setz    esp.4,  #0.4 , zf.1       ; E0E121 u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E121 u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E121 u=esp.4      d=sf.1
+ mov     esp.4, eoff.4           ; E0E122 u=esp.4      d=eoff.4
+ mov     ss.2, seg.2             ; E0E122 u=ss.2       d=seg.2
+ add     eoff.4,  #0x90.4 , eoff.4 ; E0E122 u=eoff.4     d=eoff.4
+ ldx     seg.2, eoff.4, et1.4    ; E0E122 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, esp.4            ; E0E122 u=et1.4      d=esp.4
+ seto    ecx.4,  #1.4 , of.1       ; E0E129 u=ecx.4      d=of.1
+ sub     ecx.4,  #1.4 , ecx.4      ; E0E129 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E129 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E129 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E129 u=ecx.4      d=sf.1
+ mov      call !_bittestandcomplement<fast:"int *" &(edx.4)<4/4>.4,"unsigned int" ebx.4> => "unsigned __int8" .1 , cf.1 ; E0E12A u=edx.4,ebx.4,(ALLMEM) d=cf.1,edx.4,(ALLMEM)
+ und     zf.1                    ; E0E12A u=           d=zf.1
+ und     sf.1                    ; E0E12A u=           d=sf.1
+ und     of.1                    ; E0E12A u=           d=of.1
+ und     pf.1                    ; E0E12A u=           d=pf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E12D u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E12D u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E12D u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E12D u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E12D u=ecx.4      d=sf.1
+ lnot     call !_BitScanReverse<fast:"unsigned int *" &(ebx.4)<0/4>.4,"unsigned int" ebx.4> => "unsigned __int8" .1 , zf.1 ; E0E12E u=ebx.4      d=zf.1,ebx.4
+ und     cf.1                    ; E0E12E u=           d=cf.1
+ und     sf.1                    ; E0E12E u=           d=sf.1
+ und     of.1                    ; E0E12E u=           d=of.1
+ und     pf.1                    ; E0E12E u=           d=pf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E131 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E131 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E131 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E131 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E131 u=ecx.4      d=sf.1
+ neg     esp.4, esp.4            ; E0E132 u=esp.4      d=esp.4
+ seto    esp.4,  #1.4 , of.1       ; E0E132 u=esp.4      d=of.1
+ setnz   esp.4,  #0.4 , cf.1       ; E0E132 u=esp.4      d=cf.1
+ setz    esp.4,  #0.4 , zf.1       ; E0E132 u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E132 u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E132 u=esp.4      d=sf.1
+ mov     fl.1, ah.1              ; E0E134 u=fl.1       d=ah.1
+ ofadd    #1.2 , bp.2, of.1        ; E0E135 u=bp.2       d=of.1
+ add     bp.2,  #1.2 , bp.2        ; E0E135 u=bp.2       d=bp.2
+ setz    bp.2,  #0.2 , zf.1        ; E0E135 u=bp.2       d=zf.1
+ setp    bp.2,  #0.2 , pf.1        ; E0E135 u=bp.2       d=pf.1
+ sets    bp.2, sf.1              ; E0E135 u=bp.2       d=sf.1
+ xds     bl.1, ebp.4             ; E0E137 u=bl.1       d=ebp.4
+ seto    eax.4,  #1.4 , of.1       ; E0E13A u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; E0E13A u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E13A u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E13A u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E13A u=eax.4      d=sf.1
+ xdu     sp.2, ebx.4             ; E0E13B u=sp.2       d=ebx.4
+ ofadd    #1.4 , ecx.4, of.1       ; E0E13E u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E13E u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E13E u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E13E u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E13E u=ecx.4      d=sf.1
+ seto    esp.4,  #1.4 , of.1       ; E0E13F u=esp.4      d=of.1
+ sub     esp.4,  #1.4 , esp.4      ; E0E13F u=esp.4      d=esp.4
+ setz    esp.4,  #0.4 , zf.1       ; E0E13F u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E13F u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E13F u=esp.4      d=sf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E141 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E141 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E141 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E141 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E141 u=ecx.4      d=sf.1
+ mov      call !_byteswap_ulong<fast:"unsigned int" esp.4> => "unsigned __int32" .4 , esp.4 ; E0E142 u=esp.4      d=esp.4
+ ext     ah.1, cl.1, ah.1        ; E0E144 u=ah.1,cl.1  d=ah.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E146 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E146 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E146 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E146 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E146 u=ecx.4      d=sf.1
+ neg     esp.4, esp.4            ; E0E147 u=esp.4      d=esp.4
+ seto    esp.4,  #1.4 , of.1       ; E0E147 u=esp.4      d=of.1
+ setnz   esp.4,  #0.4 , cf.1       ; E0E147 u=esp.4      d=cf.1
+ setz    esp.4,  #0.4 , zf.1       ; E0E147 u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E147 u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E147 u=esp.4      d=sf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E149 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E149 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E149 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E149 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E149 u=ecx.4      d=sf.1
+ xdu     cf.1, ett.4             ; E0E14A u=cf.1       d=ett.4
+ cfadd   ett.4, eax.4, cf.1      ; E0E14A u=eax.4,ett.4 d=cf.1
+ ofadd   ett.4, eax.4, of.1      ; E0E14A u=eax.4,ett.4 d=of.1
+ add     ett.4, eax.4, eax.4     ; E0E14A u=eax.4,ett.4 d=eax.4
+ cfadd   edi.4, eax.4, t2.1      ; E0E14A u=eax.4,edi.4 d=t2.1
+ ofadd   edi.4, eax.4, t2^1.1    ; E0E14A u=eax.4,edi.4 d=t2^1.1
+ or      cf.1, t2.1, cf.1        ; E0E14A u=cf.1,t2.1  d=cf.1
+ or      of.1, t2^1.1, of.1      ; E0E14A u=of.1,t2^1.1 d=of.1
+ add     edi.4, eax.4, eax.4     ; E0E14A u=eax.4,edi.4 d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E14A u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E14A u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E14A u=eax.4      d=sf.1
+ seto    esp.4,  #1.4 , of.1       ; E0E14C u=esp.4      d=of.1
+ sub     esp.4,  #1.4 , esp.4      ; E0E14C u=esp.4      d=esp.4
+ setz    esp.4,  #0.4 , zf.1       ; E0E14C u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E14C u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E14C u=esp.4      d=sf.1
+ cfadd   edx.4, esp.4, cf.1      ; E0E14D u=edx.4,esp.4 d=cf.1
+ ofadd   edx.4, esp.4, of.1      ; E0E14D u=edx.4,esp.4 d=of.1
+ add     edx.4, esp.4, ett.4     ; E0E14D u=edx.4,esp.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; E0E14D u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; E0E14D u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; E0E14D u=ett.4      d=sf.1
+ mov     ett.4, esp.4            ; E0E14D u=ett.4      d=esp.4
+ mov      call !_byteswap_ushort<fast:"unsigned __int16" bx.2> => "unsigned __int16" .2 , bx.2 ; E0E14F u=bx.2       d=bx.2
+ ofadd    #1.4 , esp.4, of.1       ; E0E152 u=esp.4      d=of.1
+ add     esp.4,  #1.4 , esp.4      ; E0E152 u=esp.4      d=esp.4
+ setz    esp.4,  #0.4 , zf.1       ; E0E152 u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E152 u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E152 u=esp.4      d=sf.1
+ xor     ebx.4, ebp.4, ebp.4     ; E0E153 u=ebx.4,ebp.4 d=ebp.4
+ mov      #0.1 , cf.1              ; E0E153 u=           d=cf.1
+ mov      #0.1 , of.1              ; E0E153 u=           d=of.1
+ setz    ebp.4,  #0.4 , zf.1       ; E0E153 u=ebp.4      d=zf.1
+ setp    ebp.4,  #0.4 , pf.1       ; E0E153 u=ebp.4      d=pf.1
+ sets    ebp.4, sf.1             ; E0E153 u=ebp.4      d=sf.1
+ seto    esp.4,  #1.4 , of.1       ; E0E155 u=esp.4      d=of.1
+ sub     esp.4,  #1.4 , esp.4      ; E0E155 u=esp.4      d=esp.4
+ setz    esp.4,  #0.4 , zf.1       ; E0E155 u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E155 u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E155 u=esp.4      d=sf.1
+ mov     esp.4, edx.4            ; E0E156 u=esp.4      d=edx.4
+ neg     ax.2, ax.2              ; E0E158 u=ax.2       d=ax.2
+ seto    ax.2,  #1.2 , of.1        ; E0E158 u=ax.2       d=of.1
+ setnz   ax.2,  #0.2 , cf.1        ; E0E158 u=ax.2       d=cf.1
+ setz    ax.2,  #0.2 , zf.1        ; E0E158 u=ax.2       d=zf.1
+ setp    ax.2,  #0.2 , pf.1        ; E0E158 u=ax.2       d=pf.1
+ sets    ax.2, sf.1              ; E0E158 u=ax.2       d=sf.1
+ ofadd    #1.4 , eax.4, of.1       ; E0E15B u=eax.4      d=of.1
+ add     eax.4,  #1.4 , eax.4      ; E0E15B u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E15B u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E15B u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E15B u=eax.4      d=sf.1
+ mov      #0xA8.1 , t1.1           ; E0E15C u=           d=t1.1
+ mov     dh.1, t0.1              ; E0E15C u=dh.1       d=t0.1
+ setb    t0.1, t1.1, cf.1        ; E0E15C u=t0.1,t1.1  d=cf.1
+ seto    t0.1, t1.1, of.1        ; E0E15C u=t0.1,t1.1  d=of.1
+ sub     t0.1, t1.1, t0.1        ; E0E15C u=t0.1,t1.1  d=t0.1
+ setz    t0.1,  #0.1 , zf.1        ; E0E15C u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; E0E15C u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; E0E15C u=t0.1       d=sf.1
+ mov      #0x3A50.2 , t1.2         ; E0E15F u=           d=t1.2
+ mov     t1.2, ax.2              ; E0E15F u=t1.2       d=ax.2
+ seto    eax.4,  #1.4 , of.1       ; E0E163 u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; E0E163 u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E163 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E163 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E163 u=eax.4      d=sf.1
+ mov      #0x140.4 , et1.4         ; E0E164 u=           d=et1.4
+ setb    esp.4, et1.4, cf.1      ; E0E164 u=esp.4,et1.4 d=cf.1
+ seto    esp.4, et1.4, of.1      ; E0E164 u=esp.4,et1.4 d=of.1
+ sub     esp.4, et1.4, esp.4     ; E0E164 u=esp.4,et1.4 d=esp.4
+ setz    esp.4,  #0.4 , zf.1       ; E0E164 u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E164 u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E164 u=esp.4      d=sf.1
+ lnot    cf.1, cf.1              ; E0E16A u=cf.1       d=cf.1
+ seto    ebp.4,  #1.4 , of.1       ; E0E16B u=ebp.4      d=of.1
+ sub     ebp.4,  #1.4 , ebp.4      ; E0E16B u=ebp.4      d=ebp.4
+ setz    ebp.4,  #0.4 , zf.1       ; E0E16B u=ebp.4      d=zf.1
+ setp    ebp.4,  #0.4 , pf.1       ; E0E16B u=ebp.4      d=pf.1
+ sets    ebp.4, sf.1             ; E0E16B u=ebp.4      d=sf.1
+ xdu     sp.2, ebp.4             ; E0E16C u=sp.2       d=ebp.4
+ mov      #0x46.1 , t1.1           ; E0E16F u=           d=t1.1
+ mov      call !_bittestandcomplement16<fast:"__int16 *" &(ax.2)<2/2>.4,"unsigned __int8" t1.1> => "unsigned __int8" .1 , cf.1 ; E0E16F u=ax.2,t1.1,(ALLMEM) d=cf.1,ax.2,(ALLMEM)
+ und     zf.1                    ; E0E16F u=           d=zf.1
+ und     sf.1                    ; E0E16F u=           d=sf.1
+ und     of.1                    ; E0E16F u=           d=of.1
+ und     pf.1                    ; E0E16F u=           d=pf.1
+ seto    eax.4,  #1.4 , of.1       ; E0E174 u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; E0E174 u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E174 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E174 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E174 u=eax.4      d=sf.1
+ mov      #0xFFFFFFF0.4 , et1.4    ; E0E175 u=           d=et1.4
+ and     et1.4, esp.4, esp.4     ; E0E175 u=esp.4,et1.4 d=esp.4
+ mov      #0.1 , cf.1              ; E0E175 u=           d=cf.1
+ mov      #0.1 , of.1              ; E0E175 u=           d=of.1
+ setz    esp.4,  #0.4 , zf.1       ; E0E175 u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E175 u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E175 u=esp.4      d=sf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E17B u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E17B u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E17B u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E17B u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E17B u=ecx.4      d=sf.1
+ seto    ch.1,  #1.1 , of.1        ; E0E17C u=ch.1       d=of.1
+ sub     ch.1,  #1.1 , ch.1        ; E0E17C u=ch.1       d=ch.1
+ setz    ch.1,  #0.1 , zf.1        ; E0E17C u=ch.1       d=zf.1
+ setp    ch.1,  #0.1 , pf.1        ; E0E17C u=ch.1       d=pf.1
+ sets    ch.1, sf.1              ; E0E17C u=ch.1       d=sf.1
+ seto    ebp.4,  #1.4 , of.1       ; E0E17E u=ebp.4      d=of.1
+ sub     ebp.4,  #1.4 , ebp.4      ; E0E17E u=ebp.4      d=ebp.4
+ setz    ebp.4,  #0.4 , zf.1       ; E0E17E u=ebp.4      d=zf.1
+ setp    ebp.4,  #0.4 , pf.1       ; E0E17E u=ebp.4      d=pf.1
+ sets    ebp.4, sf.1             ; E0E17E u=ebp.4      d=sf.1
+ mov     esp.4, ebp.4            ; E0E17F u=esp.4      d=ebp.4
+ mov      #0x8E.1 , t1.1           ; E0E181 u=           d=t1.1
+ cfshr   bh.1, t1.1, cf.1        ; E0E181 u=bh.1,t1.1  d=cf.1
+ shr     bh.1, t1.1, bh.1        ; E0E181 u=bh.1,t1.1  d=bh.1
+ und     of.1                    ; E0E181 u=           d=of.1
+ setz    bh.1,  #0.1 , zf.1        ; E0E181 u=bh.1       d=zf.1
+ setp    bh.1,  #0.1 , pf.1        ; E0E181 u=bh.1       d=pf.1
+ sets    bh.1, sf.1              ; E0E181 u=bh.1       d=sf.1
+ seto    eax.4,  #1.4 , of.1       ; E0E184 u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; E0E184 u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E184 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E184 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E184 u=eax.4      d=sf.1
+ cfshr   eax.4, cl.1, cf.1       ; E0E185 u=eax.4,cl.1 d=cf.1
+ shr     eax.4, cl.1, eax.4      ; E0E185 u=eax.4,cl.1 d=eax.4
+ und     of.1                    ; E0E185 u=           d=of.1
+ setz    eax.4,  #0.4 , zf.1       ; E0E185 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E185 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E185 u=eax.4      d=sf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E187 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E187 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E187 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E187 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E187 u=ecx.4      d=sf.1
+ mov      #0x68.1 , t1.1           ; E0E188 u=           d=t1.1
+ cfshl   dh.1, t1.1, cf.1        ; E0E188 u=dh.1,t1.1  d=cf.1
+ shl     dh.1, t1.1, dh.1        ; E0E188 u=dh.1,t1.1  d=dh.1
+ und     of.1                    ; E0E188 u=           d=of.1
+ setz    dh.1,  #0.1 , zf.1        ; E0E188 u=dh.1       d=zf.1
+ setp    dh.1,  #0.1 , pf.1        ; E0E188 u=dh.1       d=pf.1
+ sets    dh.1, sf.1              ; E0E188 u=dh.1       d=sf.1
+ mov      #0.4 , et1.4             ; E0E18B u=           d=et1.4
+ mov     et1.4, eax.4            ; E0E18B u=et1.4      d=eax.4
+ ofadd    #1.4 , ecx.4, of.1       ; E0E190 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E190 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E190 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E190 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E190 u=ecx.4      d=sf.1
+ mov      #0xCD.1 , t1.1           ; E0E191 u=           d=t1.1
+ ext     dh.1, t1.1, dh.1        ; E0E191 u=dh.1,t1.1  d=dh.1
+ cfshr   bx.2, cl.1, cf.1        ; E0E194 u=cl.1,bx.2  d=cf.1
+ sar     bx.2, cl.1, bx.2        ; E0E194 u=cl.1,bx.2  d=bx.2
+ und     of.1                    ; E0E194 u=           d=of.1
+ setz    bx.2,  #0.2 , zf.1        ; E0E194 u=bx.2       d=zf.1
+ setp    bx.2,  #0.2 , pf.1        ; E0E194 u=bx.2       d=pf.1
+ sets    bx.2, sf.1              ; E0E194 u=bx.2       d=sf.1
+ ext     bh.1, cl.1, bh.1        ; E0E197 u=cl.1,bh.1  d=bh.1
+ seto    eax.4,  #1.4 , of.1       ; E0E199 u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; E0E199 u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E199 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E199 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E199 u=eax.4      d=sf.1
+ ext     ax.2, ax.2              ; E0E19A u=ax.2       d=ax.2
+ seto    esp.4,  #1.4 , of.1       ; E0E19C u=esp.4      d=of.1
+ sub     esp.4,  #1.4 , esp.4      ; E0E19C u=esp.4      d=esp.4
+ setz    esp.4,  #0.4 , zf.1       ; E0E19C u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E19C u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E19C u=esp.4      d=sf.1
+ or      ebp.4, esi.4, esi.4     ; E0E19D u=ebp.4,esi.4 d=esi.4
+ mov      #0.1 , cf.1              ; E0E19D u=           d=cf.1
+ mov      #0.1 , of.1              ; E0E19D u=           d=of.1
+ setz    esi.4,  #0.4 , zf.1       ; E0E19D u=esi.4      d=zf.1
+ setp    esi.4,  #0.4 , pf.1       ; E0E19D u=esi.4      d=pf.1
+ sets    esi.4, sf.1             ; E0E19D u=esi.4      d=sf.1
+ seto    eax.4,  #1.4 , of.1       ; E0E19F u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; E0E19F u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E19F u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E19F u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E19F u=eax.4      d=sf.1
+ mov      #0x4B2D1F66.4 , et1.4    ; E0E1A0 u=           d=et1.4
+ mov     esi.4, et0.4            ; E0E1A0 u=esi.4      d=et0.4
+ and     et1.4, et0.4, et0.4     ; E0E1A0 u=et0.4,et1.4 d=et0.4
+ mov      #0.1 , cf.1              ; E0E1A0 u=           d=cf.1
+ mov      #0.1 , of.1              ; E0E1A0 u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; E0E1A0 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; E0E1A0 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; E0E1A0 u=et0.4      d=sf.1
+ cfshr   bx.2, cl.1, cf.1        ; E0E1A6 u=cl.1,bx.2  d=cf.1
+ shr     bx.2, cl.1, bx.2        ; E0E1A6 u=cl.1,bx.2  d=bx.2
+ und     of.1                    ; E0E1A6 u=           d=of.1
+ setz    bx.2,  #0.2 , zf.1        ; E0E1A6 u=bx.2       d=zf.1
+ setp    bx.2,  #0.2 , pf.1        ; E0E1A6 u=bx.2       d=pf.1
+ sets    bx.2, sf.1              ; E0E1A6 u=bx.2       d=sf.1
+ seto    esp.4,  #1.4 , of.1       ; E0E1A9 u=esp.4      d=of.1
+ sub     esp.4,  #1.4 , esp.4      ; E0E1A9 u=esp.4      d=esp.4
+ setz    esp.4,  #0.4 , zf.1       ; E0E1A9 u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E1A9 u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E1A9 u=esp.4      d=sf.1
+ setb    ebp.4, eax.4, cf.1      ; E0E1AA u=eax.4,ebp.4 d=cf.1
+ seto    ebp.4, eax.4, of.1      ; E0E1AA u=eax.4,ebp.4 d=of.1
+ sub     ebp.4, eax.4, ebp.4     ; E0E1AA u=eax.4,ebp.4 d=ebp.4
+ setz    ebp.4,  #0.4 , zf.1       ; E0E1AA u=ebp.4      d=zf.1
+ setp    ebp.4,  #0.4 , pf.1       ; E0E1AA u=ebp.4      d=pf.1
+ sets    ebp.4, sf.1             ; E0E1AA u=ebp.4      d=sf.1
+ mov     zf.1, bl.1              ; E0E1AC u=zf.1       d=bl.1
+ seto    esp.4,  #1.4 , of.1       ; E0E1AF u=esp.4      d=of.1
+ sub     esp.4,  #1.4 , esp.4      ; E0E1AF u=esp.4      d=esp.4
+ setz    esp.4,  #0.4 , zf.1       ; E0E1AF u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E1AF u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E1AF u=esp.4      d=sf.1
+ mov      #0xFFFFFFF9.4 , et1.4    ; E0E1B0 u=           d=et1.4
+ mov     et1.4, esi.4            ; E0E1B0 u=et1.4      d=esi.4
+ seto    eax.4,  #1.4 , of.1       ; E0E1B6 u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; E0E1B6 u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E1B6 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E1B6 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E1B6 u=eax.4      d=sf.1
+ xds     ax.2, ebx.4             ; E0E1B7 u=ax.2       d=ebx.4
+ cfshr   bl.1, cl.1, cf.1        ; E0E1BA u=cl.1,bl.1  d=cf.1
+ sar     bl.1, cl.1, bl.1        ; E0E1BA u=cl.1,bl.1  d=bl.1
+ und     of.1                    ; E0E1BA u=           d=of.1
+ setz    bl.1,  #0.1 , zf.1        ; E0E1BA u=bl.1       d=zf.1
+ setp    bl.1,  #0.1 , pf.1        ; E0E1BA u=bl.1       d=pf.1
+ sets    bl.1, sf.1              ; E0E1BA u=bl.1       d=sf.1
+ mov      #0x1FD22C85.4 , et1.4    ; E0E1BC u=           d=et1.4
+ cfadd   et1.4, ebx.4, cf.1      ; E0E1BC u=ebx.4,et1.4 d=cf.1
+ ofadd   et1.4, ebx.4, of.1      ; E0E1BC u=ebx.4,et1.4 d=of.1
+ add     et1.4, ebx.4, ett.4     ; E0E1BC u=ebx.4,et1.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; E0E1BC u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; E0E1BC u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; E0E1BC u=ett.4      d=sf.1
+ mov     ett.4, ebx.4            ; E0E1BC u=ett.4      d=ebx.4
+ ofadd    #1.4 , ecx.4, of.1       ; E0E1C2 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E1C2 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E1C2 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E1C2 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E1C2 u=ecx.4      d=sf.1
+ mov     esp.4, eoff.4           ; E0E1C3 u=esp.4      d=eoff.4
+ mov     ss.2, seg.2             ; E0E1C3 u=ss.2       d=seg.2
+ ldx     seg.2, eoff.4, et1.4    ; E0E1C3 u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et1.4
+ mov     et1.4, ebx.4            ; E0E1C3 u=et1.4      d=ebx.4
+ seto    ecx.4,  #1.4 , of.1       ; E0E1C6 u=ecx.4      d=of.1
+ sub     ecx.4,  #1.4 , ecx.4      ; E0E1C6 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E1C6 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E1C6 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E1C6 u=ecx.4      d=sf.1
+ mov      #4.4 , et1.4             ; E0E1C7 u=           d=et1.4
+ cfadd   et1.4, esp.4, cf.1      ; E0E1C7 u=esp.4,et1.4 d=cf.1
+ ofadd   et1.4, esp.4, of.1      ; E0E1C7 u=esp.4,et1.4 d=of.1
+ add     et1.4, esp.4, ett.4     ; E0E1C7 u=esp.4,et1.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; E0E1C7 u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; E0E1C7 u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; E0E1C7 u=ett.4      d=sf.1
+ mov     ett.4, esp.4            ; E0E1C7 u=ett.4      d=esp.4
+ ofadd    #1.4 , ecx.4, of.1       ; E0E1CD u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E1CD u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E1CD u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E1CD u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E1CD u=ecx.4      d=sf.1
+ xor     ebp.4, ebx.4, ebx.4     ; E0E1CE u=ebx.4,ebp.4 d=ebx.4
+ mov      #0.1 , cf.1              ; E0E1CE u=           d=cf.1
+ mov      #0.1 , of.1              ; E0E1CE u=           d=of.1
+ setz    ebx.4,  #0.4 , zf.1       ; E0E1CE u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; E0E1CE u=ebx.4      d=pf.1
+ sets    ebx.4, sf.1             ; E0E1CE u=ebx.4      d=sf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E1D0 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E1D0 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E1D0 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E1D0 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E1D0 u=ecx.4      d=sf.1
+ mov      #0xA.1 , t1.1            ; E0E1D1 u=           d=t1.1
+ mov     ah.1, t0.1              ; E0E1D1 u=ah.1       d=t0.1
+ and     t1.1, t0.1, t0.1        ; E0E1D1 u=t0.1,t1.1  d=t0.1
+ mov      #0.1 , cf.1              ; E0E1D1 u=           d=cf.1
+ mov      #0.1 , of.1              ; E0E1D1 u=           d=of.1
+ setz    t0.1,  #0.1 , zf.1        ; E0E1D1 u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; E0E1D1 u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; E0E1D1 u=t0.1       d=sf.1
+ ofadd    #1.2 , sp.2, of.1        ; E0E1D4 u=sp.2       d=of.1
+ add     sp.2,  #1.2 , sp.2        ; E0E1D4 u=sp.2       d=sp.2
+ setz    sp.2,  #0.2 , zf.1        ; E0E1D4 u=sp.2       d=zf.1
+ setp    sp.2,  #0.2 , pf.1        ; E0E1D4 u=sp.2       d=pf.1
+ sets    sp.2, sf.1              ; E0E1D4 u=sp.2       d=sf.1
+ mov     ebx.4, et0.4            ; E0E1D6 u=ebx.4      d=et0.4
+ and     eax.4, et0.4, et0.4     ; E0E1D6 u=eax.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; E0E1D6 u=           d=cf.1
+ mov      #0.1 , of.1              ; E0E1D6 u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; E0E1D6 u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; E0E1D6 u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; E0E1D6 u=et0.4      d=sf.1
+ ofadd    #1.4 , eax.4, of.1       ; E0E1D8 u=eax.4      d=of.1
+ add     eax.4,  #1.4 , eax.4      ; E0E1D8 u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E1D8 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E1D8 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E1D8 u=eax.4      d=sf.1
+ mov      #2.1 , t1.1              ; E0E1D9 u=           d=t1.1
+ mov     ch.1, t0.1              ; E0E1D9 u=ch.1       d=t0.1
+ setb    t0.1, t1.1, cf.1        ; E0E1D9 u=t0.1,t1.1  d=cf.1
+ seto    t0.1, t1.1, of.1        ; E0E1D9 u=t0.1,t1.1  d=of.1
+ sub     t0.1, t1.1, t0.1        ; E0E1D9 u=t0.1,t1.1  d=t0.1
+ setz    t0.1,  #0.1 , zf.1        ; E0E1D9 u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; E0E1D9 u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; E0E1D9 u=t0.1       d=sf.1
+ mov      #0x32FD3056.4 , et1.4    ; E0E1DC u=           d=et1.4
+ setb    ebx.4, et1.4, cf.1      ; E0E1DC u=ebx.4,et1.4 d=cf.1
+ seto    ebx.4, et1.4, of.1      ; E0E1DC u=ebx.4,et1.4 d=of.1
+ sub     ebx.4, et1.4, ebx.4     ; E0E1DC u=ebx.4,et1.4 d=ebx.4
+ setz    ebx.4,  #0.4 , zf.1       ; E0E1DC u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; E0E1DC u=ebx.4      d=pf.1
+ sets    ebx.4, sf.1             ; E0E1DC u=ebx.4      d=sf.1
+ mov      #1.1 , t1.1              ; E0E1E2 u=           d=t1.1
+ cfshl   ebx.4, t1.1, tt.1       ; E0E1E2 u=ebx.4,t1.1 d=tt.1
+ mov      call !__ROL4__<fast:_DWORD ebx.4,char t1.1> => _DWORD .4 , ebx.4 ; E0E1E2 u=ebx.4,t1.1 d=ebx.4
+ mov     tt.1, cf.1              ; E0E1E2 u=tt.1       d=cf.1
+ und     of.1                    ; E0E1E2 u=           d=of.1
+ mov      #0.1 , cf.1              ; E0E1E4 u=           d=cf.1
+ bnot    ebx.4, ebx.4            ; E0E1E5 u=ebx.4      d=ebx.4
+ ofadd    #1.4 , eax.4, of.1       ; E0E1E7 u=eax.4      d=of.1
+ add     eax.4,  #1.4 , eax.4      ; E0E1E7 u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E1E7 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E1E7 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E1E7 u=eax.4      d=sf.1
+ mov      #0x2E.1 , t1.1           ; E0E1E8 u=           d=t1.1
+ mov     ah.1, t0.1              ; E0E1E8 u=ah.1       d=t0.1
+ and     t1.1, t0.1, t0.1        ; E0E1E8 u=t0.1,t1.1  d=t0.1
+ mov      #0.1 , cf.1              ; E0E1E8 u=           d=cf.1
+ mov      #0.1 , of.1              ; E0E1E8 u=           d=of.1
+ setz    t0.1,  #0.1 , zf.1        ; E0E1E8 u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; E0E1E8 u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; E0E1E8 u=t0.1       d=sf.1
+ mov      #0x726D6B35.4 , et1.4    ; E0E1EB u=           d=et1.4
+ xor     et1.4, ebx.4, ebx.4     ; E0E1EB u=ebx.4,et1.4 d=ebx.4
+ mov      #0.1 , cf.1              ; E0E1EB u=           d=cf.1
+ mov      #0.1 , of.1              ; E0E1EB u=           d=of.1
+ setz    ebx.4,  #0.4 , zf.1       ; E0E1EB u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; E0E1EB u=ebx.4      d=pf.1
+ sets    ebx.4, sf.1             ; E0E1EB u=ebx.4      d=sf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E1F1 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E1F1 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E1F1 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E1F1 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E1F1 u=ecx.4      d=sf.1
+ nop                             ; E0E1F2 u=
+ push    ebp.4                   ; E0E1F2 u=esp.4,ebp.4 d=esp.4,sp+29.4
+ ofadd    #1.4 , ecx.4, of.1       ; E0E1F3 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E1F3 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E1F3 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E1F3 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E1F3 u=ecx.4      d=sf.1
+ mov      #0x43.1 , t1.1           ; E0E1F4 u=           d=t1.1
+ cfshl   ch.1, t1.1, cf.1        ; E0E1F4 u=ch.1,t1.1  d=cf.1
+ shl     ch.1, t1.1, ch.1        ; E0E1F4 u=ch.1,t1.1  d=ch.1
+ und     of.1                    ; E0E1F4 u=           d=of.1
+ setz    ch.1,  #0.1 , zf.1        ; E0E1F4 u=ch.1       d=zf.1
+ setp    ch.1,  #0.1 , pf.1        ; E0E1F4 u=ch.1       d=pf.1
+ sets    ch.1, sf.1              ; E0E1F4 u=ch.1       d=sf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E0E1F7 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E1F7 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E1F7 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E1F7 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E1F7 u=ecx.4      d=sf.1
+ seto    ebp.4,  #1.4 , of.1       ; E0E1F8 u=ebp.4      d=of.1
+ sub     ebp.4,  #1.4 , ebp.4      ; E0E1F8 u=ebp.4      d=ebp.4
+ setz    ebp.4,  #0.4 , zf.1       ; E0E1F8 u=ebp.4      d=zf.1
+ setp    ebp.4,  #0.4 , pf.1       ; E0E1F8 u=ebp.4      d=pf.1
+ sets    ebp.4, sf.1             ; E0E1F8 u=ebp.4      d=sf.1
+ ofadd    #1.2 , sp.2, of.1        ; E0E1FA u=sp.2       d=of.1
+ add     sp.2,  #1.2 , sp.2        ; E0E1FA u=sp.2       d=sp.2
+ setz    sp.2,  #0.2 , zf.1        ; E0E1FA u=sp.2       d=zf.1
+ setp    sp.2,  #0.2 , pf.1        ; E0E1FA u=sp.2       d=pf.1
+ sets    sp.2, sf.1              ; E0E1FA u=sp.2       d=sf.1
+ xdu     cf.1, ett.4             ; E0E1FC u=cf.1       d=ett.4
+ add     ett.4, edx.4, ett.4     ; E0E1FC u=edx.4,ett.4 d=ett.4
+ setb    ebp.4, ett.4, cf.1      ; E0E1FC u=ebp.4,ett.4 d=cf.1
+ seto    ebp.4, ett.4, of.1      ; E0E1FC u=ebp.4,ett.4 d=of.1
+ sub     ebp.4, ett.4, ebp.4     ; E0E1FC u=ebp.4,ett.4 d=ebp.4
+ setz    ebp.4,  #0.4 , zf.1       ; E0E1FC u=ebp.4      d=zf.1
+ setp    ebp.4,  #0.4 , pf.1       ; E0E1FC u=ebp.4      d=pf.1
+ sets    ebp.4, sf.1             ; E0E1FC u=ebp.4      d=sf.1
+ mov     esp.4, eoff.4           ; E0E1FE u=esp.4      d=eoff.4
+ mov     ss.2, seg.2             ; E0E1FE u=ss.2       d=seg.2
+ ldx     seg.2, eoff.4, et0.4    ; E0E1FE u=eoff.4,seg.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=et0.4
+ xor     ebx.4, et0.4, et0.4     ; E0E1FE u=ebx.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; E0E1FE u=           d=cf.1
+ mov      #0.1 , of.1              ; E0E1FE u=           d=of.1
+ setz    et0.4,  #0.4 , zf.1       ; E0E1FE u=et0.4      d=zf.1
+ setp    et0.4,  #0.4 , pf.1       ; E0E1FE u=et0.4      d=pf.1
+ sets    et0.4, sf.1             ; E0E1FE u=et0.4      d=sf.1
+ stx     et0.4, seg.2, eoff.4    ; E0E1FE u=et0.4,eoff.4,seg.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ ofadd    #1.4 , ecx.4, of.1       ; E0E201 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E201 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E201 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E201 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E201 u=ecx.4      d=sf.1
+ or      cf.1, zf.1, ch.1        ; E0E202 u=cf.1,zf.1  d=ch.1
+ ofadd    #1.2 , sp.2, of.1        ; E0E205 u=sp.2       d=of.1
+ add     sp.2,  #1.2 , sp.2        ; E0E205 u=sp.2       d=sp.2
+ setz    sp.2,  #0.2 , zf.1        ; E0E205 u=sp.2       d=zf.1
+ setp    sp.2,  #0.2 , pf.1        ; E0E205 u=sp.2       d=pf.1
+ sets    sp.2, sf.1              ; E0E205 u=sp.2       d=sf.1
+ cfadd   esp.4, ebp.4, cf.1      ; E0E207 u=esp.4,ebp.4 d=cf.1
+ ofadd   esp.4, ebp.4, of.1      ; E0E207 u=esp.4,ebp.4 d=of.1
+ add     esp.4, ebp.4, ett.4     ; E0E207 u=esp.4,ebp.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; E0E207 u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; E0E207 u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; E0E207 u=ett.4      d=sf.1
+ mov     ett.4, ebp.4            ; E0E207 u=ett.4      d=ebp.4
+ ofadd    #1.4 , ecx.4, of.1       ; E0E209 u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E0E209 u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E0E209 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E0E209 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E0E209 u=ecx.4      d=sf.1
+ nop                             ; E0E20A u=
+ pop     ebp.4                   ; E0E20A u=esp.4,sp+2B.4 d=esp.4,ebp.4
+ ofadd    #1.4 , ebp.4, of.1       ; E0E20B u=ebp.4      d=of.1
+ add     ebp.4,  #1.4 , ebp.4      ; E0E20B u=ebp.4      d=ebp.4
+ setz    ebp.4,  #0.4 , zf.1       ; E0E20B u=ebp.4      d=zf.1
+ setp    ebp.4,  #0.4 , pf.1       ; E0E20B u=ebp.4      d=pf.1
+ sets    ebp.4, sf.1             ; E0E20B u=ebp.4      d=sf.1
+ mov     dh.1, t0.1              ; E0E20C u=dh.1       d=t0.1
+ setb    t0.1, al.1, cf.1        ; E0E20C u=al.1,t0.1  d=cf.1
+ seto    t0.1, al.1, of.1        ; E0E20C u=al.1,t0.1  d=of.1
+ sub     t0.1, al.1, t0.1        ; E0E20C u=al.1,t0.1  d=t0.1
+ setz    t0.1,  #0.1 , zf.1        ; E0E20C u=t0.1       d=zf.1
+ setp    t0.1,  #0.1 , pf.1        ; E0E20C u=t0.1       d=pf.1
+ sets    t0.1, sf.1              ; E0E20C u=t0.1       d=sf.1
+ mov      #1.1 , cf.1              ; E0E20E u=           d=cf.1
+ seto    eax.4,  #1.4 , of.1       ; E0E20F u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; E0E20F u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; E0E20F u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E0E20F u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E0E20F u=eax.4      d=sf.1
+ ext     bx.2, bx.2              ; E0E210 u=bx.2       d=bx.2
+ seto    esp.4,  #1.4 , of.1       ; E0E212 u=esp.4      d=of.1
+ sub     esp.4,  #1.4 , esp.4      ; E0E212 u=esp.4      d=esp.4
+ setz    esp.4,  #0.4 , zf.1       ; E0E212 u=esp.4      d=zf.1
+ setp    esp.4,  #0.4 , pf.1       ; E0E212 u=esp.4      d=pf.1
+ sets    esp.4, sf.1             ; E0E212 u=esp.4      d=sf.1
+ cfadd   ebx.4, esi.4, cf.1      ; E0E213 u=ebx.4,esi.4 d=cf.1
+ ofadd   ebx.4, esi.4, of.1      ; E0E213 u=ebx.4,esi.4 d=of.1
+ add     ebx.4, esi.4, ett.4     ; E0E213 u=ebx.4,esi.4 d=ett.4
+ setz    ett.4,  #0.4 , zf.1       ; E0E213 u=ett.4      d=zf.1
+ setp    ett.4,  #0.4 , pf.1       ; E0E213 u=ett.4      d=pf.1
+ sets    ett.4, sf.1             ; E0E213 u=ett.4      d=sf.1
+ mov     ett.4, esi.4            ; E0E213 u=ett.4      d=esi.4
+ mov     cs.2, seg.2             ; E0E215 u=cs.2       d=seg.2
+ mov      #0xE1A28C.4 , eoff.4     ; E0E215 u=           d=eoff.4
+ goto    $loc_E1A28C             ; E0E215 u=
+
+; ????-BLOCK 2 PROP [START=E1A28C END=E1A28F] MINREFS: STK=0/ARG=16C, MAXBSP: 2F
+; USE-DEF LISTS ARE NOT READY
+ ofadd    #1.4 , ecx.4, of.1       ; E1A28C u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E1A28C u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E1A28C u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E1A28C u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E1A28C u=ecx.4      d=sf.1
+ ijmp    cs.2, esi.4             ; E1A28D u=esi.4,cs.2
+
+; STOP-BLOCK 3 PROP FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=0/ARG=16C, MAXBSP: 0
+

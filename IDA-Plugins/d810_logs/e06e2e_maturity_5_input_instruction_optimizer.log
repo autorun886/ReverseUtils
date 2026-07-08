@@ -1,0 +1,28 @@
+; STKD=D8 MINREF=D8/END=D8 ARGS: OFF=DC/MINREF=1DC/END=1DC/SHADOW=0
+; SAVEDREGS: esi.4
+; 1WAY-BLOCK 0 FAKE OUTBOUNDS: 1 [START=E06E2E END=E06E2E] MINREFS: STK=D8/ARG=1DC, MAXBSP: 0
+; DEF: (sf.1,of.1,ah.1,bh.1,sp^1.1,si^1.1,cs.2,ds.2,arg+10.4)
+
+; 2WAY-BLOCK 1 COMB INBOUNDS: 0 OUTBOUNDS: 2 3 [START=E06E2E END=E06E35] MINREFS: STK=D8/ARG=1DC, MAXBSP: D8
+; USE-DEF LISTS ARE NOT READY
+ mov     ah.1{2}, bh.1{2}        ; E06E2F split1 u=ah.1       d=bh.1
+ jcnd     lnot( (sf.1 ^ of.1) ) , @)(00000000000000183) ; E06E31 u=sf.1,of.1
+
+; 1WAY-BLOCK 2 COMB FAKE INBOUNDS: 1 OUTBOUNDS: 3 [START=E06E31 END=E06E35] MINREFS: STK=D8/ARG=1DC, MAXBSP: D4
+; USE: si^1.1
+; DEF: bh.1
+; DNU: bh.1
+ mov     si^1.1{3}, bh.1{3}      ; E06E31 split1 u=si^1.1     d=bh.1
+
+; 0WAY-BLOCK 3 COMB INBOUNDS: 1 2 [START=E06E35 END=E06ED2] MINREFS: STK=D8/ARG=1DC, MAXBSP: D4
+; USE: bh.1,sp^1.1,cs.2,ds.2,arg+10.4,(GLBLOW,GLBHIGH)
+; DEF: ch.1,edi.4
+; DNU: ch.1
+ call    !__readeflags <fast:> => "unsigned int" .4 ; E06E3B u=
+ or      sp^1.1,  high.1( xds.2(bh.1) ) , ch.1{6} ; E06E59 split1 u=bh.1,sp^1.1 d=ch.1
+ mov      call !__ROL4__<fast:_DWORD  ( call !__ROL4__<fast:_DWORD  (%arg_10.4 ^  #0x636B2862.4 ) ,char  #3.1 > => _DWORD .4 - #1.4 ) ,char  #2.1 > => _DWORD .4 {7}, edi.4{7} ; E06E71 u=arg+10.4   d=edi.4
+ ext     ch.1{6},  #0xE0.1 , ch.1  ; E06E87 u=ch.1       d=ch.1
+ ijmp    cs.2,  (&($loc_E06EAF).4- call !_byteswap_ulong<fast:"unsigned int"  bnot( ( (edi.4{7} ^  [ds.2: (edi.4{7}- #4.4 ) ].4 ) + #1.4 ) ) > => "unsigned __int32" .4 )  ; C78208 u=edi.4,cs.2,ds.2,(GLBLOW,GLBHIGH)
+
+; STOP-BLOCK 4 FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=D8/ARG=1DC, MAXBSP: 0
+

@@ -1,0 +1,25 @@
+; STKD=E8 MINREF=E8/END=E8 ARGS: OFF=EC/MINREF=1EC/END=1EC/SHADOW=0
+; SAVEDREGS: ebx.4,ebp.4,edi.4,esi.4
+; 1WAY-BLOCK 0 FAKE OUTBOUNDS: 1 [START=C6B456 END=C6B456] MINREFS: STK=E8/ARG=1EC, MAXBSP: 0
+; DEF: (rax.8,rcx.8,ebp.4,di.2,esi.4,cs.2,ds.2,fl.1,arg+0.4)
+
+; 0WAY-BLOCK 1 PROP COMB INBOUNDS: 0 [START=C6B456 END=C6B534] MINREFS: STK=E8/ARG=1EC, MAXBSP: E8
+; USE-DEF LISTS ARE NOT READY
+ mov     eax.4{1}, %0xE4.4{1}    ; C6B456 u=eax.4      d=sp+E4..
+ mov     edx.4{2}, %0xE0.4{2}    ; C6B45E u=edx.4      d=sp+E0.4
+ mov      call !__readeflags<fast:> => "unsigned int" .4 {3}, kr00_4.4{3} ; C6B45F dontprop mbarrier u=           d=kr00_4.4
+ mov     kr00_4.4{3}, %0xDC.4{3} ; C6B45F u=kr00_4.4   d=sp+DC.4
+ mov     ecx.4{6}, %0xC8.4{6}    ; C6B47B u=ecx.4      d=sp+C8.4
+ and     ebp.4,  #0x7ACE50CA.4 , ebp.4{7} ; C6B47C u=ebp.4      d=ebp.4
+ mov      #0.4 , %0xC4.4           ; C6B48F u=           d=sp+C4.4
+ sub     bp.2{7},  ( xdu.2( ( (di.2 &  #0xFFFD.2 )  <u  #0x32A5.2 ) ) + (si.2{9}+ #1.2 ) {8}) , bp.2 ; C6B490 u=bp.2,di.2,si.2 d=bp.2
+ xor      ( #1.4 - call !_byteswap_ulong<fast:"unsigned int"  ( ( call !__ROR4__<fast:_DWORD  -(%arg_0.4) ,char  #3.1 > => _DWORD .4  ^  #0x8E0BE1D6.4 ) - #0x10214980.4 ) > => "unsigned __int32" .4 ) ,  #0x48DC2A1F.4 , esi.4{11} ; C6B4E0 u=arg+0.4    d=esi.4
+ add      call !_byteswap_ulong<fast:"unsigned int"  (ebp.4 |  #0x7BC21E20.4 ) > => "unsigned __int32" .4 ,  #1.4 , ebp.4 ; C6B4E5 u=ebp.4      d=ebp.4
+ mov     esi.4{11}, ebx.4{11}    ; C6B4F7 u=esi.4      d=ebx.4
+ sub      #1.4 ,  call !__ROL4__<fast:_DWORD  ( (ebx.4{11} ^  [ds.2: (esi.4{11}- #4.4 ) ].4 ) + #0x76F63CFA.4 ) ,char  #1.1 > => _DWORD .4 , eax.4{12} ; C6B52D u=ebx.4,esi.4,ds.2,(GLBLOW,GLBHIGH) d=eax.4
+ sub     eax.4{12},  #1.4 , eax.4{13} ; 981ED4 u=eax.4      d=eax.4
+ mov      call !__ROL4__<fast:_DWORD eax.4{13},char  #1.1 > => _DWORD .4 , eax.4{14} ; DC1B05 u=eax.4      d=eax.4
+ ijmp    cs.2,  (eax.4{14}+&($loc_C6B508).4)  ; 92CC39 u=eax.4,cs.2
+
+; STOP-BLOCK 2 FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=E8/ARG=1EC, MAXBSP: 0
+

@@ -1,0 +1,33 @@
+; STKD=0 MINREF=28/END=168 ARGS: OFF=16C/MINREF=26C/END=26C/SHADOW=0
+; SAVEDREGS: ebx.4,esi.4,ebp.4
+; 1WAY-BLOCK 0 FAKE OUTBOUNDS: 1 [START=E0E0CA END=E0E0CA] MINREFS: STK=168/ARG=26C, MAXBSP: 0
+; DEF: (cx.2,sp.2,bp.2,cs.2,fl.1,sp+28.4,sp+2D.1)
+
+; 0WAY-BLOCK 1 COMB INBOUNDS: 0 [START=E0E0CA END=E0E21A] MINREFS: STK=28/ARG=26C, MAXBSP: 168
+; USE-DEF LISTS ARE NOT READY
+ add     cx.2,  #3.2 , cx.2        ; E0E0DC split2 u=cx.2       d=cx.2
+ ext     ch.1,  #0x3A.1 , ch.1     ; E0E0DD u=ch.1       d=ch.1
+ add     bp.2,  #1.2 , bp.2{9}     ; E0E0ED u=bp.2       d=bp.2
+ mov      #0.2 , dx.2{11}          ; E0E108 split2 u=           d=dx.2
+ ext     dx.2{11}, dx.2          ; E0E10E u=dx.2       d=dx.2
+ ext     bp.2{9}, ax.2           ; E0E11F u=bp.2       d=ax.2
+ mov     fl.1{12}, ah.1{12}      ; E0E134 u=fl.1       d=ah.1
+ sub     ax.2,  #1.2 , ax.2        ; E0E13A split2 u=ax.2       d=ax.2
+ mov     sp.2, bx.2{13}          ; E0E13B not_combinable split2 u=sp.2       d=bx.2
+ add     cl.1,  #8.1 , cl.1{14}    ; E0E141 split1 u=cl.1       d=cl.1
+ ext     ah.1, cl.1{14}, ah.1    ; E0E144 u=ah.1,cl.1  d=ah.1
+ mov      #0.1 , dh.1{15}          ; E0E188 u=           d=dh.1
+ add     cl.1{14},  #5.1 , cl.1{16} ; E0E190 split1 u=cl.1       d=cl.1
+ ext     dh.1{15},  #0xCD.1 , dh.1 ; E0E191 u=dh.1       d=dh.1
+ sar      xdu.2( low.1( call !_byteswap_ushort<fast:"unsigned __int16" bx.2{13}> => "unsigned __int16" .2 ) ) , cl.1{16}, bx.2 ; E0E194 u=cl.1,bx.2  d=bx.2
+ ext     bh.1, cl.1{16}, bh.1    ; E0E197 u=cl.1,bh.1  d=bh.1
+ mov      #0xFFFFFFFF.4 , eax.4{17} ; E0E199 u=           d=eax.4
+ ext     ax.2{17}, ax.2          ; E0E19A u=ax.2       d=ax.2
+ xor      call !__ROL4__<fast:_DWORD  ( ( (&(%0x28{18}).4- (eax.4{20}- #1.4 ) {19})  ^ %0x28.4) - #0x32FD3056.4 ) ,char  #1.1 > => _DWORD .4 ,  #0x8D9294CA.4 , ebx.4{21} ; E0E1EB u=eax.4,sp+28.4 d=ebx.4
+ sub     &(%0x28{18}).4,  (eax.4{20}- #1.4 ) {19}, %0x29.4 ; E0E1F2 u=eax.4      d=sp+29.4
+ xor     ebx.4{21}, %0x2A.4, %0x2A.4 ; E0E1FE u=ebx.4,sp+2A.4 d=sp+2A.4
+ ext     bx.2{21}, bx.2          ; E0E210 u=bx.2       d=bx.2
+ ijmp    cs.2,  (ebx.4- #7.4 )       ; E1A28D u=ebx.4,cs.2
+
+; STOP-BLOCK 2 FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=168/ARG=26C, MAXBSP: 0
+

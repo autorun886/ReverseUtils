@@ -1,0 +1,20 @@
+; STKD=D4 MINREF=DC/END=DC ARGS: OFF=E0/MINREF=1E0/END=1E0/SHADOW=0
+; SAVEDREGS: ebx.4,ebp.4,edi.4
+; 1WAY-BLOCK 0 FAKE OUTBOUNDS: 1 [START=BE9E16 END=BE9E16] MINREFS: STK=DC/ARG=1E0, MAXBSP: 0
+; DEF: (eax.4,rcx.8,ebp.4,cs.2,ss.2,arg+8.4)
+
+; 0WAY-BLOCK 1 PROP COMB INBOUNDS: 0 [START=BE9E16 END=BE9EB7] MINREFS: STK=DC/ARG=1E0, MAXBSP: D8
+; USE-DEF LISTS ARE NOT READY
+ mov     ecx.4{1}, %0xD0.4{1}    ; BE9E20 u=ecx.4      d=sp+D0.4
+ mov      call !__readeflags<fast:> => "unsigned int" .4 {2}, kr00_4.4{2} ; BE9E21 dontprop mbarrier u=           d=kr00_4.4
+ mov     kr00_4.4{2}, %0xCC.4{2} ; BE9E21 u=kr00_4.4   d=sp+CC.4
+ mov     eax.4{3}, %0xC4.4{3}    ; BE9E33 u=eax.4      d=sp+C4.4
+ mov      #0.4 , %0xC0.4           ; BE9E39 u=           d=sp+C0.4
+ mov      call !__ROR4__<fast:_DWORD  -( call !__ROL4__<fast:_DWORD %arg_8.4,char  #1.1 > => _DWORD .4 ) ,char  #1.1 > => _DWORD .4 {5}, ebp.4{5} ; BE9E68 u=arg+8.4    d=ebp.4
+ mov     ebp.4{5}, ebx.4{5}      ; BE9E8C u=ebp.4      d=ebx.4
+ ldx     ss.2, ebp.4{5}, eax.4{6} ; BE9EAE u=ebp.4,ss.2,(GLBLOW,GLBHIGH) d=eax.4
+ add      call !__ROL4__<fast:_DWORD  ( call !__ROR4__<fast:_DWORD  ( (ebx.4{5} ^ eax.4{6}) - #0x52032F2.4 ) ,char  #1.1 > => _DWORD .4 + #0x42720AA7.4 ) ,char  #3.1 > => _DWORD .4 ,  #1.4 , eax.4{7} ; 96FCE5 u=eax.4,ebx.4 d=eax.4
+ ijmp    cs.2,  (eax.4{7}+&($loc_BE9EA6).4)  ; C758D7 u=eax.4,cs.2
+
+; STOP-BLOCK 2 FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=DC/ARG=1E0, MAXBSP: 0
+

@@ -1,0 +1,13 @@
+; STKD=18 MINREF=0/END=130 ARGS: OFF=134/MINREF=134/END=234/SHADOW=0
+; SAVEDREGS: ebp.4
+; ????-BLOCK 0 PROP FAKE [START=C6CFD7 END=C6CFD7] MINREFS: STK=0/ARG=134, MAXBSP: 0
+; USE-DEF LISTS ARE NOT READY
+
+; ????-BLOCK 1 PROP [START=C6CFD7 END=C6CFDC] MINREFS: STK=0/ARG=134, MAXBSP: 12C
+; USE-DEF LISTS ARE NOT READY
+ mov     esp.4, ebp.4            ; C6CFD8 u=esp.4      d=ebp.4
+ mov     esp.4, et0.4            ; C6CFDA u=esp.4      d=et0.4
+ and     eax.4, et0.4, et0.4     ; C6CFDA u=eax.4,et0.4 d=et0.4
+ mov      #0.1 , cf.1              ; C6CFDA u=           d=cf.1
+ mov      #0.1 , of.1              ; C6CFDA u=           d=of.1
+

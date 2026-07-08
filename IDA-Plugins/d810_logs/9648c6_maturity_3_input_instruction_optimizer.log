@@ -1,0 +1,115 @@
+; STKD=DC MINREF=0/END=E4 ARGS: OFF=E8/MINREF=E8/END=1E8/SHADOW=0
+; SAVEDREGS: ebp.4,edi.4
+; 1WAY-BLOCK 0 FAKE OUTBOUNDS: 1 [START=9648C6 END=9648C6] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; DEF: (sf.1,pf.1,rax.8,rcx.8,esp.4,ebp.4,rdi.8,cs.2,ss.2,fl.1,arg+0.4)
+
+; 2WAY-BLOCK 1 INBOUNDS: 0 OUTBOUNDS: 2 3 [START=9648C6 END=9648DA] MINREFS: STK=0/ARG=E8, MAXBSP: E0
+; USE: sf.1,eax.4,ecx.4,di.2
+; DEF: ebp.4,sp+D4.8
+; DNU: ebp.4
+ mov     eax.4, %0xD8.4          ; 9648D0 u=eax.4      d=sp+D8.4
+ bnot     xdu.4(di.2) , ebp.4      ; 9648D1 u=di.2       d=ebp.4
+ mov     ecx.4, %0xD4.4          ; 9648D3 u=ecx.4      d=sp+D4.4
+ jcnd    sf.1, @)(00000000000000183)                ; 9648D6 u=sf.1
+
+; 1WAY-BLOCK 2 FAKE INBOUNDS: 1 OUTBOUNDS: 3 [START=9648D6 END=9648DA] MINREFS: STK=0/ARG=E8, MAXBSP: D4
+; USE: si.2
+; DEF: ax.2
+; DNU: ax.2
+ mov     si.2, ax.2              ; 9648D6 u=si.2       d=ax.2
+
+; 1WAY-BLOCK 3 PROP INBOUNDS: 1 2 OUTBOUNDS: 4 [START=9648DA END=96492B] MINREFS: STK=0/ARG=E8, MAXBSP: D4
+; USE-DEF LISTS ARE NOT READY
+ mov     esi.4, %0xD0.4          ; 9648DA u=esi.4      d=sp+D0.4
+ mov     ebx.4, %0xCC.4          ; 9648DB u=ebx.4      d=sp+CC.4
+ mov     sp.2, bx.2              ; 9648E2 u=sp.2       d=bx.2
+ mov     edx.4, %0xC8.4          ; 9648E5 u=edx.4      d=sp+C8.4
+ mov      call !__readeflags<fast:> => "unsigned int" .4 , kr00_4.4 ; 9648E6 dontprop mbarrier u=           d=kr00_4.4
+ mov     kr00_4.4, %0xC4.4       ; 9648E6 u=kr00_4.4   d=sp+C4.4
+ mov      call !_byteswap_ushort<fast:"unsigned __int16" di.2> => "unsigned __int16" .2 , di.2 ; 9648E7 u=di.2       d=di.2
+ xds     al.1, ax.2              ; 9648EA u=al.1       d=ah.1
+ mov      #0.4 , ecx.4             ; 9648EE u=           d=ecx.4
+ mov      #0.4 , %0xC0.4           ; 9648F3 u=           d=sp+C0.4
+ mov      call !__ROL4__<fast:_DWORD  (%arg_0.4- #1.4 ) ,char  #2.1 > => _DWORD .4 , ebp.4 ; 9648FF u=arg+0.4    d=ebp.4
+ ext     ax.2,  #0x61.1 , ax.2     ; 96490A u=ax.2       d=ax.2
+ mov      call !__ROR4__<fast:_DWORD  (ebp.4- #1.4 ) ,char  #3.1 > => _DWORD .4 , ebp.4 ; 96490E u=ebp.4      d=ebp.4
+ and     ah.1,  #0xA2.1 , ah.1     ; 964913 u=ah.1       d=ah.1
+ mov     &(%0xC0).4, esi.4       ; 96491B u=           d=esi.4
+ and     ebx.4,  #0x3917553C.4 , ebx.4 ; 964925 u=ebx.4      d=ebx.4
+ mov      #0.1 , cf.1              ; 964925 u=           d=cf.1
+ mov      #0.1 , of.1              ; 964925 u=           d=of.1
+ setz    ebx.4,  #0.4 , zf.1       ; 964925 u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; 964925 u=ebx.4      d=pf.1
+ mov      #0.1 , sf.1              ; 964925 u=           d=sf.1
+
+; 2WAY-BLOCK 4 INBOUNDS: 3 OUTBOUNDS: 5 6 [START=96492B END=964930] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: pf.1,ebp.4
+; DEF: ebx.4
+; DNU: ebx.4
+ mov     ebp.4, ebx.4            ; 96492B u=ebp.4      d=ebx.4
+ jcnd    pf.1, @)(00000000000000306)                ; 96492D u=pf.1
+
+; 1WAY-BLOCK 5 FAKE INBOUNDS: 4 OUTBOUNDS: 6 [START=96492D END=964930] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: ecx.4
+; DEF: eax.4
+; DNU: eax.4
+ mov     ecx.4, eax.4            ; 96492D u=ecx.4      d=eax.4
+
+; 1WAY-BLOCK 6 INBOUNDS: 4 5 OUTBOUNDS: 7 [START=964930 END=96494F] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: edi.4,fl.1
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,edi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,edi.4
+ and     di.2,  #0xFFFD.2 , di.2   ; 964930 u=di.2       d=di.2
+ ext     edi.4,  #0x35.1 , edi.4   ; 96493F u=edi.4      d=edi.4
+ add     di.2,  #0x7B82.2 , di.2   ; 964942 u=di.2       d=di.2
+ mov      #0.1 , cf.1              ; 964949 u=           d=cf.1
+ mov      #0x800.4 , eax.4         ; 964949 combined u=           d=eax.4
+ und     zf.1                    ; 964949 u=           d=zf.1
+ und     sf.1                    ; 964949 u=           d=sf.1
+ und     of.1                    ; 964949 u=           d=of.1
+ und     pf.1                    ; 964949 u=           d=pf.1
+ mov     fl.1, ah.1              ; 96494E u=fl.1       d=ah.1
+
+; 1WAY-BLOCK 7 INBOUNDS: 6 OUTBOUNDS: 8 [START=96494F END=964974] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: ebx.4,ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,ebp.4,edi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,edi.4
+ mov     &($loc_96494F).4, edi.4 ; 96494F u=           d=edi.4
+ sub     ebp.4,  #4.4 , ebp.4      ; 964958 u=ebp.4      d=ebp.4
+ xor     ebx.4,  [ss.2:ebp.4].4 , eax.4 ; 96496C u=ebx.4,ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=eax.4
+ mov      #0.1 , cf.1              ; 96496C u=           d=cf.1
+ seto    eax.4,  #1.4 , of.1       ; 96496E u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; 96496E u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; 96496E u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; 96496E u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; 96496E u=eax.4      d=sf.1
+
+; 1WAY-BLOCK 8 INBOUNDS: 7 OUTBOUNDS: 10 [START=9620FA END=962101] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: eax.4
+; DEF: eax.4
+; DNU: eax.4
+ mov      call !_byteswap_ulong<fast:"unsigned int" eax.4> => "unsigned __int32" .4 , eax.4 ; 9620FA u=eax.4      d=eax.4
+ goto    @)(000000000000005010)                     ; 9620FC u=
+
+; 0WAY-BLOCK 9 INBOUNDS: 10 [START=98FC85 END=98FC87] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: edi.4,cs.2
+ ijmp    cs.2, edi.4             ; 98FC85 u=edi.4,cs.2
+
+; 1WAY-BLOCK 10 INBOUNDS: 8 OUTBOUNDS: 9 [START=D653D5 END=D653ED] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: eax.4,ebx.4,edi.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,ebx.4,edi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,ebx.4,edi.4
+ mov      call !_byteswap_ulong<fast:"unsigned int"  (eax.4+ #1.4 ) > => "unsigned __int32" .4 , eax.4 ; D653D6 u=eax.4      d=eax.4
+ mov      call !__ROL4__<fast:_DWORD  bnot(eax.4) ,char  #1.1 > => _DWORD .4 , eax.4 ; D653DA u=eax.4      d=eax.4
+ xor     eax.4, ebx.4, ebx.4     ; D653DC u=eax.4,ebx.4 d=ebx.4
+ cfadd   eax.4, edi.4, cf.1      ; D653E6 u=eax.4,edi.4 d=cf.1
+ ofadd   eax.4, edi.4, of.1      ; D653E6 u=eax.4,edi.4 d=of.1
+ setz     (eax.4+edi.4) ,  #0.4 , zf.1 ; D653E6 u=eax.4,edi.4 d=zf.1
+ setp     (eax.4+edi.4) ,  #0.4 , pf.1 ; D653E6 u=eax.4,edi.4 d=pf.1
+ sets     (eax.4+edi.4) , sf.1     ; D653E6 u=eax.4,edi.4 d=sf.1
+ add     eax.4, edi.4, edi.4     ; D653E6 u=eax.4,edi.4 d=edi.4
+ goto    @)(00000000000000489)                      ; D653E8 u=
+
+; STOP-BLOCK 11 FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: (rax.8,ebx.4,esi.4,st7.8,xmm0.16)
+

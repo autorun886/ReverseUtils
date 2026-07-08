@@ -1,0 +1,1091 @@
+; STKD=18 MINREF=0/END=130 ARGS: OFF=134/MINREF=134/END=234/SHADOW=0
+; SAVEDREGS: ebp.4
+; ????-BLOCK 0 FAKE [START=C6CFD7 END=C6CFD7] MINREFS: STK=0/ARG=134, MAXBSP: 0
+
+; ????-BLOCK 1 PROP COMB [START=C6CFD7 END=C6CFF3] MINREFS: STK=0/ARG=134, MAXBSP: 12C
+; USE-DEF LISTS ARE NOT READY
+ mov     esp.4, ebp.4            ; C6CFD8 u=esp.4      d=ebp.4
+ mov     edi.4, %0x14.4          ; C6CFE3 u=edi.4      d=sp+14.4
+ ldx     ss.2,  (ebp.4+ #8.4 ) , edi.4 ; C6CFE8 u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=edi.4
+ mov      #0.1 , cf.1              ; C6CFEC u=           d=cf.1
+ mov      #0.1 , of.1              ; C6CFEC u=           d=of.1
+ setz    edi.4,  #0.4 , zf.1       ; C6CFEC u=edi.4      d=zf.1
+ setp    edi.4,  #0.4 , pf.1       ; C6CFEC u=edi.4      d=pf.1
+ sets    edi.4, sf.1             ; C6CFEC u=edi.4      d=sf.1
+ goto    $loc_E111C2             ; C6CFEE u=
+
+; ????-BLOCK 2 PROP COMB [START=928DC9 END=928DCF] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cf.1
+ jcnd     lnot(cf.1) , $loc_9B0124 ; 928DC9 u=cf.1
+
+; ????-BLOCK 3 PROP COMB [START=928DCF END=928DEE] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,rdi.8,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,edx.4,ecx.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ ldx     ds.2,  ( (eax.4+edi.4) + #0x1C.4 ) , ecx.4 ; 928DCF u=eax.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=ecx.4
+ add     ecx.4,  ( #4.4 *esi.4) , edx.4 ; 928DD6 u=ecx.4,esi.4 d=edx.4
+ ldx     ds.2,  (edx.4+edi.4) , ecx.4 ; 928DE4 u=edx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=ecx.4
+ mov      #0.1 , cf.1              ; 928DE7 u=           d=cf.1
+ mov      #0.1 , of.1              ; 928DE7 u=           d=of.1
+ setz    ecx.4,  #0.4 , zf.1       ; 928DE7 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; 928DE7 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; 928DE7 u=ecx.4      d=sf.1
+ goto    $loc_E289FD             ; 928DE9 u=
+
+; ????-BLOCK 4 PROP COMB [START=97AFF7 END=97AFFF] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1,al.1,esi.4,ds.2
+; DEF: (GLBLOW,LVARS,ARGS,GLBHIGH)
+ stx     al.1, ds.2, esi.4       ; 97AFF7 u=al.1,esi.4,ds.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ jcnd    zf.1, $loc_BF186B       ; 97AFF9 u=zf.1
+
+; ????-BLOCK 5 PROP COMB [START=97AFFF END=97B00F] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: edx.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,edx.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ add     edx.4,  #1.4 , edx.4      ; 97AFFF u=edx.4      d=edx.4
+ setb    edx.4,  #0x104.4 , cf.1   ; 97B004 u=edx.4      d=cf.1
+ seto    edx.4,  #0x104.4 , of.1   ; 97B004 u=edx.4      d=of.1
+ setz    edx.4,  #0x104.4 , zf.1   ; 97B004 u=edx.4      d=zf.1
+ setp    edx.4,  #0x104.4 , pf.1   ; 97B004 u=edx.4      d=pf.1
+ sets     (edx.4- #0x104.4 ) , sf.1  ; 97B004 u=edx.4      d=sf.1
+ goto    $loc_BF1865             ; 97B00A u=
+
+; ????-BLOCK 6 PROP COMB PUSH [START=97F0EB END=97F0F0] MINREFS: STK=0/ARG=134, MAXBSP: 8
+; USE: (rax.8,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: (cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,st7.8,fl.1,c0.1,c2.1,c3.1,df.1,if.1,xmm0.16,ALLMEM)
+ call    $sub_DADACA             ; 97F0EB u=(rax.8,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,st7.8,fl.1,c0.1,c2.1,c3.1,df.1,if.1,xmm0.16,ALLMEM)
+
+; ????-BLOCK 7 PROP COMB [START=97F0F0 END=97F104] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,sf.1,of.1,pf.1
+ setnz   eax.4,  #0xFFFFFFFF.4 , cf.1 ; 97F0FB u=eax.4      d=cf.1
+ seto    eax.4,  #0xFFFFFFFF.4 , of.1 ; 97F0FB u=eax.4      d=of.1
+ setz     (eax.4+ #1.4 ) ,  #0.4 , zf.1 ; 97F0FB u=eax.4      d=zf.1
+ setp     (eax.4+ #1.4 ) ,  #0.4 , pf.1 ; 97F0FB u=eax.4      d=pf.1
+ sets     (eax.4+ #1.4 ) , sf.1      ; 97F0FB u=eax.4      d=sf.1
+ jcnd    zf.1, $loc_DF7560       ; 97F0FE u=zf.1
+
+; ????-BLOCK 8 PROP COMB [START=97F104 END=97F10B] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ mov      #0.1 , cf.1              ; 97F104 u=           d=cf.1
+ mov      #0.1 , of.1              ; 97F104 u=           d=of.1
+ setz    eax.4,  #0.4 , zf.1       ; 97F104 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; 97F104 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; 97F104 u=eax.4      d=sf.1
+ goto    $loc_DC4FE7             ; 97F106 u=
+
+; ????-BLOCK 9 PROP COMB [START=98D387 END=98D38F] MINREFS: STK=0/ARG=134, MAXBSP: 130
+ goto    $nullsub_5              ; 98D38A u=
+
+; ????-BLOCK 10 PROP COMB [START=98E4F7 END=98E509] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,edx.4
+; DNU: cf.1,sf.1,of.1,pf.1
+ ldx     ds.2,  (edi.4+ #0x3C.4 ) , edx.4 ; 98E4F7 u=edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=edx.4
+ add     edi.4, edx.4, edx.4     ; 98E4FB u=edx.4,edi.4 d=edx.4
+ setb     [ds.2:edx.4].4 ,  #0x4550.4 , cf.1 ; 98E4FD u=edx.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=cf.1
+ seto     [ds.2:edx.4].4 ,  #0x4550.4 , of.1 ; 98E4FD u=edx.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=of.1
+ setz     [ds.2:edx.4].4 ,  #0x4550.4 , zf.1 ; 98E4FD u=edx.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=zf.1
+ setp     [ds.2:edx.4].4 ,  #0x4550.4 , pf.1 ; 98E4FD u=edx.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=pf.1
+ sets     ( [ds.2:edx.4].4 - #0x4550.4 ) , sf.1 ; 98E4FD u=edx.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=sf.1
+ jcnd     lnot(zf.1) , $loc_DDECBF ; 98E503 u=zf.1
+
+; ????-BLOCK 11 PROP COMB [START=98E509 END=98E511] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: edx.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: eax.4
+; DNU: eax.4
+ ldx     ds.2,  (edx.4+ #0x78.4 ) , eax.4 ; 98E509 u=edx.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=eax.4
+ goto    $loc_DD83C9             ; 98E50C u=
+
+; ????-BLOCK 12 PROP COMB [START=9A0EEA END=9A0EF0] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1
+ jcnd    zf.1, $loc_DDFE57       ; 9A0EEA u=zf.1
+
+; ????-BLOCK 13 PROP COMB [START=9A0EF0 END=9A0F00] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: rax.5,ebx.4,ebp.4,ss.2,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: zf.1,sf.1,of.1,pf.1,edx.4,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DNU: zf.1,sf.1,of.1,pf.1
+ stx     dl.1, ds.2,  (ebx.4+eax.4)  ; 9A0EF0 u=rax.5,ebx.4,ds.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ ldx     ss.2,  (ebp.4+ #8.4 ) , edx.4 ; 9A0EF7 u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=edx.4
+ ofadd    #1.4 , edx.4, of.1       ; 9A0EFA u=edx.4      d=of.1
+ add     edx.4,  #1.4 , edx.4      ; 9A0EFA u=edx.4      d=edx.4
+ setz    edx.4,  #0.4 , zf.1       ; 9A0EFA u=edx.4      d=zf.1
+ setp    edx.4,  #0.4 , pf.1       ; 9A0EFA u=edx.4      d=pf.1
+ sets    edx.4, sf.1             ; 9A0EFA u=edx.4      d=sf.1
+ goto    $loc_C1841A             ; 9A0EFB u=
+
+; ????-BLOCK 14 PROP COMB [START=9B011E END=9B0124] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1
+ jcnd     lnot(zf.1) , $loc_C6FD95 ; 9B011E u=zf.1
+
+; ????-BLOCK 15 PROP COMB PUSH [START=9B0124 END=9B012F] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: bl.1,esp.4,di.2,sp+C.8
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,ebx.4,esp.4,di.2,esi.4
+; DNU: cf.1,zf.1,pf.1,ebx.4,esp.4,di.2,esi.4
+ pop     esi.4                   ; 9B0124 u=esp.4,sp+C.4 d=esp.4,esi.4
+ xor     di.2,  ( #1.2  <<l  (bl.1 &  #0xF.1 ) ) , di.2 ; 9B0125 u=bl.1,di.2  d=di.2
+ pop     ebx.4                   ; 9B0129 u=esp.4,sp+10.4 d=ebx.4,esp.4
+ mov      #0.4 , eax.4             ; 9B012A u=           d=eax.4
+ mov      #0.1 , cf.1              ; 9B012A u=           d=cf.1
+ mov      #0.1 , of.1              ; 9B012A u=           d=of.1
+ setz    eax.4,  #0.4 , zf.1       ; 9B012A u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; 9B012A u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; 9B012A u=eax.4      d=sf.1
+ jcnd     lnot( (sf.1 ^ of.1) ) , $loc_9B012F ; 9B012C u=sf.1,of.1
+
+; ????-BLOCK 16 PROP FAKE [START=9B012C END=9B012F] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: eax.4
+; DEF: edi.4
+; DNU: edi.4
+ mov     eax.4, edi.4            ; 9B012C u=eax.4      d=edi.4
+
+; ????-BLOCK 17 PROP COMB PUSH [START=9B012F END=9B0135] MINREFS: STK=0/ARG=134, MAXBSP: 18
+; USE: esp.4,sp+14.4
+; DEF: esp.4,edi.4
+; DNU: esp.4,edi.4
+ pop     edi.4                   ; 9B012F u=esp.4,sp+14.4 d=esp.4,edi.4
+ goto    $loc_DFF249             ; 9B0130 u=
+
+; ????-BLOCK 18 PROP COMB [START=BF1865 END=BF186B] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cf.1
+ jcnd    cf.1, $loc_C61A45       ; BF1865 u=cf.1
+
+; ????-BLOCK 19 PROP COMB [START=BF186B END=BF1876] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ebp.4
+; DEF: eax.4
+; DNU: eax.4
+ sub     ebp.4,  #0x114.4 , eax.4  ; BF186B u=ebp.4      d=eax.4
+ goto    $loc_C73F6B             ; BF1871 u=
+
+; ????-BLOCK 20 PROP COMB [START=BF83F8 END=BF8401] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: bl.1,esi.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,esi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,esi.4
+ add     esi.4,  #1.4 , esi.4      ; BF83F8 u=esi.4      d=esi.4
+ setb    bl.1,  #9.1 , cf.1        ; BF83F9 u=bl.1       d=cf.1
+ seto    bl.1,  #9.1 , of.1        ; BF83F9 u=bl.1       d=of.1
+ setz    bl.1,  #9.1 , zf.1        ; BF83F9 u=bl.1       d=zf.1
+ setp    bl.1,  #9.1 , pf.1        ; BF83F9 u=bl.1       d=pf.1
+ sets     (bl.1- #9.1 ) , sf.1       ; BF83F9 u=bl.1       d=sf.1
+ goto    $loc_D666EC             ; BF83FC u=
+
+; ????-BLOCK 21 PROP COMB [START=BFA627 END=BFA62D] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1
+ jcnd    zf.1, $loc_C406D0       ; BFA627 u=zf.1
+
+; ????-BLOCK 22 PROP COMB PUSH [START=BFA62D END=BFA634] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: esp.4
+; DEF: esp.4,sp+8.4
+; DNU: esp.4
+ push     #0.4                     ; BFA62D u=esp.4      d=esp.4,sp+8.4
+ goto    $loc_DF49B8             ; BFA62F u=
+
+; ????-BLOCK 23 PROP COMB [START=BFBDF3 END=BFBDFB] MINREFS: STK=0/ARG=134, MAXBSP: 130
+ goto    $nullsub_2              ; BFBDF6 u=
+
+; ????-BLOCK 24 PROP COMB [START=C069C8 END=C069CE] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1,sf.1,of.1
+ jcnd     ( (sf.1 ^ of.1)  | zf.1) , $loc_DF3D77 ; C069C8 u=zf.1,sf.1,of.1
+
+; ????-BLOCK 25 PROP COMB [START=C069CE END=C069DB] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,esi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,al.1,eax^2.2,esi.4
+ ldx     ss.2,  (ebp.4- #4.4 ) , eax.4 ; C069CE u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=eax.4
+ ldx     ss.2,  (ebp.4- #8.4 ) , esi.4 ; C069D1 u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=esi.4
+ setb    ah.1,  #0xEA.1 , cf.1     ; C069D8 u=ah.1       d=cf.1
+ seto    ah.1,  #0xEA.1 , of.1     ; C069D8 u=ah.1       d=of.1
+ setz     (ah.1+ #0x16.1 ) ,  #0.1 , zf.1 ; C069D8 u=ah.1       d=zf.1
+ setp     (ah.1+ #0x16.1 ) ,  #0.1 , pf.1 ; C069D8 u=ah.1       d=pf.1
+ sets     (ah.1+ #0x16.1 ) , sf.1    ; C069D8 u=ah.1       d=sf.1
+
+; ????-BLOCK 26 PROP COMB [START=C069DB END=C069E4] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,rdi.8,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ setb    esi.4,  [ds.2: ( (eax.4+edi.4) + #0x14.4 ) ].4 , cf.1 ; C069DB u=eax.4,rdi.8,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=cf.1
+ seto    esi.4,  [ds.2: ( (eax.4+edi.4) + #0x14.4 ) ].4 , of.1 ; C069DB u=eax.4,rdi.8,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=of.1
+ setz    esi.4,  [ds.2: ( (eax.4+edi.4) + #0x14.4 ) ].4 , zf.1 ; C069DB u=eax.4,rdi.8,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=zf.1
+ setp    esi.4,  [ds.2: ( (eax.4+edi.4) + #0x14.4 ) ].4 , pf.1 ; C069DB u=eax.4,rdi.8,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=pf.1
+ sets     (esi.4- [ds.2: ( (eax.4+edi.4) + #0x14.4 ) ].4 ) , sf.1 ; C069DB u=eax.4,rdi.8,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=sf.1
+ goto    $loc_928DC9             ; C069DF u=
+
+; ????-BLOCK 27 PROP COMB [START=C1841A END=C18427] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: rax.8,ecx.4,ebp.4,ss.2
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,eax.4
+ add     eax.4,  #1.4 , eax.4      ; C1841A u=eax.4      d=eax.4
+ stx     edx.4, ss.2,  (ebp.4+ #8.4 )  ; C1841D u=edx.4,ebp.4,ss.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ setb    edx.4, ecx.4, cf.1      ; C18420 u=edx.4,ecx.4 d=cf.1
+ seto    edx.4, ecx.4, of.1      ; C18420 u=edx.4,ecx.4 d=of.1
+ setz    edx.4, ecx.4, zf.1      ; C18420 u=edx.4,ecx.4 d=zf.1
+ setp    edx.4, ecx.4, pf.1      ; C18420 u=edx.4,ecx.4 d=pf.1
+ sets     (edx.4-ecx.4) , sf.1     ; C18420 u=edx.4,ecx.4 d=sf.1
+ goto    $loc_DDFE51             ; C18422 u=
+
+; ????-BLOCK 28 PROP COMB [START=C23B74 END=C23B7C] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: eax.4
+; DNU: eax.4
+ ldx     ss.2,  (ebp.4+ #0xC.4 ) , eax.4 ; C23B74 u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=eax.4
+ goto    $loc_D7516A             ; C23B77 u=
+
+; ????-BLOCK 29 PROP COMB PUSH [START=C3310A END=C33110] MINREFS: STK=0/ARG=134, MAXBSP: 8
+; USE: edx.4,esp.4
+; DEF: esp.4,sp+4.4
+; DNU: esp.4
+ push    edx.4                   ; C3310A u=edx.4,esp.4 d=esp.4,sp+4.4
+ goto    $loc_D5DAF2             ; C3310B u=
+
+; ????-BLOCK 30 PROP COMB [START=C3E02C END=C3E033] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ebx.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ mov      #0.1 , cf.1              ; C3E02C u=           d=cf.1
+ mov      #0.1 , of.1              ; C3E02C u=           d=of.1
+ setz    ebx.4,  #0.4 , zf.1       ; C3E02C u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; C3E02C u=ebx.4      d=pf.1
+ sets    ebx.4, sf.1             ; C3E02C u=ebx.4      d=sf.1
+ goto    $loc_C58943             ; C3E02E u=
+
+; ????-BLOCK 31 PROP COMB [START=C406D0 END=C406E1] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,cl.1,esi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,cl.1,esi.4
+ ldx     ds.2,  (esi.4+ #2.4 ) , cl.1 ; C406D0 u=esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=cl.1
+ ofadd    #2.4 , esi.4, of.1       ; C406D8 u=esi.4      d=of.1
+ setz     (esi.4+ #2.4 ) ,  #0.4 , zf.1 ; C406D8 u=esi.4      d=zf.1
+ setp     (esi.4+ #2.4 ) ,  #0.4 , pf.1 ; C406D8 u=esi.4      d=pf.1
+ sets     (esi.4+ #2.4 ) , sf.1      ; C406D8 u=esi.4      d=sf.1
+ add     esi.4,  #2.4 , esi.4      ; C406D8 u=esi.4      d=esi.4
+ mov      #1.1 , cf.1              ; C406DB u=           d=cf.1
+ goto    $loc_C9A267             ; C406DC u=
+
+; ????-BLOCK 32 PROP COMB [START=C58943 END=C58949] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: sf.1,of.1
+ jcnd     (sf.1 ^ of.1) , $loc_C069DB ; C58943 u=sf.1,of.1
+
+; ????-BLOCK 33 PROP COMB [START=C58949 END=C5894E] MINREFS: STK=0/ARG=134, MAXBSP: C
+ goto    $loc_DF3D7D             ; C58949 u=
+
+; ????-BLOCK 34 PROP COMB [START=C61A29 END=C61A2F] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1
+ jcnd    zf.1, $loc_C23B74       ; C61A29 u=zf.1
+
+; ????-BLOCK 35 PROP COMB [START=C61A2F END=C61A45] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cl.1,ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,rax.8,cl.1,ebx.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,edx.4,cl.1
+ ldx     ss.2,  (ebp.4+ #0xC.4 ) , ebx.4 ; C61A2F u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=ebx.4
+ sub     ebp.4,  #0x114.4 , eax.4  ; C61A34 u=ebp.4      d=eax.4
+ sar     cl.1, cl.1, cl.1        ; C61A3A u=cl.1       d=cl.1
+ mov      #0.4 , edx.4             ; C61A3D u=           d=edx.4
+ shl     cl.1, cl.1, cl.1        ; C61A3F u=cl.1       d=cl.1
+ setb    ebx.4, eax.4, cf.1      ; C61A41 u=eax.4,ebx.4 d=cf.1
+ seto    ebx.4, eax.4, of.1      ; C61A41 u=eax.4,ebx.4 d=of.1
+ sub     ebx.4, eax.4, ebx.4     ; C61A41 u=eax.4,ebx.4 d=ebx.4
+ setz    ebx.4,  #0.4 , zf.1       ; C61A41 u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; C61A41 u=ebx.4      d=pf.1
+ sets    ebx.4, sf.1             ; C61A41 u=ebx.4      d=sf.1
+
+; ????-BLOCK 36 PROP COMB [START=C61A45 END=C61A70] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: edx.4,ebx.4,ebp.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,cl.1,esi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,eax^1.3
+ mov      #0x18EF4CA5.4 , eax.4    ; C61A45 u=           d=eax.4
+ mov     dl.1, cl.1              ; C61A4A u=dl.1       d=cl.1
+ mov      call !__ROL4__<fast:_DWORD eax.4,char cl.1> => _DWORD .4 , eax.4 ; C61A50 u=eax.4,cl.1 d=eax.4
+ sub      (ebp.4+edx.4) ,  #0x114.4 , esi.4 ; C61A55 u=edx.4,ebp.4 d=esi.4
+ add     dl.1, al.1, al.1        ; C61A66 u=al.1,dl.1  d=al.1
+ xor      [ds.2: (ebx.4+esi.4) ].1 , al.1, al.1 ; C61A68 u=al.1,ebx.4,esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=al.1
+ mov      #0.1 , cf.1              ; C61A68 u=           d=cf.1
+ mov      #0.1 , of.1              ; C61A68 u=           d=of.1
+ setz    al.1,  #0.1 , zf.1        ; C61A68 u=al.1       d=zf.1
+ setp    al.1,  #0.1 , pf.1        ; C61A68 u=al.1       d=pf.1
+ sets    al.1, sf.1              ; C61A68 u=al.1       d=sf.1
+ goto    $loc_97AFF7             ; C61A6B u=
+
+; ????-BLOCK 37 PROP COMB [START=C69764 END=C6977A] MINREFS: STK=0/ARG=134, MAXBSP: 8
+; USE: eax.4,ebp.4,ss.2
+; DEF: eax.4,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DNU: eax.4
+ stx      #0.1 , ss.2,  ( (ebp.4+eax.4) - #0x114.4 )  ; C69764 u=eax.4,ebp.4,ss.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov     $GetModuleHandleA.4, eax.4 ; C69770 u=           d=eax.4
+ goto    $loc_D81518             ; C69775 u=
+
+; ????-BLOCK 38 PROP COMB [START=C6FD8B END=C6FD91] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1
+ jcnd    zf.1, $loc_9B0124       ; C6FD8B u=zf.1
+
+; ????-BLOCK 39 PROP COMB [START=C6FD91 END=C6FD95] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ah.1,cl.1
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ mov      #0.1 , cf.1              ; C6FD93 u=           d=cf.1
+ mov      #0.1 , of.1              ; C6FD93 u=           d=of.1
+ setz     (cl.1 & ah.1) ,  #0.1 , zf.1 ; C6FD93 u=ah.1,cl.1  d=zf.1
+ setp     (cl.1 & ah.1) ,  #0.1 , pf.1 ; C6FD93 u=ah.1,cl.1  d=pf.1
+ sets     (cl.1 & ah.1) , sf.1     ; C6FD93 u=ah.1,cl.1  d=sf.1
+
+; ????-BLOCK 40 PROP COMB [START=C6FD95 END=C6FD9E] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cl.1
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,sf.1,of.1,pf.1
+ setb    cl.1,  #0x2E.1 , cf.1     ; C6FD95 u=cl.1       d=cf.1
+ seto    cl.1,  #0x2E.1 , of.1     ; C6FD95 u=cl.1       d=of.1
+ setz    cl.1,  #0x2E.1 , zf.1     ; C6FD95 u=cl.1       d=zf.1
+ setp    cl.1,  #0x2E.1 , pf.1     ; C6FD95 u=cl.1       d=pf.1
+ sets     (cl.1- #0x2E.1 ) , sf.1    ; C6FD95 u=cl.1       d=sf.1
+ jcnd    zf.1, $loc_C779CD       ; C6FD98 u=zf.1
+
+; ????-BLOCK 41 PROP COMB [START=C6FD9E END=C6FDA6] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cl.1
+; DNU: cl.1
+ ldx     ds.2,  (esi.4+ #1.4 ) , cl.1 ; C6FD9E u=esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=cl.1
+ goto    $loc_E2EBAE             ; C6FDA1 u=
+
+; ????-BLOCK 42 PROP COMB PUSH [START=C7360B END=C73623] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: edx.4,ebx.4,esp.4,ebp.4,esi.4,ss.2
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,esp.4,esi.4,sp+C.8,(GLBLOW,sp+0.C,sp+14..,ARGS,GLBHIGH)
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,esi.4
+ push    ebx.4                   ; C7360B u=ebx.4,esp.4 d=esp.4,sp+10.4
+ push    esi.4                   ; C7360C u=esp.4,esi.4 d=esp.4,sp+C.4
+ mov      #0xFFFFFFFF.4 , esi.4    ; C73612 u=           d=esi.4
+ mov      #0.1 , cf.1              ; C73615 u=           d=cf.1
+ mov      #0.1 , of.1              ; C73615 u=           d=of.1
+ setz     (esp.4 &  #0x7F6F296A.4 ) ,  #0.4 , zf.1 ; C73615 u=esp.4      d=zf.1
+ setp     (esp.4 &  #0x7F6F296A.4 ) ,  #0.4 , pf.1 ; C73615 u=esp.4      d=pf.1
+ mov      #0.1 , sf.1              ; C73615 u=           d=sf.1
+ stx     edx.4, ss.2,  (ebp.4- #0x10.4 )  ; C7361B u=edx.4,ebp.4,ss.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ goto    $loc_D78786             ; C7361E u=
+
+; ????-BLOCK 43 PROP COMB PUSH [START=C73F6B END=C73F7E] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,esp.4,edi.4
+; DEF: eax.4,esp.4,sp+4.8
+; DNU: eax.4,esp.4
+ push    eax.4                   ; C73F6B u=eax.4,esp.4 d=esp.4,sp+8.4
+ push    edi.4                   ; C73F71 u=esp.4,edi.4 d=esp.4,sp+4.4
+ mov     $GetProcAddress.4, eax.4 ; C73F74 u=           d=eax.4
+ goto    $loc_D8D1E6             ; C73F79 u=
+
+; ????-BLOCK 44 PROP COMB [START=C779CD END=C779DD] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,esi.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,ecx.4
+; DNU: zf.1,sf.1,of.1,pf.1
+ mov     esi.4, ecx.4            ; C779CD u=esi.4      d=ecx.4
+ sub     ecx.4, eax.4, ecx.4     ; C779CF u=eax.4,ecx.4 d=ecx.4
+ setb    ecx.4,  #0x104.4 , cf.1   ; C779D1 u=ecx.4      d=cf.1
+ seto    ecx.4,  #0x104.4 , of.1   ; C779D1 u=ecx.4      d=of.1
+ setz    ecx.4,  #0x104.4 , zf.1   ; C779D1 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0x104.4 , pf.1   ; C779D1 u=ecx.4      d=pf.1
+ sets     (ecx.4- #0x104.4 ) , sf.1  ; C779D1 u=ecx.4      d=sf.1
+ jcnd     lnot(cf.1) , $loc_9B0124 ; C779D7 u=cf.1
+
+; ????-BLOCK 45 PROP COMB [START=C779DD END=C779EB] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ecx.4,ebp.4,ss.2
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ stx      #0.4 , ss.2,  (ebp.4+ #8.4 )  ; C779DD u=ebp.4,ss.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov      #0.1 , cf.1              ; C779E4 u=           d=cf.1
+ mov      #0.1 , of.1              ; C779E4 u=           d=of.1
+ setz    ecx.4,  #0.4 , zf.1       ; C779E4 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; C779E4 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; C779E4 u=ecx.4      d=sf.1
+ goto    $loc_C8AAA5             ; C779E6 u=
+
+; ????-BLOCK 46 PROP COMB [START=C8AAA5 END=C8AAAB] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cf.1,zf.1
+ jcnd     (cf.1 | zf.1) , $loc_DDFE57 ; C8AAA5 u=cf.1,zf.1
+
+; ????-BLOCK 47 PROP COMB [START=C8AAAB END=C8AAB3] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,ebp.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,ebx.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ sub     ebp.4,  #0x114.4 , ebx.4  ; C8AAAB u=ebp.4      d=ebx.4
+ setb    ebx.4, eax.4, cf.1      ; C8AAB1 u=eax.4,ebx.4 d=cf.1
+ seto    ebx.4, eax.4, of.1      ; C8AAB1 u=eax.4,ebx.4 d=of.1
+ sub     ebx.4, eax.4, ebx.4     ; C8AAB1 u=eax.4,ebx.4 d=ebx.4
+ setz    ebx.4,  #0.4 , zf.1       ; C8AAB1 u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; C8AAB1 u=ebx.4      d=pf.1
+ sets    ebx.4, sf.1             ; C8AAB1 u=ebx.4      d=sf.1
+
+; ????-BLOCK 48 PROP COMB [START=C8AAB3 END=C8AABC] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,dl.1
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ ldx     ds.2, eax.4, dl.1       ; C8AAB3 u=eax.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=dl.1
+ mov      #0.1 , cf.1              ; C8AAB5 u=           d=cf.1
+ mov      #0.1 , of.1              ; C8AAB5 u=           d=of.1
+ setz    dl.1,  #0.1 , zf.1        ; C8AAB5 u=dl.1       d=zf.1
+ setp    dl.1,  #0.1 , pf.1        ; C8AAB5 u=dl.1       d=pf.1
+ sets    dl.1, sf.1              ; C8AAB5 u=dl.1       d=sf.1
+ goto    $loc_9A0EEA             ; C8AAB7 u=
+
+; ????-BLOCK 49 PROP COMB [START=C9A267 END=C9A278] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cl.1
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,edx.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,edx.4
+ mov      #0.4 , edx.4             ; C9A267 u=           d=edx.4
+ mov      #0.1 , cf.1              ; C9A271 u=           d=cf.1
+ mov      #0.1 , of.1              ; C9A271 u=           d=of.1
+ setz    cl.1,  #0.1 , zf.1        ; C9A271 u=cl.1       d=zf.1
+ setp    cl.1,  #0.1 , pf.1        ; C9A271 u=cl.1       d=pf.1
+ sets    cl.1, sf.1              ; C9A271 u=cl.1       d=sf.1
+ goto    $loc_DD6D9D             ; C9A273 u=
+
+; ????-BLOCK 50 PROP COMB PUSH [START=D5DAF2 END=D5DAF8] MINREFS: STK=0/ARG=134, MAXBSP: 4
+; USE: eax.4,esp.4,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: esp.4,sp+0.4,(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,st7.8,fl.1,c0.1,c2.1,c3.1,df.1,if.1,xmm0.16,GLBLOW,sp+4..,RET,ARGS,GLBHIGH)
+; DNU: esp.4
+ push    eax.4                   ; D5DAF2 u=eax.4,esp.4 d=esp.4,sp+0.4
+ call    $sub_C6CFD7             ; D5DAF3 u=(rax.8,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,st7.8,fl.1,c0.1,c2.1,c3.1,df.1,if.1,xmm0.16,ALLMEM)
+
+; ????-BLOCK 51 PROP COMB [START=D5DAF8 END=D5DB01] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: esp.4,esi.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,esi.4
+; DNU: cf.1,zf.1,of.1,pf.1,esi.4
+ cfadd   esp.4,  #0xC.4 , cf.1     ; D5DAF8 u=esp.4      d=cf.1
+ ofadd    #0xC.4 , esp.4, of.1     ; D5DAF8 u=esp.4      d=of.1
+ setz     (esp.4+ #0xC.4 ) ,  #0.4 , zf.1 ; D5DAF8 u=esp.4      d=zf.1
+ setp     (esp.4+ #0xC.4 ) ,  #0.4 , pf.1 ; D5DAF8 u=esp.4      d=pf.1
+ sets     (esp.4+ #0xC.4 ) , sf.1    ; D5DAF8 u=esp.4      d=sf.1
+ mov      call !_byteswap_ulong<fast:"unsigned int" esi.4> => "unsigned __int32" .4 , esi.4 ; D5DAFB u=esi.4      d=esi.4
+ jcnd    sf.1, $loc_D5DB01       ; D5DAFD u=sf.1
+
+; ????-BLOCK 52 PROP FAKE [START=D5DAFD END=D5DB01] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cx.2
+; DEF: di.2
+; DNU: di.2
+ mov     cx.2, di.2              ; D5DAFD u=cx.2       d=di.2
+
+; ????-BLOCK 53 PROP COMB PUSH [START=D5DB01 END=D5DB08] MINREFS: STK=0/ARG=134, MAXBSP: 10
+; USE: sf.1,esp.4,esi.4,sp+C.4
+; DEF: ebx.4,esp.4,esi.4
+; DNU: ebx.4,esp.4,esi.4
+ mov     esi.4, ebx.4            ; D5DB01 u=esi.4      d=ebx.4
+ pop     esi.4                   ; D5DB03 u=esp.4,sp+C.4 d=esp.4,esi.4
+ jcnd     lnot(sf.1) , $loc_D5DB08 ; D5DB04 u=sf.1
+
+; ????-BLOCK 54 PROP FAKE [START=D5DB04 END=D5DB08] MINREFS: STK=0/ARG=134, MAXBSP: 10
+; USE: ax.2
+; DEF: bx.2
+; DNU: bx.2
+ mov     ax.2, bx.2              ; D5DB04 u=ax.2       d=bx.2
+
+; ????-BLOCK 55 PROP COMB PUSH [START=D5DB08 END=D5DB0F] MINREFS: STK=0/ARG=134, MAXBSP: 18
+; USE: esp.4,sp+10.8
+; DEF: ebx.4,esp.4,edi.4
+; DNU: ebx.4,esp.4,edi.4
+ pop     ebx.4                   ; D5DB08 u=esp.4,sp+10.4 d=ebx.4,esp.4
+ pop     edi.4                   ; D5DB09 u=esp.4,sp+14.4 d=esp.4,edi.4
+ goto    $loc_D5F485             ; D5DB0A u=
+
+; ????-BLOCK 56 PROP COMB PUSH [START=D5EA7A END=D5EA80] MINREFS: STK=0/ARG=134, MAXBSP: 4
+; USE: eax.4,esp.4
+; DEF: esp.4,sp+0.4
+; DNU: esp.4
+ push    eax.4                   ; D5EA7A u=eax.4,esp.4 d=esp.4,sp+0.4
+ goto    $loc_E1D068             ; D5EA7B u=
+
+; ????-BLOCK 57 PROP COMB [START=D5F485 END=D5F490] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE: bp.2
+; DEF: bp.2
+; DNU: bp.2
+ mov      call !_byteswap_ushort<fast:"unsigned __int16" bp.2> => "unsigned __int16" .2 , bp.2 ; D5F487 u=bp.2       d=bp.2
+ goto    $nullsub_6              ; D5F48B u=
+
+; ????-BLOCK 58 PROP COMB [START=D653ED END=D653F3] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1
+ jcnd    zf.1, $loc_9B0124       ; D653ED u=zf.1
+
+; ????-BLOCK 59 PROP COMB [START=D653F3 END=D653FB] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,edi.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,sf.1,of.1,pf.1
+ setb    eax.4, edi.4, cf.1      ; D653F3 u=eax.4,edi.4 d=cf.1
+ seto    eax.4, edi.4, of.1      ; D653F3 u=eax.4,edi.4 d=of.1
+ setz    eax.4, edi.4, zf.1      ; D653F3 u=eax.4,edi.4 d=zf.1
+ setp    eax.4, edi.4, pf.1      ; D653F3 u=eax.4,edi.4 d=pf.1
+ sets     (eax.4-edi.4) , sf.1     ; D653F3 u=eax.4,edi.4 d=sf.1
+ jcnd     lnot(zf.1) , $loc_E0B064 ; D653F5 u=zf.1
+
+; ????-BLOCK 60 PROP COMB [START=D653FB END=D65404] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ mov      #0.1 , cf.1              ; D653FB u=           d=cf.1
+ mov      #0.1 , of.1              ; D653FB u=           d=of.1
+ setz     [ss.2: (ebp.4+ #0x10.4 ) ].1 ,  #0.1 , zf.1 ; D653FB u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=zf.1
+ setp     [ss.2: (ebp.4+ #0x10.4 ) ].1 ,  #0.1 , pf.1 ; D653FB u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=pf.1
+ sets     [ss.2: (ebp.4+ #0x10.4 ) ].1 , sf.1 ; D653FB u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=sf.1
+ goto    $loc_C61A29             ; D653FF u=
+
+; ????-BLOCK 61 PROP COMB [START=D666EC END=D666F2] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cf.1,zf.1
+ jcnd     lnot( (cf.1 | zf.1) ) , $loc_D95F22 ; D666EC u=cf.1,zf.1
+
+; ????-BLOCK 62 PROP COMB [START=D666F2 END=D66703] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: edx.4,cl.1,esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: edx.4,ecx.4
+; DNU: edx.4,cl.1
+ xds     cl.1, ecx.4             ; D666F2 u=cl.1       d=ecx^1.3
+ mul      #5.4 , edx.4, edx.4      ; D666F5 u=edx.4      d=edx.4
+ sub      (ecx.4+ ( #2.4 *edx.4) ) ,  #0x30.4 , edx.4 ; D666F8 u=edx.4,ecx.4 d=edx.4
+ ldx     ds.2, esi.4, cl.1       ; D666FC u=esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=cl.1
+ goto    $loc_D8B6BA             ; D666FE u=
+
+; ????-BLOCK 63 PROP COMB [START=D6C0B1 END=D6C0BE] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE: edi.4
+; DEF: ebp.4
+; DNU: ebp.4
+ mov     edi.4, ebp.4            ; D6C0B6 u=edi.4      d=ebp.4
+ goto    $nullsub_4              ; D6C0B9 u=
+
+; ????-BLOCK 64 PROP COMB PUSH [START=D721DD END=D721E3] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ecx.4,esp.4
+; DEF: esp.4,sp+8.4
+; DNU: esp.4
+ push    ecx.4                   ; D721DD u=ecx.4,esp.4 d=esp.4,sp+8.4
+ goto    $loc_C69764             ; D721DE u=
+
+; ????-BLOCK 65 PROP COMB PUSH [START=D7516A END=D7517B] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,esp.4,edi.4
+; DEF: eax.4,esp.4,sp+4.8
+; DNU: eax.4,esp.4
+ push    eax.4                   ; D7516A u=eax.4,esp.4 d=esp.4,sp+8.4
+ push    edi.4                   ; D7516B u=esp.4,edi.4 d=esp.4,sp+4.4
+ mov     $GetProcAddress.4, eax.4 ; D75171 u=           d=eax.4
+ goto    $loc_DFD9D1             ; D75176 u=
+
+; ????-BLOCK 66 PROP COMB [START=D78786 END=D78794] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ecx.4,ebp.4,esi.4,ss.2
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ stx     esi.4, ss.2,  (ebp.4- #8.4 )  ; D78786 u=ebp.4,esi.4,ss.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ setb    ecx.4,  #0xFFFF.4 , cf.1  ; D78789 u=ecx.4      d=cf.1
+ seto    ecx.4,  #0xFFFF.4 , of.1  ; D78789 u=ecx.4      d=of.1
+ setz    ecx.4,  #0xFFFF.4 , zf.1  ; D78789 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0xFFFF.4 , pf.1  ; D78789 u=ecx.4      d=pf.1
+ sets     (ecx.4- #0xFFFF.4 ) , sf.1 ; D78789 u=ecx.4      d=sf.1
+ goto    $loc_DCCCA8             ; D7878F u=
+
+; ????-BLOCK 67 PROP COMB PUSH [START=D81518 END=D8151A] MINREFS: STK=0/ARG=134, MAXBSP: 8
+; USE: eax.4,cs.2,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: (cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,fl.1,c0.1,c2.1,c3.1,df.1,if.1,ALLMEM)
+ icall   cs.2, eax.4             ; D81518 u=eax.4,cs.2,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,fl.1,c0.1,c2.1,c3.1,df.1,if.1,ALLMEM)
+
+; ????-BLOCK 68 PROP COMB [START=D8151A END=D81522] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,sf.1,of.1,pf.1
+ mov      #0.1 , cf.1              ; D8151A u=           d=cf.1
+ mov      #0.1 , of.1              ; D8151A u=           d=of.1
+ setz    eax.4,  #0.4 , zf.1       ; D8151A u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; D8151A u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; D8151A u=eax.4      d=sf.1
+ jcnd     lnot(zf.1) , $loc_D653F3 ; D8151C u=zf.1
+
+; ????-BLOCK 69 PROP COMB PUSH [START=D81522 END=D8153F] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: esp.4,ebp.4
+; DEF: rax.8,esp.4,sp+8.4
+; DNU: eax.4,esp.4
+ sub     ebp.4,  #0x114.4 , edx.4  ; D81522 u=ebp.4      d=edx.4
+ push    edx.4                   ; D81532 u=edx.4,esp.4 d=esp.4,sp+8.4
+ mov     $LoadLibraryA.4, eax.4  ; D81535 u=           d=eax.4
+ goto    $loc_D9BC60             ; D8153A u=
+
+; ????-BLOCK 70 PROP COMB [START=D8B6BA END=D8B6C1] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cl.1
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ mov      #0.1 , cf.1              ; D8B6BA u=           d=cf.1
+ mov      #0.1 , of.1              ; D8B6BA u=           d=of.1
+ setz    cl.1,  #0.1 , zf.1        ; D8B6BA u=cl.1       d=zf.1
+ setp    cl.1,  #0.1 , pf.1        ; D8B6BA u=cl.1       d=pf.1
+ sets    cl.1, sf.1              ; D8B6BA u=cl.1       d=sf.1
+ goto    $loc_D95F1C             ; D8B6BC u=
+
+; ????-BLOCK 71 PROP COMB PUSH [START=D8D1E6 END=D8D1E8] MINREFS: STK=0/ARG=134, MAXBSP: 4
+; USE: eax.4,cs.2,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: (cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,fl.1,c0.1,c2.1,c3.1,df.1,if.1,ALLMEM)
+ icall   cs.2, eax.4             ; D8D1E6 u=eax.4,cs.2,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,fl.1,c0.1,c2.1,c3.1,df.1,if.1,ALLMEM)
+
+; ????-BLOCK 72 PROP COMB PUSH [START=D8D1E8 END=D8D1F0] MINREFS: STK=0/ARG=134, MAXBSP: 18
+; USE: esp.4,sp+C.C
+; DEF: ebx.4,esp.4,rdi.8
+; DNU: ebx.4,esp.4,rdi.8
+ pop     esi.4                   ; D8D1E8 u=esp.4,sp+C.4 d=esp.4,esi.4
+ pop     ebx.4                   ; D8D1E9 u=esp.4,sp+10.4 d=ebx.4,esp.4
+ pop     edi.4                   ; D8D1EA u=esp.4,sp+14.4 d=esp.4,edi.4
+ goto    $loc_D6C0B1             ; D8D1EB u=
+
+; ????-BLOCK 73 PROP COMB [START=D8F04C END=D8F054] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: edx.4,ebp.4,ss.2
+; DEF: (GLBLOW,LVARS,ARGS,GLBHIGH)
+ stx     edx.4, ss.2,  (ebp.4+ #8.4 )  ; D8F04C u=edx.4,ebp.4,ss.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ goto    $loc_DF7563             ; D8F04F u=
+
+; ????-BLOCK 74 PROP COMB [START=D95F1C END=D95F22] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1
+ jcnd     lnot(zf.1) , $loc_DD6DA3 ; D95F1C u=zf.1
+
+; ????-BLOCK 75 PROP COMB PUSH [START=D95F22 END=D95F29] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: esp.4
+; DEF: esp.4,sp+8.4
+; DNU: esp.4
+ push     #0.4                     ; D95F22 u=esp.4      d=esp.4,sp+8.4
+ goto    $loc_C3310A             ; D95F24 u=
+
+; ????-BLOCK 76 PROP COMB PUSH [START=D9BC60 END=D9BC62] MINREFS: STK=0/ARG=134, MAXBSP: 8
+; USE: eax.4,cs.2,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: (cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,fl.1,c0.1,c2.1,c3.1,df.1,if.1,ALLMEM)
+ icall   cs.2, eax.4             ; D9BC60 u=eax.4,cs.2,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,fl.1,c0.1,c2.1,c3.1,df.1,if.1,ALLMEM)
+
+; ????-BLOCK 77 PROP COMB [START=D9BC62 END=D9BC69] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ mov      #0.1 , cf.1              ; D9BC62 u=           d=cf.1
+ mov      #0.1 , of.1              ; D9BC62 u=           d=of.1
+ setz    eax.4,  #0.4 , zf.1       ; D9BC62 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; D9BC62 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; D9BC62 u=eax.4      d=sf.1
+ goto    $loc_D653ED             ; D9BC64 u=
+
+; ????-BLOCK 78 PROP COMB [START=D9E497 END=D9E4A3] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,ebx.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ ldx     ds.2,  ( (eax.4+edi.4) + #0x18.4 ) , ebx.4 ; D9E497 u=eax.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=ebx.4
+ mov      #0.1 , cf.1              ; D9E49C u=           d=cf.1
+ mov      #0.1 , of.1              ; D9E49C u=           d=of.1
+ setz    ebx.4,  #0.4 , zf.1       ; D9E49C u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; D9E49C u=ebx.4      d=pf.1
+ sets    ebx.4, sf.1             ; D9E49C u=ebx.4      d=sf.1
+ goto    $loc_DDE891             ; D9E49E u=
+
+; ????-BLOCK 79 PROP COMB PUSH [START=DACDE2 END=DACDF8] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE: ecx.4,esp.4,edi.4,sp+10.8
+; DEF: eax.4,ebx.4,esp.4,bp.2,edi.4
+; DNU: eax.4,ebx.4,esp.4,bp.2,edi.4
+ pop     ebx.4                   ; DACDE2 u=esp.4,sp+10.4 d=ebx.4,esp.4
+ add     ecx.4, edi.4, eax.4     ; DACDE7 u=ecx.4,edi.4 d=eax.4
+ pop     edi.4                   ; DACDED u=esp.4,sp+14.4 d=esp.4,edi.4
+ mov      #0x767F.2 , bp.2         ; DACDF2 u=           d=bp.2
+ ret                             ; DACDF7 u=
+
+; ????-BLOCK 80 PROP COMB PUSH [START=DC2F1B END=DC2F22] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE: bx.2
+; DEF: ebp.4
+; DNU: ebp.4
+ xdu     bx.2, ebp.4             ; DC2F1D u=bx.2       d=ebp.4
+ ret                             ; DC2F21 u=
+
+; ????-BLOCK 81 PROP COMB [START=DC4FE7 END=DC4FED] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1
+ jcnd    zf.1, $loc_DFC05A       ; DC4FE7 u=zf.1
+
+; ????-BLOCK 82 PROP COMB [START=DC4FED END=DC4FF6] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,sf.1,of.1,pf.1
+ setz    eax.4,  #0.4 , cf.1       ; DC4FED u=eax.4      d=cf.1
+ seto    eax.4,  #1.4 , of.1       ; DC4FED u=eax.4      d=of.1
+ setz    eax.4,  #1.4 , zf.1       ; DC4FED u=eax.4      d=zf.1
+ setp    eax.4,  #1.4 , pf.1       ; DC4FED u=eax.4      d=pf.1
+ sets     (eax.4- #1.4 ) , sf.1      ; DC4FED u=eax.4      d=sf.1
+ jcnd     lnot(zf.1) , $loc_DF7563 ; DC4FF0 u=zf.1
+
+; ????-BLOCK 83 PROP COMB [START=DC4FF6 END=DC4FFF] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ebp.4,esi.4,ss.2
+; DEF: zf.1,sf.1,of.1,pf.1,esi.4,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DNU: zf.1,sf.1,of.1,pf.1
+ ofadd    #1.4 , esi.4, of.1       ; DC4FF6 u=esi.4      d=of.1
+ add     esi.4,  #1.4 , esi.4      ; DC4FF6 u=esi.4      d=esi.4
+ setz    esi.4,  #0.4 , zf.1       ; DC4FF6 u=esi.4      d=zf.1
+ setp    esi.4,  #0.4 , pf.1       ; DC4FF6 u=esi.4      d=pf.1
+ sets    esi.4, sf.1             ; DC4FF6 u=esi.4      d=sf.1
+ stx     esi.4, ss.2,  (ebp.4+ #8.4 )  ; DC4FF7 u=ebp.4,esi.4,ss.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ goto    $loc_E0152E             ; DC4FFA u=
+
+; ????-BLOCK 84 PROP COMB [START=DCCCA8 END=DCCCAE] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cf.1,zf.1
+ jcnd     lnot( (cf.1 | zf.1) ) , $loc_D9E497 ; DCCCA8 u=cf.1,zf.1
+
+; ????-BLOCK 85 PROP COMB [START=DCCCAE END=DCCCBE] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,ecx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,ecx.4
+; DNU: zf.1,sf.1,of.1,pf.1
+ sub     ecx.4,  [ds.2: ( (eax.4+edi.4) + #0x10.4 ) ].4 , ecx.4 ; DCCCAE u=eax.4,ecx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=ecx.4
+ setb    ecx.4,  [ds.2: ( (eax.4+edi.4) + #0x14.4 ) ].4 , cf.1 ; DCCCB4 u=eax.4,ecx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=cf.1
+ seto    ecx.4,  [ds.2: ( (eax.4+edi.4) + #0x14.4 ) ].4 , of.1 ; DCCCB4 u=eax.4,ecx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=of.1
+ setz    ecx.4,  [ds.2: ( (eax.4+edi.4) + #0x14.4 ) ].4 , zf.1 ; DCCCB4 u=eax.4,ecx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=zf.1
+ setp    ecx.4,  [ds.2: ( (eax.4+edi.4) + #0x14.4 ) ].4 , pf.1 ; DCCCB4 u=eax.4,ecx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=pf.1
+ sets     (ecx.4- [ds.2: ( (eax.4+edi.4) + #0x14.4 ) ].4 ) , sf.1 ; DCCCB4 u=eax.4,ecx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=sf.1
+ jcnd     lnot(cf.1) , $loc_9B0124 ; DCCCB8 u=cf.1
+
+; ????-BLOCK 86 PROP COMB [START=DCCCBE END=DCCCD2] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,ecx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,edx.4,ecx.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ ldx     ds.2,  ( (eax.4+edi.4) + #0x1C.4 ) , edx.4 ; DCCCBE u=eax.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=edx.4
+ add     edx.4,  ( #4.4 *ecx.4) , ecx.4 ; DCCCC2 u=edx.4,ecx.4 d=ecx.4
+ ldx     ds.2,  (ecx.4+edi.4) , ecx.4 ; DCCCC5 u=ecx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=ecx.4
+ mov      #0.1 , cf.1              ; DCCCCB u=           d=cf.1
+ mov      #0.1 , of.1              ; DCCCCB u=           d=of.1
+ setz    ecx.4,  #0.4 , zf.1       ; DCCCCB u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; DCCCCB u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; DCCCCB u=ecx.4      d=sf.1
+ goto    $loc_E1C17C             ; DCCCCD u=
+
+; ????-BLOCK 87 PROP COMB [START=DD6D9D END=DD6DA3] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1
+ jcnd    zf.1, $loc_D95F22       ; DD6D9D u=zf.1
+
+; ????-BLOCK 88 PROP COMB [START=DD6DA3 END=DD6DAE] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cl.1
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,bl.1
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ mov     cl.1, bl.1              ; DD6DA3 u=cl.1       d=bl.1
+ setb    bl.1,  #0x30.1 , cf.1     ; DD6DA6 u=bl.1       d=cf.1
+ seto    bl.1,  #0x30.1 , of.1     ; DD6DA6 u=bl.1       d=of.1
+ sub     bl.1,  #0x30.1 , bl.1     ; DD6DA6 u=bl.1       d=bl.1
+ setz    bl.1,  #0.1 , zf.1        ; DD6DA6 u=bl.1       d=zf.1
+ setp    bl.1,  #0.1 , pf.1        ; DD6DA6 u=bl.1       d=pf.1
+ sets    bl.1, sf.1              ; DD6DA6 u=bl.1       d=sf.1
+ goto    $loc_BF83F8             ; DD6DA9 u=
+
+; ????-BLOCK 89 PROP COMB [START=DD83C9 END=DD83DA] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: eax.4,ebp.4,ss.2
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ stx     eax.4, ss.2,  (ebp.4- #4.4 )  ; DD83C9 u=eax.4,ebp.4,ss.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ mov      #0.1 , cf.1              ; DD83D3 u=           d=cf.1
+ mov      #0.1 , of.1              ; DD83D3 u=           d=of.1
+ setz    eax.4,  #0.4 , zf.1       ; DD83D3 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; DD83D3 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; DD83D3 u=eax.4      d=sf.1
+ goto    $loc_DEEA34             ; DD83D5 u=
+
+; ????-BLOCK 90 PROP COMB [START=DDE891 END=DDE897] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1
+ jcnd    zf.1, $loc_C069DB       ; DDE891 u=zf.1
+
+; ????-BLOCK 91 PROP COMB [START=DDE897 END=DDE8B6] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,ebx.4,ebp.4,edi.4,ss.2,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,edx.4,ebx.4,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,ebx.4
+ ldx     ds.2,  ( (eax.4+edi.4) + #0x20.4 ) , edx.4 ; DDE897 u=eax.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=edx.4
+ sub     ebx.4,  #1.4 , ebx.4      ; DDE89B u=ebx.4      d=ebx.4
+ add     edi.4, edx.4, edx.4     ; DDE89C u=edx.4,edi.4 d=edx.4
+ stx      #0.4 , ss.2,  (ebp.4+ #8.4 )  ; DDE89F u=ebp.4,ss.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ seto    edi.4,  #0x37E32B68.4 , of.1 ; DDE8A6 u=edi.4      d=of.1
+ setz    edi.4,  #0x37E32B68.4 , zf.1 ; DDE8A6 u=edi.4      d=zf.1
+ setp    edi.4,  #0x37E32B68.4 , pf.1 ; DDE8A6 u=edi.4      d=pf.1
+ sets     (edi.4- #0x37E32B68.4 ) , sf.1 ; DDE8A6 u=edi.4      d=sf.1
+ mov      #0.1 , cf.1              ; DDE8AC u=           d=cf.1
+ stx     edx.4, ss.2,  (ebp.4- #0xC.4 )  ; DDE8AD u=edx.4,ebp.4,ss.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ lnot    cf.1, cf.1              ; DDE8B0 u=cf.1       d=cf.1
+ goto    $loc_C3E02C             ; DDE8B1 u=
+
+; ????-BLOCK 92 PROP COMB [START=DDECA6 END=DDECAC] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: zf.1
+ jcnd    zf.1, $loc_DDECBF       ; DDECA6 u=zf.1
+
+; ????-BLOCK 93 PROP COMB [START=DDECAC END=DDECBF] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4
+; DNU: cf.1,sf.1,of.1,pf.1,eax^2.2
+ mov      #0x5A4D.4 , eax.4        ; DDECAC u=           d=eax.4
+ setb     [ds.2:edi.4].2 , ax.2, cf.1 ; DDECB6 u=ax.2,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=cf.1
+ seto     [ds.2:edi.4].2 , ax.2, of.1 ; DDECB6 u=ax.2,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=of.1
+ setz     [ds.2:edi.4].2 , ax.2, zf.1 ; DDECB6 u=ax.2,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=zf.1
+ setp     [ds.2:edi.4].2 , ax.2, pf.1 ; DDECB6 u=ax.2,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=pf.1
+ sets     ( [ds.2:edi.4].2 -ax.2) , sf.1 ; DDECB6 u=ax.2,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=sf.1
+ jcnd    zf.1, $loc_98E4F7       ; DDECB9 u=zf.1
+
+; ????-BLOCK 94 PROP COMB PUSH [START=DDECBF END=DDECC7] MINREFS: STK=0/ARG=134, MAXBSP: 18
+; USE: esp.4,sp+14.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,esp.4,edi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,esp.4,edi.4
+ mov      #0.1 , cf.1              ; DDECBF u=           d=cf.1
+ mov      #0.1 , of.1              ; DDECBF u=           d=of.1
+ mov      #0.4 , eax.4             ; DDECBF u=           d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; DDECBF u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; DDECBF u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; DDECBF u=eax.4      d=sf.1
+ pop     edi.4                   ; DDECC1 u=esp.4,sp+14.4 d=esp.4,edi.4
+ goto    $loc_BFBDF3             ; DDECC2 u=
+
+; ????-BLOCK 95 PROP COMB [START=DDFE51 END=DDFE57] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cf.1
+ jcnd    cf.1, $loc_C8AAB3       ; DDFE51 u=cf.1
+
+; ????-BLOCK 96 PROP COMB [START=DDFE57 END=DDFE67] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: eax.4,ecx.4
+; DNU: eax.4,ecx.4
+ ldx     ss.2,  (ebp.4+ #8.4 ) , eax.4 ; DDFE57 u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=eax.4
+ sub     ebp.4,  #0x114.4 , ecx.4  ; DDFE5C u=ebp.4      d=ecx.4
+ goto    $loc_D721DD             ; DDFE62 u=
+
+; ????-BLOCK 97 PROP COMB [START=DEEA34 END=DEEA3A] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: zf.1
+ jcnd    zf.1, $loc_DDECBF       ; DEEA34 u=zf.1
+
+; ????-BLOCK 98 PROP COMB [START=DEEA3A END=DEEA42] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: edx.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: edx.4
+; DNU: edx.4
+ ldx     ds.2,  (edx.4+ #0x7C.4 ) , edx.4 ; DEEA3A u=edx.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=edx.4
+ goto    $loc_C7360B             ; DEEA3D u=
+
+; ????-BLOCK 99 PROP COMB PUSH [START=DF21B1 END=DF21BB] MINREFS: STK=0/ARG=134, MAXBSP: 10
+; USE: eax.4,bx.2,esp.4,sp+C.4
+; DEF: eax.4,ebx.4,esp.4,esi.4
+; DNU: eax^2.2,ebx.4,esp.4,esi.4
+ pop     esi.4                   ; DF21B1 u=esp.4,sp+C.4 d=esp.4,esi.4
+ mov     eax.4, ett.4            ; DF21B2 u=eax.4      d=ett.4
+ mov     bx.2, ax.2              ; DF21B2 split2 u=bx.2       d=ax.2
+ mov     ett.4, ebx.4            ; DF21B2 u=ett.4      d=ebx.4
+ xds     ax.2, eax.4             ; DF21B3 u=ax.2       d=eax^2.2
+ goto    $loc_DACDE2             ; DF21B6 u=
+
+; ????-BLOCK 100 PROP COMB [START=DF3D77 END=DF3D7D] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: edx.4,ecx.4
+; DNU: edx.4,ecx.4
+ ldx     ss.2,  (ebp.4+ #0xC.4 ) , ecx.4 ; DF3D77 u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=ecx.4
+ ldx     ss.2,  (ebp.4- #0xC.4 ) , edx.4 ; DF3D7A u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=edx.4
+
+; ????-BLOCK 101 PROP COMB PUSH [START=DF3D7D END=DF3DA2] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: edx.4,ebx.4,esp.4,ebp.4,edi.4,ss.2,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,esp.4,esi.4,sp+8.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,esp.4
+ ldx     ss.2,  (ebp.4+ #8.4 ) , eax.4 ; DF3D7D u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=eax.4
+ add     ebx.4, eax.4, esi.4     ; DF3D80 u=eax.4,ebx.4 d=esi.4
+ ldx     ss.2,  (ebp.4+ #0x10.4 ) , eax.4 ; DF3D8C u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=eax.4
+ push    eax.4                   ; DF3D8F u=eax.4,esp.4 d=esp.4,sp+8.4
+ sar     esi.4,  #1.1 , esi.4      ; DF3D90 u=esi.4      d=esi.4
+ ldx     ds.2,  (edx.4+ ( #4.4 *esi.4) ) , eax.4 ; DF3D98 u=edx.4,esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=eax.4
+ cfadd   edi.4, eax.4, cf.1      ; DF3D9B u=eax.4,edi.4 d=cf.1
+ ofadd   edi.4, eax.4, of.1      ; DF3D9B u=eax.4,edi.4 d=of.1
+ setz     (edi.4+eax.4) ,  #0.4 , zf.1 ; DF3D9B u=eax.4,edi.4 d=zf.1
+ setp     (edi.4+eax.4) ,  #0.4 , pf.1 ; DF3D9B u=eax.4,edi.4 d=pf.1
+ sets     (edi.4+eax.4) , sf.1     ; DF3D9B u=eax.4,edi.4 d=sf.1
+ add     edi.4, eax.4, eax.4     ; DF3D9B u=eax.4,edi.4 d=eax.4
+ goto    $loc_97F0EB             ; DF3D9D u=
+
+; ????-BLOCK 102 PROP COMB PUSH [START=DF49B8 END=DF49BE] MINREFS: STK=0/ARG=134, MAXBSP: 8
+; USE: ecx.4,esp.4
+; DEF: esp.4,sp+4.4
+; DNU: esp.4
+ push    ecx.4                   ; DF49B8 u=ecx.4,esp.4 d=esp.4,sp+4.4
+ goto    $loc_D5EA7A             ; DF49B9 u=
+
+; ????-BLOCK 103 PROP COMB [START=DF7560 END=DF7563] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: esi.4
+; DEF: ebx.4
+; DNU: ebx.4
+ sub     esi.4,  #1.4 , ebx.4      ; DF7560 u=esi.4      d=ebx.4
+
+; ????-BLOCK 104 PROP COMB [START=DF7563 END=DF756B] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ebx.4,ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ setb     [ss.2: (ebp.4+ #8.4 ) ].4 , ebx.4, cf.1 ; DF7563 u=ebx.4,ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=cf.1
+ seto     [ss.2: (ebp.4+ #8.4 ) ].4 , ebx.4, of.1 ; DF7563 u=ebx.4,ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=of.1
+ setz     [ss.2: (ebp.4+ #8.4 ) ].4 , ebx.4, zf.1 ; DF7563 u=ebx.4,ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=zf.1
+ setp     [ss.2: (ebp.4+ #8.4 ) ].4 , ebx.4, pf.1 ; DF7563 u=ebx.4,ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=pf.1
+ sets     ( [ss.2: (ebp.4+ #8.4 ) ].4 -ebx.4) , sf.1 ; DF7563 u=ebx.4,ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=sf.1
+ goto    $loc_C069C8             ; DF7566 u=
+
+; ????-BLOCK 105 PROP COMB [START=DFC05A END=DFC080] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ebx.4,ebp.4,rdi.8,ss.2,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: rax.8,ecx.4,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DNU: edx.4
+ ldx     ss.2,  (ebp.4- #4.4 ) , ecx.4 ; DFC05A u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=ecx.4
+ ldx     ds.2,  ( (ecx.4+edi.4) + #0x24.4 ) , edx.4 ; DFC064 u=ecx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=edx.4
+ add     edx.4,  ( #2.4 *esi.4) , eax.4 ; DFC068 u=edx.4,esi.4 d=eax.4
+ xdu      [ds.2: (eax.4+edi.4) ].2 , ecx.4 ; DFC071 u=eax.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=ecx.4
+ add     ebx.4,  #1.4 , edx.4      ; DFC075 u=ebx.4      d=edx.4
+ stx     ecx.4, ss.2,  (ebp.4- #8.4 )  ; DFC078 u=ecx.4,ebp.4,ss.2 d=(GLBLOW,LVARS,ARGS,GLBHIGH)
+ goto    $loc_D8F04C             ; DFC07B u=
+
+; ????-BLOCK 106 PROP COMB PUSH [START=DFD9D1 END=DFD9D3] MINREFS: STK=0/ARG=134, MAXBSP: 4
+; USE: eax.4,cs.2,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: (cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,fl.1,c0.1,c2.1,c3.1,df.1,if.1,ALLMEM)
+ icall   cs.2, eax.4             ; DFD9D1 u=eax.4,cs.2,(edx.4,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,fl.1,c0.1,c2.1,c3.1,df.1,if.1,ALLMEM)
+
+; ????-BLOCK 107 PROP COMB PUSH [START=DFD9D3 END=DFD9E1] MINREFS: STK=0/ARG=134, MAXBSP: 18
+; USE: esp.4,sp+C.C
+; DEF: ebx.4,esp.4,rdi.8
+; DNU: ebx.4,esp.4,rdi.8
+ pop     esi.4                   ; DFD9D3 u=esp.4,sp+C.4 d=esp.4,esi.4
+ pop     ebx.4                   ; DFD9DA u=esp.4,sp+10.4 d=ebx.4,esp.4
+ pop     edi.4                   ; DFD9DB u=esp.4,sp+14.4 d=esp.4,edi.4
+ goto    $loc_98D387             ; DFD9DC u=
+
+; ????-BLOCK 108 PROP COMB [START=DFF249 END=DFF251] MINREFS: STK=0/ARG=134, MAXBSP: 130
+ goto    $nullsub_3              ; DFF24C u=
+
+; ????-BLOCK 109 PROP COMB [START=E0152E END=E01533] MINREFS: STK=0/ARG=134, MAXBSP: C
+ goto    $loc_DF7563             ; E0152E u=
+
+; ????-BLOCK 110 PROP COMB [START=E03C57 END=E03C5E] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: ecx.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ mov      #0.1 , cf.1              ; E03C57 u=           d=cf.1
+ mov      #0.1 , of.1              ; E03C57 u=           d=of.1
+ setz    ecx.4,  #0.4 , zf.1       ; E03C57 u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E03C57 u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E03C57 u=ecx.4      d=sf.1
+ goto    $loc_DDECA6             ; E03C59 u=
+
+; ????-BLOCK 111 PROP COMB [START=E0B064 END=E0B076] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,ecx.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,ecx.4
+ setb     [ds.2: (esi.4+ #1.4 ) ].1 ,  #0x23.1 , cf.1 ; E0B064 u=esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=cf.1
+ seto     [ds.2: (esi.4+ #1.4 ) ].1 ,  #0x23.1 , of.1 ; E0B064 u=esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=of.1
+ setz     [ds.2: (esi.4+ #1.4 ) ].1 ,  #0x23.1 , zf.1 ; E0B064 u=esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=zf.1
+ setp     [ds.2: (esi.4+ #1.4 ) ].1 ,  #0x23.1 , pf.1 ; E0B064 u=esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=pf.1
+ sets     ( [ds.2: (esi.4+ #1.4 ) ].1 - #0x23.1 ) , sf.1 ; E0B064 u=esi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=sf.1
+ add     esi.4,  #1.4 , ecx.4      ; E0B06E u=esi.4      d=ecx.4
+ goto    $loc_BFA627             ; E0B071 u=
+
+; ????-BLOCK 112 PROP COMB [START=E111C2 END=E111C8] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: zf.1
+ jcnd    zf.1, $loc_DDECBF       ; E111C2 u=zf.1
+
+; ????-BLOCK 113 PROP COMB [START=E111C8 END=E111D0] MINREFS: STK=0/ARG=134, MAXBSP: 14
+; USE: ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: ecx.4
+; DNU: ecx.4
+ ldx     ss.2,  (ebp.4+ #0xC.4 ) , ecx.4 ; E111C8 u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=ecx.4
+ goto    $loc_E03C57             ; E111CB u=
+
+; ????-BLOCK 114 PROP COMB [START=E1C17C END=E1C182] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1
+ jcnd     lnot(zf.1) , $loc_E28A03 ; E1C17C u=zf.1
+
+; ????-BLOCK 115 PROP COMB PUSH [START=E1C182 END=E1C191] MINREFS: STK=0/ARG=134, MAXBSP: 130
+; USE: esp.4,sp+C.C
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,ebx.4,esp.4,rdi.8
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,ebx.4,esp.4,rdi.8
+ pop     esi.4                   ; E1C182 u=esp.4,sp+C.4 d=esp.4,esi.4
+ pop     ebx.4                   ; E1C186 u=esp.4,sp+10.4 d=ebx.4,esp.4
+ mov      #0.4 , eax.4             ; E1C187 u=           d=eax.4
+ mov      #0.1 , cf.1              ; E1C187 u=           d=cf.1
+ mov      #0.1 , of.1              ; E1C187 u=           d=of.1
+ setz    eax.4,  #0.4 , zf.1       ; E1C187 u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; E1C187 u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; E1C187 u=eax.4      d=sf.1
+ pop     edi.4                   ; E1C18C u=esp.4,sp+14.4 d=esp.4,edi.4
+ ret                             ; E1C190 u=
+
+; ????-BLOCK 116 PROP COMB PUSH [START=E1D068 END=E1D06D] MINREFS: STK=0/ARG=134, MAXBSP: 0
+; USE: (rax.8,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: (cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,st7.8,fl.1,c0.1,c2.1,c3.1,df.1,if.1,xmm0.16,ALLMEM)
+ call    $sub_C6CFD7             ; E1D068 u=(rax.8,rcx.8,ebp.4,rdi.8,st0.8,st1.8,st2.8,st3.8,st4.8,st5.8,st6.8,st7.8,mm0.8,mm1.8,mm2.8,mm3.8,mm4.8,mm5.8,mm6.8,mm7.8,xmm0.16,xmm1.16,xmm2.16,xmm3.16,xmm4.16,xmm5.16,xmm6.16,xmm7.16,xmm8.16,xmm9.16,xmm10.16,xmm11.16,xmm12.16,xmm13.16,xmm14.16,xmm15.16,GLBLOW,LVARS,ARGS,GLBHIGH) d=(cf.1,zf.1,sf.1,of.1,pf.1,rax.8,ecx.4,fps.2,st7.8,fl.1,c0.1,c2.1,c3.1,df.1,if.1,xmm0.16,ALLMEM)
+
+; ????-BLOCK 117 PROP COMB [START=E1D06D END=E1D077] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: esp.4,di.2
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,di.2
+; DNU: cf.1,pf.1,di.2
+ cfadd   esp.4,  #0xC.4 , cf.1     ; E1D06D u=esp.4      d=cf.1
+ ofadd    #0xC.4 , esp.4, of.1     ; E1D06D u=esp.4      d=of.1
+ setz     (esp.4+ #0xC.4 ) ,  #0.4 , zf.1 ; E1D06D u=esp.4      d=zf.1
+ setp     (esp.4+ #0xC.4 ) ,  #0.4 , pf.1 ; E1D06D u=esp.4      d=pf.1
+ sets     (esp.4+ #0xC.4 ) , sf.1    ; E1D06D u=esp.4      d=sf.1
+ mov      call !_byteswap_ushort<fast:"unsigned __int16" di.2> => "unsigned __int16" .2 , di.2 ; E1D070 u=di.2       d=di.2
+ jcnd     lnot( ( (sf.1 ^ of.1)  | zf.1) ) , $loc_E1D077 ; E1D073 u=zf.1,sf.1,of.1
+
+; ????-BLOCK 118 PROP FAKE [START=E1D073 END=E1D077] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: dx.2
+; DEF: bx.2
+; DNU: bx.2
+ mov     dx.2, bx.2              ; E1D073 u=dx.2       d=bx.2
+
+; ????-BLOCK 119 PROP COMB PUSH [START=E1D077 END=E1D07B] MINREFS: STK=0/ARG=134, MAXBSP: 10
+; USE: zf.1,esp.4,sp+C.4
+; DEF: esp.4,esi.4
+; DNU: esp.4,esi.4
+ pop     esi.4                   ; E1D077 u=esp.4,sp+C.4 d=esp.4,esi.4
+ jcnd    zf.1, $loc_E1D07B       ; E1D078 u=zf.1
+
+; ????-BLOCK 120 PROP FAKE [START=E1D078 END=E1D07B] MINREFS: STK=0/ARG=134, MAXBSP: 10
+; USE: edi.4
+; DEF: ebx.4
+; DNU: ebx.4
+ mov     edi.4, ebx.4            ; E1D078 u=edi.4      d=ebx.4
+
+; ????-BLOCK 121 PROP COMB PUSH [START=E1D07B END=E1D08C] MINREFS: STK=0/ARG=134, MAXBSP: 18
+; USE: esp.4,sp+10.8
+; DEF: ebx.4,esp.4,edi.4
+; DNU: ebx.4,esp.4,edi.4
+ pop     ebx.4                   ; E1D07B u=esp.4,sp+10.4 d=ebx.4,esp.4
+ pop     edi.4                   ; E1D086 u=esp.4,sp+14.4 d=esp.4,edi.4
+ goto    $loc_DC2F1B             ; E1D087 u=
+
+; ????-BLOCK 122 PROP COMB [START=E289FD END=E28A03] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: zf.1
+ jcnd    zf.1, $loc_9B0124       ; E289FD u=zf.1
+
+; ????-BLOCK 123 PROP COMB [START=E28A03 END=E28A0B] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,ecx.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1
+; DNU: zf.1,sf.1,of.1,pf.1
+ setb    ecx.4, eax.4, cf.1      ; E28A03 u=eax.4,ecx.4 d=cf.1
+ seto    ecx.4, eax.4, of.1      ; E28A03 u=eax.4,ecx.4 d=of.1
+ setz    ecx.4, eax.4, zf.1      ; E28A03 u=eax.4,ecx.4 d=zf.1
+ setp    ecx.4, eax.4, pf.1      ; E28A03 u=eax.4,ecx.4 d=pf.1
+ sets     (ecx.4-eax.4) , sf.1     ; E28A03 u=eax.4,ecx.4 d=sf.1
+ jcnd    cf.1, $loc_DF21B1       ; E28A05 u=cf.1
+
+; ????-BLOCK 124 PROP COMB [START=E28A0B END=E28A20] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: eax.4,ecx.4,ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,edx.4
+; DNU: zf.1,sf.1,of.1,pf.1
+ ldx     ss.2,  (ebp.4- #0x10.4 ) , edx.4 ; E28A0B u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=edx.4
+ add     edx.4, eax.4, edx.4     ; E28A15 u=rax.8      d=edx.4
+ setb    ecx.4, edx.4, cf.1      ; E28A18 u=edx.4,ecx.4 d=cf.1
+ seto    ecx.4, edx.4, of.1      ; E28A18 u=edx.4,ecx.4 d=of.1
+ setz    ecx.4, edx.4, zf.1      ; E28A18 u=edx.4,ecx.4 d=zf.1
+ setp    ecx.4, edx.4, pf.1      ; E28A18 u=edx.4,ecx.4 d=pf.1
+ sets     (ecx.4-edx.4) , sf.1     ; E28A18 u=edx.4,ecx.4 d=sf.1
+ jcnd     lnot(cf.1) , $loc_DF21B1 ; E28A1A u=cf.1
+
+; ????-BLOCK 125 PROP COMB [START=E28A20 END=E28A3F] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: ecx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,cl.1,esi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,esi.4
+ add     ecx.4, edi.4, eax.4     ; E28A20 u=ecx.4,edi.4 d=eax.4
+ ldx     ds.2, eax.4, cl.1       ; E28A23 u=eax.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=cl.1
+ mov     eax.4, esi.4            ; E28A2D u=eax.4      d=esi.4
+ mov      #0.1 , cf.1              ; E28A38 u=           d=cf.1
+ mov      #0.1 , of.1              ; E28A38 u=           d=of.1
+ setz    cl.1,  #0.1 , zf.1        ; E28A38 u=cl.1       d=zf.1
+ setp    cl.1,  #0.1 , pf.1        ; E28A38 u=cl.1       d=pf.1
+ sets    cl.1, sf.1              ; E28A38 u=cl.1       d=sf.1
+ goto    $loc_C6FD8B             ; E28A3A u=
+
+; ????-BLOCK 126 PROP COMB [START=E2EBAE END=E2EBB6] MINREFS: STK=0/ARG=134, MAXBSP: C
+; USE: cl.1,esi.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,esi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,esi.4
+ add     esi.4,  #1.4 , esi.4      ; E2EBAE u=esi.4      d=esi.4
+ mov      #0.1 , cf.1              ; E2EBAF u=           d=cf.1
+ mov      #0.1 , of.1              ; E2EBAF u=           d=of.1
+ setz    cl.1,  #0.1 , zf.1        ; E2EBAF u=cl.1       d=zf.1
+ setp    cl.1,  #0.1 , pf.1        ; E2EBAF u=cl.1       d=pf.1
+ sets    cl.1, sf.1              ; E2EBAF u=cl.1       d=sf.1
+ goto    $loc_9B011E             ; E2EBB1 u=
+
+; STOP-BLOCK 127 PROP FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=0/ARG=134, MAXBSP: 0
+

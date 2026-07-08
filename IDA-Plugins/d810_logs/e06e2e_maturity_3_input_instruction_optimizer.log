@@ -1,0 +1,114 @@
+; STKD=D8 MINREF=0/END=D8 ARGS: OFF=DC/MINREF=DC/END=1DC/SHADOW=0
+; 1WAY-BLOCK 0 FAKE OUTBOUNDS: 1 [START=E06E2E END=E06E2E] MINREFS: STK=0/ARG=DC, MAXBSP: 0
+; DEF: (sf.1,of.1,rax.8,rcx.8,esp.4,rdi.8,cs.2,ds.2,arg+10.4)
+
+; 2WAY-BLOCK 1 INBOUNDS: 0 OUTBOUNDS: 2 3 [START=E06E2E END=E06E35] MINREFS: STK=0/ARG=DC, MAXBSP: D8
+; USE: sf.1,of.1,rax.8
+; DEF: ebx.4,sp+D4..
+; DNU: ebx.4
+ mov     edx.4, %0xD4.4          ; E06E2E u=edx.4      d=sp+D4..
+ mov     eax.4, ebx.4            ; E06E2F u=eax.4      d=ebx.4
+ jcnd     lnot( (sf.1 ^ of.1) ) , @)(00000000000000183) ; E06E31 u=sf.1,of.1
+
+; 1WAY-BLOCK 2 FAKE INBOUNDS: 1 OUTBOUNDS: 3 [START=E06E31 END=E06E35] MINREFS: STK=0/ARG=DC, MAXBSP: D4
+; USE: si.2
+; DEF: bx.2
+; DNU: bx.2
+ mov     si.2, bx.2              ; E06E31 u=si.2       d=bx.2
+
+; 1WAY-BLOCK 3 PROP INBOUNDS: 1 2 OUTBOUNDS: 4 [START=E06E35 END=E06E94] MINREFS: STK=0/ARG=DC, MAXBSP: D4
+; USE-DEF LISTS ARE NOT READY
+ mov     eax.4, %0xD0.4          ; E06E37 u=eax.4      d=sp+D0.4
+ mov      call !__readeflags<fast:> => "unsigned int" .4 , kr00_4.4 ; E06E3B dontprop mbarrier u=           d=kr00_4.4
+ mov     kr00_4.4, %0xCC.4       ; E06E3B u=kr00_4.4   d=sp+CC.4
+ call    !_BitScanReverse <fast:"unsigned __int16 *" &(bp.2)<0/2>.4,"unsigned __int16" si.2> => "unsigned __int8" .0 ; E06E3C u=si.2       d=bp.2
+ xds     bh.1, cx.2              ; E06E40 u=bh.1       d=cx.2
+ mov     esi.4, %0xC8.4          ; E06E47 u=esi.4      d=sp+C8.4
+ bnot    bh.1, cl.1              ; E06E55 u=bh.1       d=cl.1
+ or      sp.2, cx.2, cx.2        ; E06E59 u=cx.2,sp.2  d=cx.2
+ mov      #0.4 , %0xC4.4           ; E06E5C u=           d=sp+C4.4
+ and     bp.2,  bnot( ( #1.2  <<l bh.1) ) , bx.2 ; E06E5D u=bh.1,bp.2  d=bx.2
+ mov      #0.4 , esi.4             ; E06E60 u=           d=esi.4
+ mov      call !__ROL4__<fast:_DWORD  (%arg_10.4 ^  #0x636B2862.4 ) ,char  #3.1 > => _DWORD .4 , edi.4 ; E06E6D u=arg+10.4   d=edi.4
+ mov      call !__ROL4__<fast:_DWORD  (edi.4- #1.4 ) ,char  #2.1 > => _DWORD .4 , edi.4 ; E06E71 u=edi.4      d=edi.4
+ sub     bh.1,  #1.1 , bh.1        ; E06E74 u=bh.1       d=bh.1
+ mov      #0.4 , eax.4             ; E06E7B u=           d=eax.4
+ mov     &(%0xC4).4, ebp.4       ; E06E80 u=           d=ebp.4
+ xor     cx.2,  #8.2 , cx.2        ; E06E82 u=cx.2       d=cx.2
+ ext     ch.1,  #0xE0.1 , ch.1     ; E06E87 u=ch.1       d=ch.1
+ mov      call !_bittestandset<fast:"int *" &(eax.4)<4/4>.4,"unsigned int" edi.4> => "unsigned __int8" .1 , cf.1 ; E06E8A u=eax.4,edi.4,(ALLMEM) d=cf.1,eax.4,(ALLMEM)
+ und     zf.1                    ; E06E8A u=           d=zf.1
+ und     sf.1                    ; E06E8A u=           d=sf.1
+ und     of.1                    ; E06E8A u=           d=of.1
+ und     pf.1                    ; E06E8A u=           d=pf.1
+
+; 1WAY-BLOCK 4 INBOUNDS: 3 OUTBOUNDS: 5 [START=E06E94 END=E06EAF] MINREFS: STK=0/ARG=DC, MAXBSP: 4
+; USE: rdi.8,(ALLMEM)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,cx.2,ebx.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,cx.2,ebx.4
+ mov     edi.4, ebx.4            ; E06E94 u=edi.4      d=ebx.4
+ mov      #0.4 , eax.4             ; E06E9D u=           d=eax.4
+ mov      #0.2 , cx.2              ; E06EA5 u=           d=cx.2
+ mov      call !_bittest<fast:"const int *" &(esi.4)<4/0>.4,"unsigned int" edi.4> => "unsigned __int8" .1 , cf.1 ; E06EAC u=rdi.8,(ALLMEM) d=cf.1
+ und     zf.1                    ; E06EAC u=           d=zf.1
+ und     sf.1                    ; E06EAC u=           d=sf.1
+ und     of.1                    ; E06EAC u=           d=of.1
+ und     pf.1                    ; E06EAC u=           d=pf.1
+
+; 2WAY-BLOCK 5 INBOUNDS: 4 OUTBOUNDS: 6 7 [START=E06EAF END=E06EC5] MINREFS: STK=0/ARG=DC, MAXBSP: 4
+; USE: cx.2,edi.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,cx.2,rdi.8
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,cx.2,rdi.8
+ mov     &($loc_E06EAF).4, esi.4 ; E06EAF u=           d=esi.4
+ sub     edi.4,  #4.4 , edi.4      ; E06EB5 u=edi.4      d=edi.4
+ mov     ch.1, t1.1              ; E06EBB u=ch.1       d=t1.1
+ mov     cl.1, ch.1              ; E06EBB u=cl.1       d=ch.1
+ mov     t1.1, cl.1              ; E06EBB u=t1.1       d=cl.1
+ setb     low.2(&($loc_E06EAF).4) ,  #0x4583.2 , cf.1 ; E06EBD u=           d=cf.1
+ seto     low.2(&($loc_E06EAF).4) ,  #0x4583.2 , of.1 ; E06EBD u=           d=of.1
+ setz     low.2(&($loc_E06EAF).4) ,  #0x4583.2 , zf.1 ; E06EBD u=           d=zf.1
+ setp     low.2(&($loc_E06EAF).4) ,  #0x4583.2 , pf.1 ; E06EBD u=           d=pf.1
+ sets     ( low.2(&($loc_E06EAF).4) - #0x4583.2 ) , sf.1 ; E06EBD u=           d=sf.1
+ jbe      low.2(&($loc_E06EAF).4) ,  #0x4583.2 , @)(00000000000000387) ; E06EC2 u=
+
+; 1WAY-BLOCK 6 FAKE INBOUNDS: 5 OUTBOUNDS: 7 [START=E06EC2 END=E06EC5] MINREFS: STK=0/ARG=DC, MAXBSP: 4
+; USE: edx.4
+; DEF: ecx.4
+; DNU: ecx.4
+ mov     edx.4, ecx.4            ; E06EC2 u=edx.4      d=ecx.4
+
+; 1WAY-BLOCK 7 INBOUNDS: 5 6 OUTBOUNDS: 9 [START=E06EC5 END=E06ED2] MINREFS: STK=0/ARG=DC, MAXBSP: 4
+; USE: ebx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,ecx.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1
+ xor     ebx.4,  [ds.2:edi.4].4 , ecx.4 ; E06ECA u=ebx.4,edi.4,ds.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=ecx.4
+ mov      #0.1 , cf.1              ; E06ECA u=           d=cf.1
+ ofadd    #1.4 , ecx.4, of.1       ; E06ECC u=ecx.4      d=of.1
+ add     ecx.4,  #1.4 , ecx.4      ; E06ECC u=ecx.4      d=ecx.4
+ setz    ecx.4,  #0.4 , zf.1       ; E06ECC u=ecx.4      d=zf.1
+ setp    ecx.4,  #0.4 , pf.1       ; E06ECC u=ecx.4      d=pf.1
+ sets    ecx.4, sf.1             ; E06ECC u=ecx.4      d=sf.1
+ goto    @)(00000000000000489)                      ; E06ECD u=
+
+; 0WAY-BLOCK 8 INBOUNDS: 9 [START=C78207 END=C78209] MINREFS: STK=0/ARG=DC, MAXBSP: 4
+; USE: esi.4,cs.2
+ ijmp    cs.2, esi.4             ; C78208 u=esi.4,cs.2
+
+; 1WAY-BLOCK 9 INBOUNDS: 7 OUTBOUNDS: 8 [START=DA564A END=DA5665] MINREFS: STK=0/ARG=DC, MAXBSP: 4
+; USE: rcx.8,esi.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,rcx.8,esi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,ebx.4,esi.4
+ mov      call !_byteswap_ulong<fast:"unsigned int"  bnot(ecx.4) > => "unsigned __int32" .4 , ecx.4 ; DA5652 u=ecx.4      d=ecx.4
+ neg     ecx.4, ecx.4            ; DA5655 u=ecx.4      d=ecx.4
+ xor     ecx.4, ebx.4, ebx.4     ; DA565A u=rcx.8      d=ebx.4
+ cfadd   ecx.4, esi.4, cf.1      ; DA565E u=ecx.4,esi.4 d=cf.1
+ ofadd   ecx.4, esi.4, of.1      ; DA565E u=ecx.4,esi.4 d=of.1
+ setz     (ecx.4+esi.4) ,  #0.4 , zf.1 ; DA565E u=ecx.4,esi.4 d=zf.1
+ setp     (ecx.4+esi.4) ,  #0.4 , pf.1 ; DA565E u=ecx.4,esi.4 d=pf.1
+ sets     (ecx.4+esi.4) , sf.1     ; DA565E u=ecx.4,esi.4 d=sf.1
+ add     ecx.4, esi.4, esi.4     ; DA565E u=ecx.4,esi.4 d=esi.4
+ goto    @)(00000000000000408)                      ; DA5660 u=
+
+; STOP-BLOCK 10 FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=0/ARG=DC, MAXBSP: 0
+; USE: (rax.8,ebx.4,ebp.4,rdi.8,st7.8,xmm0.16)
+

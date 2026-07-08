@@ -1,0 +1,129 @@
+; STKD=DC MINREF=0/END=E4 ARGS: OFF=E8/MINREF=E8/END=1E8/SHADOW=0
+; SAVEDREGS: ebp.4,edi.4
+; ????-BLOCK 0 FAKE [START=9648C6 END=9648C6] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+
+; ????-BLOCK 1 PROP COMB [START=9648C6 END=9648DA] MINREFS: STK=0/ARG=E8, MAXBSP: E0
+; USE-DEF LISTS ARE NOT READY
+ xdu     di.2, ebp.4             ; 9648C9 u=di.2       d=ebp.4
+ mov     bp.2, di.2              ; 9648CD u=bp.2       d=di.2
+ mov     eax.4, %0xD8.4          ; 9648D0 u=eax.4      d=sp+D8.4
+ bnot    ebp.4, ebp.4            ; 9648D1 u=ebp.4      d=ebp.4
+ mov     ecx.4, %0xD4.4          ; 9648D3 u=ecx.4      d=sp+D4.4
+ jcnd    sf.1, $loc_9648DA       ; 9648D6 u=sf.1
+
+; ????-BLOCK 2 PROP FAKE [START=9648D6 END=9648DA] MINREFS: STK=0/ARG=E8, MAXBSP: D4
+; USE: si.2
+; DEF: ax.2
+; DNU: ax.2
+ mov     si.2, ax.2              ; 9648D6 u=si.2       d=ax.2
+
+; ????-BLOCK 3 PROP COMB PUSH [START=9648DA END=96492B] MINREFS: STK=0/ARG=E8, MAXBSP: D4
+; USE: al.1,edx.4,ebx.4,esp.4,di.2,esi.4,arg+0.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,ax.2,rcx.8,esp.4,ebp.4,di.2,esi.4,kr00_4.4,sp+C0..D4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,ax.2,ebp.4,di.2,esi.4
+ push    esi.4                   ; 9648DA u=esp.4,esi.4 d=esp.4,sp+D0.4
+ push    ebx.4                   ; 9648DB u=ebx.4,esp.4 d=esp.4,sp+CC.4
+ mov     sp.2, bx.2              ; 9648E2 u=sp.2       d=bx.2
+ push    edx.4                   ; 9648E5 u=edx.4,esp.4 d=esp.4,sp+C8.4
+ mov      call !__readeflags<fast:> => "unsigned int" .4 , kr00_4.4 ; 9648E6 dontprop mbarrier u=           d=kr00_4.4
+ push    kr00_4.4                ; 9648E6 u=esp.4,kr00_4.4 d=esp.4,sp+C4.4
+ mov      call !_byteswap_ushort<fast:"unsigned __int16" di.2> => "unsigned __int16" .2 , di.2 ; 9648E7 u=di.2       d=di.2
+ xds     al.1, ax.2              ; 9648EA u=al.1       d=ah.1
+ mov      #0.4 , ecx.4             ; 9648EE u=           d=ecx.4
+ push     #0.4                     ; 9648F3 u=esp.4      d=esp.4,sp+C0.4
+ mov     %arg_0.4, ebp.4         ; 9648F7 u=arg+0.4    d=ebp.4
+ sub     ebp.4,  #1.4 , ebp.4      ; 9648FB u=ebp.4      d=ebp.4
+ mov      #2.1 , t1.1              ; 9648FF u=           d=t1.1
+ mov      call !__ROL4__<fast:_DWORD ebp.4,char t1.1> => _DWORD .4 , ebp.4 ; 9648FF u=ebp.4,t1.1 d=ebp.4
+ sub     ebp.4,  #1.4 , ebp.4      ; 964904 u=ebp.4      d=ebp.4
+ ext     ax.2,  #0x61.1 , ax.2     ; 96490A u=ax.2       d=ax.2
+ mov      #3.1 , t1.1              ; 96490E u=           d=t1.1
+ mov      call !__ROR4__<fast:_DWORD ebp.4,char t1.1> => _DWORD .4 , ebp.4 ; 96490E u=ebp.4,t1.1 d=ebp.4
+ and     ah.1,  #0xA2.1 , ah.1     ; 964913 u=ah.1       d=ah.1
+ add     ebp.4, ecx.4, ebp.4     ; 964917 u=ecx.4,ebp.4 d=ebp.4
+ mov     esp.4, esi.4            ; 96491B u=esp.4      d=esi.4
+ and     ebx.4,  #0x3917553C.4 , ebx.4 ; 964925 u=ebx.4      d=ebx.4
+ mov      #0.1 , cf.1              ; 964925 u=           d=cf.1
+ mov      #0.1 , of.1              ; 964925 u=           d=of.1
+ setz    ebx.4,  #0.4 , zf.1       ; 964925 u=ebx.4      d=zf.1
+ setp    ebx.4,  #0.4 , pf.1       ; 964925 u=ebx.4      d=pf.1
+ mov      #0.1 , sf.1              ; 964925 u=           d=sf.1
+
+; ????-BLOCK 4 PROP COMB [START=96492B END=964930] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: pf.1,ebp.4
+; DEF: ebx.4
+; DNU: ebx.4
+ mov     ebp.4, ebx.4            ; 96492B u=ebp.4      d=ebx.4
+ jcnd    pf.1, $loc_964930       ; 96492D u=pf.1
+
+; ????-BLOCK 5 PROP FAKE [START=96492D END=964930] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: ecx.4
+; DEF: eax.4
+; DNU: eax.4
+ mov     ecx.4, eax.4            ; 96492D u=ecx.4      d=eax.4
+
+; ????-BLOCK 6 PROP COMB [START=964930 END=96494F] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: ebx.4,edi.4,fl.1,(ALLMEM)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,ebx.4,edi.4,(ALLMEM)
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,ax.2,ebx.4,edi.4
+ mov      #0x31.1 , t1.1           ; 964930 u=           d=t1.1
+ and     di.2,  bnot( ( #1.2  <<l  (t1.1 &  #0xF.1 ) ) ) , di.2 ; 964930 u=di.2,t1.1  d=di.2
+ mov      #0.4 , eax.4             ; 964935 u=           d=eax.4
+ ext     edi.4,  #0x35.1 , edi.4   ; 96493F u=edi.4      d=edi.4
+ add     di.2,  #0x7B82.2 , di.2   ; 964942 u=di.2       d=di.2
+ sub     ebx.4, eax.4, ebx.4     ; 964947 u=eax.4,ebx.4 d=ebx.4
+ mov      #0xBB.1 , t1.1           ; 964949 u=           d=t1.1
+ mov      call !_bittestandcomplement16<fast:"__int16 *" &(ax.2)<2/2>.4,"unsigned __int8" t1.1> => "unsigned __int8" .1 , cf.1 ; 964949 u=ax.2,t1.1,(ALLMEM) d=cf.1,ax.2,(ALLMEM)
+ und     zf.1                    ; 964949 u=           d=zf.1
+ und     sf.1                    ; 964949 u=           d=sf.1
+ und     of.1                    ; 964949 u=           d=of.1
+ und     pf.1                    ; 964949 u=           d=pf.1
+ mov     fl.1, ah.1              ; 96494E u=fl.1       d=ah.1
+
+; ????-BLOCK 7 PROP COMB [START=96494F END=964974] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: ebx.4,ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH)
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,ebp.4,edi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,edi.4
+ mov     &($loc_96494F).4, edi.4 ; 96494F u=           d=edi.4
+ sub     ebp.4,  #4.4 , ebp.4      ; 964958 u=ebp.4      d=ebp.4
+ ldx     ss.2, ebp.4, eax.4      ; 964968 u=ebp.4,ss.2,(GLBLOW,LVARS,ARGS,GLBHIGH) d=eax.4
+ xor     ebx.4, eax.4, eax.4     ; 96496C u=eax.4,ebx.4 d=eax.4
+ mov      #0.1 , cf.1              ; 96496C u=           d=cf.1
+ seto    eax.4,  #1.4 , of.1       ; 96496E u=eax.4      d=of.1
+ sub     eax.4,  #1.4 , eax.4      ; 96496E u=eax.4      d=eax.4
+ setz    eax.4,  #0.4 , zf.1       ; 96496E u=eax.4      d=zf.1
+ setp    eax.4,  #0.4 , pf.1       ; 96496E u=eax.4      d=pf.1
+ sets    eax.4, sf.1             ; 96496E u=eax.4      d=sf.1
+ goto    $loc_9620FA             ; 96496F u=
+
+; ????-BLOCK 8 PROP COMB [START=9620FA END=962101] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: eax.4
+; DEF: eax.4
+; DNU: eax.4
+ mov      call !_byteswap_ulong<fast:"unsigned int" eax.4> => "unsigned __int32" .4 , eax.4 ; 9620FA u=eax.4      d=eax.4
+ goto    $loc_D653D5             ; 9620FC u=
+
+; ????-BLOCK 9 PROP [START=98FC85 END=98FC87] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: edi.4,cs.2
+ ijmp    cs.2, edi.4             ; 98FC85 u=edi.4,cs.2
+
+; ????-BLOCK 10 PROP COMB [START=D653D5 END=D653ED] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+; USE: eax.4,ebx.4,edi.4
+; DEF: cf.1,zf.1,sf.1,of.1,pf.1,eax.4,ebx.4,edi.4
+; DNU: cf.1,zf.1,sf.1,of.1,pf.1,ebx.4,edi.4
+ add     eax.4,  #1.4 , eax.4      ; D653D5 u=eax.4      d=eax.4
+ mov      call !_byteswap_ulong<fast:"unsigned int" eax.4> => "unsigned __int32" .4 , eax.4 ; D653D6 u=eax.4      d=eax.4
+ bnot    eax.4, eax.4            ; D653D8 u=eax.4      d=eax.4
+ mov      #1.1 , t1.1              ; D653DA u=           d=t1.1
+ mov      call !__ROL4__<fast:_DWORD eax.4,char t1.1> => _DWORD .4 , eax.4 ; D653DA u=eax.4,t1.1 d=eax.4
+ xor     eax.4, ebx.4, ebx.4     ; D653DC u=eax.4,ebx.4 d=ebx.4
+ cfadd   eax.4, edi.4, cf.1      ; D653E6 u=eax.4,edi.4 d=cf.1
+ ofadd   eax.4, edi.4, of.1      ; D653E6 u=eax.4,edi.4 d=of.1
+ setz     (eax.4+edi.4) ,  #0.4 , zf.1 ; D653E6 u=eax.4,edi.4 d=zf.1
+ setp     (eax.4+edi.4) ,  #0.4 , pf.1 ; D653E6 u=eax.4,edi.4 d=pf.1
+ sets     (eax.4+edi.4) , sf.1     ; D653E6 u=eax.4,edi.4 d=sf.1
+ add     eax.4, edi.4, edi.4     ; D653E6 u=eax.4,edi.4 d=edi.4
+ goto    $loc_98FC85             ; D653E8 u=
+
+; STOP-BLOCK 11 PROP FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=0/ARG=E8, MAXBSP: 0
+

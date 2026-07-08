@@ -1,0 +1,21 @@
+; STKD=C0 MINREF=C0/END=C0 ARGS: OFF=C4/MINREF=1C4/END=1C4/SHADOW=0
+; 1WAY-BLOCK 0 FAKE OUTBOUNDS: 1 [START=DAA0BE END=DAA0BE] MINREFS: STK=C0/ARG=1C4, MAXBSP: 0
+; DEF: (eax.4,cx.2,ebx.4,sp.1,edi.4,ds.2)
+
+; 1WAY-BLOCK 1 PROP COMB INBOUNDS: 0 OUTBOUNDS: 2 [START=DAA0BE END=DAA129] MINREFS: STK=C0/ARG=1C4, MAXBSP: C0
+; USE-DEF LISTS ARE NOT READY
+ add     eax.4,  call !__ROR4__<fast:_DWORD edi.4,char  #1.1 > => _DWORD .4 , edi.4{1} ; DAA0CC u=eax.4,edi.4 d=edi.4
+ shl     bh.1, cl.1{2}, bh.1     ; DAA0D3 u=cl.1,bh.1  d=bh.1
+ add     sp.1,  #0x40.1 , sp.1     ; DAA0DC split1 u=sp.1       d=sp.1
+ or      cx.2,  ( #1.2  <<l  (sp.1 &  #0xF.1 ) ) , ax.2 ; DAA0E2 u=cx.2,sp.1  d=ax.2
+ ext     bx.2, cl.1{2}, bx.2     ; DAA0E6 u=cl.1,bx.2  d=bx.2
+ mov     edi.4{1}, ebx.4{1}      ; DAA0E9 u=edi.4      d=ebx.4
+ ext     ah.1, cl.1{4}, ah.1     ; DAA0EF u=ah.1,cl.1  d=ah.1
+ xor     ebx.4{1},  [ds.2: (edi.4{1}- #4.4 ) ].4 , eax.4{5} ; DAA122 u=ebx.4,edi.4,ds.2,(GLBLOW,GLBHIGH) d=eax.4
+ sub     eax.4{5},  #1.4 , eax.4{6} ; D9FA61 u=eax.4      d=eax.4
+ mov      call !__ROR4__<fast:_DWORD eax.4{6},char  #3.1 > => _DWORD .4 , eax.4 ; E305BC u=eax.4      d=eax.4
+
+; XTRN-BLOCK 2 FAKE INBOUNDS: 1 [START=968E51 END=968E52] MINREFS: STK=C0/ARG=1C4, MAXBSP: 0
+
+; STOP-BLOCK 3 FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=C0/ARG=1C4, MAXBSP: 0
+

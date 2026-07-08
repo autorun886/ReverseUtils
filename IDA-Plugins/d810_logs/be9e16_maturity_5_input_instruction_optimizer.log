@@ -1,0 +1,13 @@
+; STKD=D4 MINREF=DC/END=DC ARGS: OFF=E0/MINREF=1E0/END=1E0/SHADOW=0
+; SAVEDREGS: ebx.4,ebp.4,edi.4
+; 1WAY-BLOCK 0 FAKE OUTBOUNDS: 1 [START=BE9E16 END=BE9E16] MINREFS: STK=DC/ARG=1E0, MAXBSP: 0
+; DEF: (cs.2,ss.2,arg+8.4)
+
+; 0WAY-BLOCK 1 COMB INBOUNDS: 0 [START=BE9E16 END=BE9EB7] MINREFS: STK=DC/ARG=1E0, MAXBSP: D8
+; USE-DEF LISTS ARE NOT READY
+ call    !__readeflags <fast:> => "unsigned int" .4 ; BE9E21 u=
+ mov      call !__ROR4__<fast:_DWORD  -( call !__ROL4__<fast:_DWORD %arg_8.4,char  #1.1 > => _DWORD .4 ) ,char  #1.1 > => _DWORD .4 {5}, ebx.4{5} ; BE9E8C u=arg+8.4    d=ebx.4
+ ijmp    cs.2,  ( ( call !__ROL4__<fast:_DWORD  ( call !__ROR4__<fast:_DWORD  ( (ebx.4{5} ^  [ss.2:ebx.4{5}].4 ) - #0x52032F2.4 ) ,char  #1.1 > => _DWORD .4 + #0x42720AA7.4 ) ,char  #3.1 > => _DWORD .4 + #1.4 ) +&($loc_BE9EA6).4)  ; C758D7 u=ebx.4,cs.2,ss.2,(GLBLOW,GLBHIGH)
+
+; STOP-BLOCK 2 FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=DC/ARG=1E0, MAXBSP: 0
+

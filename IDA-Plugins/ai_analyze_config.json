@@ -1,0 +1,14 @@
+{
+  "provider": "anthropic",
+  "api_key_anthropic": "sk-adea63d58dc24bb4bf62af722790e1b5",
+  "api_key_openai": "",
+  "api_key_deepseek": "",
+  "api_url_anthropic": "https://api.deepseek.com/anthropic/v1/messages",
+  "api_url_openai": "https://api.openai.com/v1/chat/completions",
+  "api_url_deepseek": "https://api.deepseek.com/anthropic/v1/messages",
+  "model_anthropic": "claude-opus-4-8",
+  "model_openai": "gpt-4o",
+  "model_deepseek": "deepseek-v4-flash",
+  "max_tokens": 16384,
+  "language": "Chinese"
+}

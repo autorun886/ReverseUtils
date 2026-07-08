@@ -1,0 +1,17 @@
+; STKD=E0 MINREF=E0/END=E0 ARGS: OFF=E4/MINREF=1E4/END=1E4/SHADOW=0
+; SAVEDREGS: ebx.4,ebp.4,esi.4
+; 1WAY-BLOCK 0 FAKE OUTBOUNDS: 1 [START=C6516D END=C6516D] MINREFS: STK=E0/ARG=1E4, MAXBSP: 0
+; DEF: (ax.2,di.2,cs.2,ds.2,arg+8.4)
+
+; 0WAY-BLOCK 1 COMB INBOUNDS: 0 [START=C6516D END=C651EB] MINREFS: STK=E0/ARG=1E4, MAXBSP: E0
+; USE-DEF LISTS ARE NOT READY
+ mov      call !_byteswap_ushort<fast:"unsigned __int16"  high.2( xds.4(ax.2) ) > => "unsigned __int16" .2 {2}, dx.2{2} ; C65174 u=ax.2       d=dx.2
+ call    !__readeflags <fast:> => "unsigned int" .4 ; C65177 u=
+ ext     dx.2{2},  #0xB1.1 , dx.2  ; C65183 u=dx.2       d=dx.2
+ sub     di.2,  #1.2 , di.2{5}     ; C651A1 u=di.2       d=di.2
+ ext     di.2{5},  #0x81.1 , di.2  ; C651A8 u=di.2       d=di.2
+ neg      ( ( call !__ROL4__<fast:_DWORD  (%arg_8.4- #0x29CA52AB.4 ) ,char  #3.1 > => _DWORD .4  ^  #0x5DFB6C28.4 ) + #1.4 ) , ebx.4{8} ; 989695 u=arg+8.4    d=ebx.4
+ ijmp    cs.2,  ( ( call !__ROR4__<fast:_DWORD  ( call !__ROR4__<fast:_DWORD  ( ( (ebx.4{8} ^  [ds.2: (ebx.4{8}- #4.4 ) ].4 )  ^  #0x2D5A3FF5.4 ) - #0x22BA7A27.4 ) ,char  #1.1 > => _DWORD .4 + #0x38145F1.4 ) ,char  #1.1 > => _DWORD .4 - #1.4 ) +&($loc_9896AA).4)  ; E0C4D5 u=ebx.4,cs.2,ds.2,(GLBLOW,GLBHIGH)
+
+; STOP-BLOCK 2 FAKE [START=FFFFFFFF END=FFFFFFFF] MINREFS: STK=E0/ARG=1E4, MAXBSP: 0
+
