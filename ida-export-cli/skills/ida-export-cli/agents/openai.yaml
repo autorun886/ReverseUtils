@@ -1,0 +1,4 @@
+interface:
+  display_name: "IDA 离线分析导出"
+  short_description: "使用 idalib 自动分析二进制并导出 schema v3 IDA 快照"
+  default_prompt: "使用 $ida-export-cli 分析一个本地二进制，校验 COMPLETE，并读取 schema v3 离线快照。"
