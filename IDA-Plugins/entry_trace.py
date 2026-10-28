@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""IDA -> Frida: full trace, after-100, before-50, and name-substring hooks.
+"""IDA -> Frida: full trace, after-100, before/after-100, and substring hooks.
 
 HOOK_OFFSETS is an independent empty allowlist for argument/return hooks.
 Offsets assume the IDA image base corresponds to the runtime module base.
-History mode retains the previous 50 observed entries per thread, not a call stack.
+History mode retains the previous 100 observed entries and logs the next 100 per trigger.
 Substring mode uses only Interceptor and matches raw IDA names case-sensitively.
 LOG_MILLISECONDS defaults to false in every exported script.
 """
@@ -19,7 +19,7 @@ import idc
 MODES = {
     "full": "Full module trace (default)",
     "window": "Trace next 100 entries from current function",
-    "history": "Trace previous 50 entries before current function",
+    "history": "Trace 100 entries before and after current function",
     "hooks": "Hook arguments/return by name substring...",
 }
 OUTPUT_NAMES = {
@@ -44,8 +44,8 @@ const MULTI_THREAD = true;         // false: main thread (full/history), first t
 const MODE = DATA.mode;             // full / window / history / hooks
 const HOOK_OFFSETS = [];            // Additional argument/return hooks; substring matches are added independently
 const START_OFFSET = DATA.start;    // window trigger, module-relative
-const WINDOW_SIZE = 100;            // includes the trigger entry
-const HISTORY_SIZE = 50;            // excludes the trigger; fixed ring per thread
+const WINDOW_SIZE = 100;            // window: includes trigger; history: 100 entries AFTER trigger
+const HISTORY_SIZE = 100;           // 100 BEFORE trigger; fixed ring per thread
 const TRACING = MODE !== 'hooks';
 const TRIGGERED = MODE === 'window' || MODE === 'history';
 
@@ -130,8 +130,16 @@ function recordHistory(tid, thread, id, offset, at, trigger) {
         for (let i = 0; i < history.length; ++i)
             emit('  ' + formatEntry(tid, history[(first + i) % history.length]));
         emit('[trigger] ' + formatEntry(tid, { id, offset, at }));
-        emit('[history] END; collecting until next trigger');
+        thread.remaining = WINDOW_SIZE;
+        emit('[history] AFTER ' + WINDOW_SIZE + '; another trigger resets the window');
         flush();
+    } else if (thread.remaining > 0) {
+        emit('  ' + formatEntry(tid, { id, offset, at }));
+        --thread.remaining;
+        if (thread.remaining === 0) {
+            emit('[history] END; retaining previous ' + HISTORY_SIZE + ' until next trigger');
+            flush();
+        }
     }
     // Reuse the fixed slots after printing: the trigger must not overwrite its own past.
     const slot = history[thread.head] || {};
@@ -319,7 +327,7 @@ moduleObserver = Process.attachModuleObserver({
             emit('[trace] READY ' + DATA.module + ' base=' + moduleBase +
                 ' mode=' + MODE + ' multi-thread=' + MULTI_THREAD + ' hook-list=' + HOOK_OFFSETS.length +
                 (TRIGGERED ? ' start=' + START_OFFSET : '') +
-                (MODE === 'history' ? ' history=' + HISTORY_SIZE + ' (since thread tracking began)' : ''));
+                (MODE === 'history' ? ' before=' + HISTORY_SIZE + ' after=' + WINDOW_SIZE + ' (since thread tracking began)' : ''));
             flush();
         } catch (error) { emit('[error] ' + error); stop(); }
     },
