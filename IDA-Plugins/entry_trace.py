@@ -6,7 +6,6 @@ Offsets assume the IDA image base corresponds to the runtime module base.
 """
 import json
 import os
-import tempfile
 import traceback
 
 import idaapi
@@ -296,14 +295,30 @@ def render_script(root_ea=None, mode="full"):
     return SCRIPT.replace("__DATA__", json.dumps(data, ensure_ascii=True))
 
 def write_script(path, source):
-    fd, temporary = tempfile.mkstemp(prefix=".entry-trace-", dir=os.path.dirname(os.path.abspath(path)))
-    try:
-        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
-            stream.write(source)
-        os.replace(temporary, path)
-    finally:
-        if os.path.exists(temporary):
-            os.unlink(temporary)
+    """Save without overwriting existing files, including concurrent exports."""
+    stem, extension = os.path.splitext(os.path.abspath(path))
+    index = 0
+    while True:
+        candidate = stem + ("_%d" % index if index else "") + extension
+        try:
+            stream = open(candidate, "x", encoding="utf-8", newline="\n")
+        except OSError as error:
+            # Windows may report an existing directory as PermissionError.
+            if not isinstance(error, FileExistsError) and not os.path.lexists(candidate):
+                raise
+            index += 1
+            continue
+        try:
+            with stream:
+                stream.write(source)
+        except BaseException:
+            try:
+                os.unlink(candidate)
+            except OSError:
+                pass
+            raise
+        return candidate
+
 
 def export(root_ea=None, mode="full"):
     try:
@@ -313,7 +328,7 @@ def export(root_ea=None, mode="full"):
         source = render_script(root_ea, mode)
         path = os.path.join(os.path.dirname(input_path),
                             "trace_entries.js" if mode == "full" else "trace_window.js")
-        write_script(path, source)
+        path = write_script(path, source)
         print("[entry-trace] Saved " + path)
         return path
     except Exception as error:
