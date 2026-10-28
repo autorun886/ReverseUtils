@@ -16,6 +16,7 @@
 | `ida-export-cli/` | [OrientalGlass/ida-export-cli](https://github.com/OrientalGlass/ida-export-cli) | 无界面调用 IDA 导出反编译快照的 CLI / Python 接口 | 批量、自动化导出二进制反编译结果，方便让 AI 全自动处理 |
 | `wxshadow/rustfrida` | [kkkbbb/rustFrida](https://github.com/kkkbbb/rustFrida) | Rust 编写的 Frida 替代实现 | Android ARM64 下的 Native / Java Hook、JNI 操作、QBDI trace，支持无痕 hook |
 | `wxshadow/wxshadow.kpm`、`wxshadow/hide-so.kpm`、`wxshadow/wxshadow_client` | [kkkbbb/mkpms](https://github.com/kkkbbb/mkpms) | 基于内核页表 shadow 机制的无痕 hook KPM 模块及配套客户端 | 无痕 probe / inline hook、隐藏 so，配合 rustFrida 的 `Hook.WXSHADOW` 模式使用 |
+| `brpatch/` | 自研，基于 `wxshadow/rustfrida` | 记录 Android `.so` 的寄存器间接转移（`br xN` / `blr xN`），目标唯一的站点离线还原成 `b` / `bl`；`ollvm.py` 纯静态识别 OLLVM 风格控制流平坦化并一键还原安全子集 | 还原混淆控制流，配合反调试绕过使用（见目录内 README） |
 
 > `wxshadow/JS_API.md` 整理自 [rustFrida README 的 JS API 参考](https://github.com/kkkbbb/rustFrida#js-api-%E5%8F%82%E8%80%83)，是 rustFrida 的 JS 接口速查。
 

@@ -1,0 +1,24 @@
+# AI coding assistants
+.command/
+.commandcode/
+.codex/
+.claude/
+.cursor/
+.cursorrules
+.windsurf/
+.continue/
+.aider*
+.cline/
+.roo/
+.gemini/
+.qwen/
+.kiro/
+.agent/
+.agents/
+AGENTS.local.md
+CLAUDE.local.md
+
+# brpatch 已独立成仓（https://github.com/autorun886/brpatch），父仓不再跟踪
+brpatch/
+__pycache__/
+*.pyc
