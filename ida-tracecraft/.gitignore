@@ -1,0 +1,4 @@
+__pycache__/
+*.py[cod]
+entry_trace.generated*.js
+entry_trace.context*.json
