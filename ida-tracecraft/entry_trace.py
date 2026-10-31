@@ -1506,5 +1506,16 @@ See README.md for connection and mode examples.''')
         return 1
 
 
+def _script_entrypoint(argv=None):
+    """Keep process exit codes in CLI, without raising SystemExit into IDAPython."""
+    if idaapi is None:
+        raise SystemExit(main(argv))
+    try:
+        return main(argv)
+    except SystemExit as error:
+        # argparse uses SystemExit for both --help and invalid arguments.
+        return error.code if isinstance(error.code, int) else (0 if error.code is None else 1)
+
+
 if __name__ == '__main__':
-    raise SystemExit(main())
+    _script_entrypoint()

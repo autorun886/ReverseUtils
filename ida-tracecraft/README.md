@@ -86,6 +86,7 @@ python entry_trace.py --instance k7m2 --mode full -o trace.js
 ```sh
 python -m unittest -v test_entry_trace.py
 python tests/entry_trace/test_instances.py -v
+python tests/entry_trace/test_entrypoint.py -v
 ```
 
 测试不依赖 IDA/Frida；安装 Node.js 可运行生成脚本的事件模拟。

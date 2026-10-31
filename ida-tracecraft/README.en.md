@@ -86,6 +86,7 @@ See `-h` for all options, mode semantics, and the AI workflow. See [conditional_
 ```sh
 python -m unittest -v test_entry_trace.py
 python tests/entry_trace/test_instances.py -v
+python tests/entry_trace/test_entrypoint.py -v
 ```
 
 Tests need no IDA/Frida. Install Node.js to run generated-script event simulations.
