@@ -1033,74 +1033,65 @@ def local_request(record, endpoint, payload=None, timeout=120):
         raise RuntimeError(detail) from error
 
 
-class InstanceSelectionError(RuntimeError):
-    """Structured discovery failure with public candidates and no credentials."""
-    def __init__(self, code, message, instances):
-        super().__init__(message)
-        self.report = dict(error=code, message=message, instances=instances)
+def _matches_input(input_path, name):
+    """Match an exact basename, or an explicit path, case-insensitively."""
+    if not input_path:
+        return False
+    if os.path.dirname(name):
+        return os.path.normcase(os.path.abspath(input_path)).casefold() == os.path.normcase(os.path.abspath(name)).casefold()
+    return os.path.basename(os.path.normpath(input_path)).casefold() == name.casefold()
 
 
-def _matching_instances(port=None, port_range=None, instance=None, input_path=None):
-    # An explicit PID/path overrides a shell's default port, just like --port.
-    if port is None and instance is None and input_path is None:
-        port = os.environ.get('TRACECRAFT_PORT')
-    port = int(port) if port is not None else None
-    if port is not None and not 1 <= port <= 65535:
-        raise ValueError('Port must be 1..65535')
+def _live_instances(port=None, port_range=None, instance=None, input_name=None):
+    if input_name is not None and not input_name.strip():
+        raise ValueError("--input must be a non-empty filename or path")
     allowed = set(parse_port_range(port_range)) if port_range else None
-    def normalized(path):
-        return os.path.normcase(os.path.abspath(os.path.normpath(path)))
-    wanted = normalized(input_path) if input_path is not None else None
     instances = []
     for path in sorted(state_directory().glob('*.json')):
         try:
             record = json.loads(path.read_text(encoding='utf-8'))
-            if port is not None and record['port'] != port:
+            if port is not None and record['port'] != int(port):
                 continue
             if allowed is not None and record['port'] not in allowed:
                 continue
             if instance is not None and record['pid'] != int(instance):
                 continue
-            info = local_request(record, 'info', timeout=0.5)
-            if (info.get('service') != 'ida-tracecraft' or info.get('protocol') != 1
-                    or info['pid'] != record['pid'] or info['port'] != record['port']):
-                continue
-            if wanted is not None and normalized(info.get('input_path') or '') != wanted:
-                continue
-            public = dict(pid=info['pid'], port=info['port'],
-                          module=info.get('module'), input_path=info.get('input_path'))
-            instances.append((record, public))
-        except (OSError, ValueError, KeyError, TypeError, RuntimeError):
+            info = local_request(record,'info',timeout=0.5)
+            if info.get('service') == 'ida-tracecraft' and info.get('protocol') == 1 and info['pid'] == record['pid']:
+                if input_name is None or _matches_input(info.get('input_path',''),input_name):
+                    instances.append((record,info))
+        except (OSError,ValueError,KeyError,RuntimeError):
             continue
-    return sorted(instances, key=lambda item: (item[1]['pid'], item[1]['port']))
+    return instances
 
 
-def list_instances(port=None, port_range=None, instance=None, input_path=None):
-    """List live matching instances without exposing authentication tokens."""
-    return [info for _, info in _matching_instances(port, port_range, instance, input_path)]
+def list_instances(port=None, port_range=None, instance=None, input_name=None):
+    """Return only live CLI endpoints and their input files; never expose credentials."""
+    return [dict(endpoint='http://127.0.0.1:%d' % record['port'],
+                 input_path=os.path.normpath(info['input_path']) if info.get('input_path') else '')
+            for record, info in _live_instances(port, port_range, instance, input_name)]
 
 
-def discover_instance(port=None, port_range=None, instance=None, input_path=None):
-    instances = _matching_instances(port, port_range, instance, input_path)
-    public = [info for _, info in instances]
+def discover_instance(port=None, port_range=None, instance=None, input_name=None):
+    if port is None and instance is None and input_name is None:
+        port = os.environ.get('TRACECRAFT_PORT')
+    instances = _live_instances(port, port_range, instance, input_name)
     if not instances:
-        raise InstanceSelectionError('instance_not_found',
-            'No matching Tracecraft instance found. Run instances to list services; '
-            'load the plugin in IDA, or use --snapshot for offline generation.', public)
+        if input_name is not None:
+            raise RuntimeError('No Tracecraft instance matches --input %r' % input_name)
+        raise RuntimeError('No Tracecraft instance found. Load the plugin in IDA, or use --snapshot for offline generation.')
     if len(instances) > 1:
-        raise InstanceSelectionError('instance_ambiguous',
-            'Multiple IDA instances match; choose --port, --instance or --input. '
-            'If the same file is open more than once, select --port.', public)
+        listing = '; '.join('PID %s port %s: %s' % (r['pid'],r['port'],i.get('input_path','')) for r,i in instances)
+        raise RuntimeError('Multiple IDA instances; choose --input with a full path, --port or --instance. ' + listing)
     return instances[0][0]
 
 
-def remote_snapshot(request, port=None, port_range=None, instance=None, timeout=120,
-                    input_path=None):
+def remote_snapshot(request, port=None, port_range=None, instance=None, timeout=120, input_name=None):
     fields = ('mode','root','selectors','query','ai_level','max_functions','depth')
     payload = {key:request[key] for key in fields if key in request}
-    record = discover_instance(port, port_range, instance, input_path)
-    snapshot = local_request(record, 'snapshot', payload, timeout)
-    snapshot['source_instance'] = dict(pid=record['pid'], port=record['port'])
+    snapshot = local_request(discover_instance(port,port_range,instance,input_name),'snapshot',payload,timeout)
+    if input_name is not None and not _matches_input(snapshot.get('input_path',''),input_name):
+        raise RuntimeError('IDA input changed during collection; retry with --input')
     return snapshot
 
 
@@ -1108,64 +1099,74 @@ def main(argv=None):
     import argparse
     from pathlib import Path
     parser = argparse.ArgumentParser(
-        description='IDA Tracecraft: generate standalone Frida entry traces or argument hooks from IDA analysis.',
+        description='Tracecraft: direct IDA CLI + Python API + offline Frida generator',
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog='Modes:\n  full      Trace known module function entries on tracked threads (default).\n  window    --root triggers the next N entries on its thread; then wait again.\n  history   --root prints per-thread entries before and after the trigger.\n  hooks     Hook arguments/returns for raw names containing --query (case-sensitive).\n  selected  Hook functions given by --select (repeatable) and/or --root.\n  regex     Hook names matching --query (Python regex), plus explicit selections.\n  callers   Hook seeds and incoming code referrers, expanded by --depth.\n  callees   Hook seeds and direct callees, expanded by --depth.\n\nRules:\n  full/window/history use Stalker; other modes use Interceptor and accept filters.\n  Counts are entry events, not instructions. --before/--after default to 100 each.\n  Triggers reset the after quota without consuming it. History starts at tracking;\n  thread discovery is selective. callers may include non-call code references.\n\nAI workflow:\n  Online: load the plugin in IDA, run instances, then select --input/--instance/--port.\n  If a file is open twice, use --port. Ambiguous selection returns JSON candidates.\n  Generate JS and load the returned absolute script_path in Frida separately.\n  Existing files get numbered suffixes. Generated scripts provide status/stop RPC.\n  Offline: --snapshot fixes targets/root; --mode must match selection_mode.\n  AI context/plans are exchanged as files; model calls happen outside this tool.\n\nExamples:\n  python entry_trace.py instances\n  python entry_trace.py --port 18421 --mode history --root FUNC --before 50 --after 100\n  python entry_trace.py --mode selected --select FUNC --arg-types int,cstring --where 0:int:eq:7\n  python entry_trace.py context --mode selected --select FUNC --context-out context.json\n  python entry_trace.py --snapshot context.json --mode selected -o hooks.js\n')
+        epilog='''Examples:
+  python entry_trace.py instances
+  python entry_trace.py instances --input libsec2026.so
+  python entry_trace.py --input libgodot_android.so --mode full -o godot.js
+  python entry_trace.py --input libsec2026.so --mode full -o sec.js
+  python entry_trace.py --input libsec2026.so --mode history --root FUNC --count 100 -o around.js
+  python entry_trace.py --input libsec2026.so --mode hooks --query FUNC -o hook.js
+  python entry_trace.py --snapshot context.json --mode selected -o selected.js
 
-    group = parser.add_argument_group('Targets and modes')
-    group.add_argument('command', choices=['generate', 'context', 'instances'], nargs='?', default='generate', help='generate: write JS (default); context: save a snapshot; instances: list live local instances as JSON')
-    group.add_argument('--mode', choices=list(MODES) + list(SELECT_MODES), default='full', help='Observation mode; see guide below (default: full)')
-    group.add_argument('--root', help='Function name, IDA VA or +0xOFFSET; required for window/history')
-    group.add_argument('--select', dest='selectors', action='append', default=[], help='Add a target/seed; same syntax as --root; repeatable')
-    group.add_argument('--query', help='Name substring (hooks) or Python regex (regex)')
-    group.add_argument('--depth', type=int, default=1, help='Reference expansion depth, 1..5 (default: 1)')
-    group = parser.add_argument_group('Data sources and local connections')
-    group.add_argument('--module', help='Override runtime module filename')
-    group.add_argument('--snapshot', help='Offline snapshot JSON; fixes targets and selection mode')
-    group.add_argument('--port', type=int, help='Select plugin port')
-    group.add_argument('--port-range', help='Filter ports by inclusive FIRST:LAST (at most 256)')
-    group.add_argument('--instance', type=int, help='Select IDA process PID')
-    group.add_argument('--input', dest='input_path', help='Select normalized full input path; duplicates need --port')
-    group.add_argument('--timeout', type=float, default=120, help='Snapshot request timeout in seconds (default: 120)')
-    group = parser.add_argument_group('Context and AI collaboration')
-    group.add_argument('--context-out', help='Save snapshot JSON (context default: entry_trace.context.json)')
-    group.add_argument('--prompt-out', help='Save AI task prompt and snapshot')
-    group.add_argument('--ai-level', choices=AI_LEVELS, default='off', help='off: basic; light: types/comments; guided/deep: add pseudocode/xrefs')
-    group.add_argument('--goal', default='Observe arguments, returns and call relationships.', help='Objective for the exported AI prompt')
-    group.add_argument('--max-functions', type=int, default=40, help='AI detail limit, 1..500; not target limit (default: 40)')
-    group.add_argument('--plan', help='Hook plan JSON; offsets must belong to snapshot')
-    group = parser.add_argument_group('Argument hooks and conditions')
-    group.add_argument('--arg-types', help='Up to 8 comma-separated pointer,int,uint,cstring,utf16 (default: 6 pointers)')
-    group.add_argument('--ret-type', choices=['pointer', 'int', 'uint', 'cstring', 'utf16'], default='pointer', help='Return type (default: pointer)')
-    group.add_argument('--when', action='append', help='Condition JSON; repeat for AND; Hook modes only')
-    group.add_argument('--when-file', help='JSON all/any condition tree; AND with other filters')
-    group.add_argument('--where', action='append', help='ARG:TYPE:OP:VALUE; repeat for AND, e.g. 0:int:eq:7')
-    group = parser.add_argument_group('External scripts and output')
-    group.add_argument('--ai-script', help='Copy complete JS; requires deep; generation validation still runs')
-    group.add_argument('--output', '-o', default='entry_trace.generated.js', help='JS path (default: entry_trace.generated.js)')
-    group = parser.add_argument_group('Windows and runtime options')
-    group.add_argument('--count', type=int, help='Set both counts; --before/--after override (default: 100)')
-    group.add_argument('--window-size', '--after', type=int, default=None, help='After count, excluding trigger, 1..100000 (default: 100)')
-    group.add_argument('--history-size', '--before', type=int, default=None, help='Per-thread before count, 1..100000 (default: 100)')
-    group.add_argument('--max-string', type=int, default=256, help='String read limit, 1..100000 (default: 256)')
-    group.add_argument('--backtrace', action='store_true', help='Print accurate Hook backtraces')
-    group.add_argument('--timestamps', action='store_true', help='Show relative trace time or Hook duration')
-    group.add_argument('--single-thread', action='store_true', help='Main thread only; window uses first trigger thread')
-    group.add_argument('--no-java-interpreter', action='store_true', help='Disable default Android ART deoptimization')
+instances returns only endpoint and input_path.
+--input matches an exact filename or full path, case-insensitively.
+Duplicate filenames require a full path or --port/--instance.
+--port is the entry_trace CLI service port, not the IDA MCP port.
+Existing output files get numbered suffixes; use the returned script_path.
+See README.md for connection and mode examples.''')
+    parser.add_argument('command', choices=['generate','context','instances'], nargs='?', default='generate',
+                        help='generate JS (default), save context, or list endpoint/file mappings')
+    parser.add_argument('--mode', choices=list(MODES)+list(SELECT_MODES), default='full',
+                        help='full trace; window after root; history before/after root; other modes select argument/return hooks')
+    parser.add_argument('--root', help='IDA VA, exact name, or +0xMODULE_OFFSET')
+    parser.add_argument('--select', dest='selectors', action='append', default=[], help='Repeat for multiple functions')
+    parser.add_argument('--query', help='Case-sensitive substring or regex')
+    parser.add_argument('--depth', type=int, default=1, help='Call graph depth for callers/callees (1..5)')
+    parser.add_argument('--module', help='Override runtime module filename')
+    parser.add_argument('--snapshot', help='Optional offline input snapshot JSON')
+    parser.add_argument('--input',metavar='NAME_OR_PATH',help='Select the input filename or full path (case-insensitive, exact match)')
+    parser.add_argument('--port',type=int,help='entry_trace CLI service port (not MCP); see instances')
+    parser.add_argument('--port-range',help='Restrict discovery to FIRST:LAST')
+    parser.add_argument('--instance',type=int,help='Select an IDA process by PID')
+    parser.add_argument('--timeout',type=float,default=120,help='Local collection timeout in seconds')
+    parser.add_argument('--context-out', help='Save IDA snapshot JSON')
+    parser.add_argument('--prompt-out', help='Save AI task + snapshot JSON')
+    parser.add_argument('--ai-level', choices=AI_LEVELS, default='off', help='AI context detail (default: off)')
+    parser.add_argument('--goal', default='Observe arguments, returns and call relationships.', help='Objective included in the AI prompt')
+    parser.add_argument('--max-functions', type=int, default=40, help='AI detail limit, not tracing limit')
+    parser.add_argument('--plan', help='AI hook plan JSON')
+    parser.add_argument('--arg-types', help='Comma-separated argument types: int,cstring,pointer')
+    parser.add_argument('--ret-type', choices=['pointer','int','uint','cstring','utf16'],default='pointer')
+    parser.add_argument('--when', action='append', help='JSON argument condition; repeat for AND')
+    parser.add_argument('--when-file', help='JSON condition tree (all/any) file')
+    parser.add_argument('--where', action='append', help='ARG:TYPE:OP:VALUE, repeat for AND; e.g. 0:int:eq:7')
+    parser.add_argument('--ai-script', help='Deep AI complete JS file (copied as output, never executed)')
+    parser.add_argument('--output', '-o', default='entry_trace.generated.js', help='JS output path (default: entry_trace.generated.js)')
+    parser.add_argument('--count', type=int, help='Set both before/after counts; default 100')
+    parser.add_argument('--window-size', '--after', type=int, default=None, help='Forward window size (default: 100)')
+    parser.add_argument('--history-size', '--before', type=int, default=None, help='Previous entries retained in history mode (default: 100)')
+    parser.add_argument('--max-string', type=int, default=256, help='Maximum string read length (default: 256)')
+    for flag, description in (
+            ('backtrace', 'Include Hook backtraces'),
+            ('timestamps', 'Include millisecond timestamps and durations (default: off)'),
+            ('single-thread', 'Trace one thread instead of multiple threads'),
+            ('no-java-interpreter', 'Keep normal Java execution instead of interpreter compatibility mode')):
+        parser.add_argument('--'+flag, action='store_true', help=description)
     args = parser.parse_args(argv)
+    if args.command == 'instances':
+        try:
+            print(json.dumps(list_instances(args.port,args.port_range,args.instance,args.input),
+                             ensure_ascii=False,indent=2))
+            return 0
+        except Exception as error:
+            print('[entry-trace] ' + str(error), file=__import__('sys').stderr)
+            return 1
     request = vars(args).copy()
     request['window_size'] = args.window_size if args.window_size is not None else (args.count if args.count is not None else 100)
     request['history_size'] = args.history_size if args.history_size is not None else (args.count if args.count is not None else 100)
     try:
-        if args.command == 'instances':
-            if args.snapshot:
-                raise ValueError('instances lists live services; omit --snapshot')
-            instances = list_instances(args.port, args.port_range, args.instance, args.input_path)
-            print(json.dumps(dict(instances=instances, count=len(instances)), ensure_ascii=False, indent=2))
-            return 0
-        if args.snapshot and any(value is not None for value in
-                                 (args.port, args.port_range, args.instance, args.input_path)):
-            raise ValueError('--snapshot and live instance selectors are mutually exclusive')
         request['arg_types'] = args.arg_types.split(',') if args.arg_types else None
         conditions = [json.loads(value) for value in args.when or []]
         if args.when_file:
@@ -1185,7 +1186,7 @@ def main(argv=None):
         elif idaapi is not None:
             snapshot = collect_snapshot(**request)
         else:
-            snapshot = remote_snapshot(request,args.port,args.port_range,args.instance,args.timeout,args.input_path)
+            snapshot = remote_snapshot(request,args.port,args.port_range,args.instance,args.timeout,args.input)
         result = generate(request,snapshot)
         saved = {}
         if args.context_out or args.command == 'context':
@@ -1196,11 +1197,8 @@ def main(argv=None):
             script = Path(args.ai_script).read_text(encoding='utf-8-sig') if args.ai_script else result['script']
             saved['script'] = write_script(args.output,script)
         print(json.dumps(dict(script_path=saved.get('script'), files=saved,functions=len(snapshot['functions']),hooks=result['hook_count'],
-                              ai_level=args.ai_level, source_instance=snapshot.get('source_instance')),ensure_ascii=False,indent=2))
+                              ai_level=args.ai_level),ensure_ascii=False,indent=2))
         return 0
-    except InstanceSelectionError as error:
-        print(json.dumps(error.report, ensure_ascii=False, indent=2), file=__import__('sys').stderr)
-        return 1
     except Exception as error:
         print('[entry-trace] ' + str(error), file=__import__('sys').stderr)
         return 1
