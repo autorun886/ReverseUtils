@@ -67,7 +67,8 @@ const rpc={};
 const Process={id:1,attachModuleObserver:o=>(moduleObserver=o,{detach(){}})};
 const Interceptor={attach:(p,c)=>(callbacks=c,{detach(){}})};
 const address={add(){return this;},or(){return this;},equals(){return true;}};
-const val=(n,text)=>({toInt32:()=>n,toString:()=>String(n),isNull:()=>false,readUtf8String:()=>text});
+const val=(n,text)=>({toInt32:()=>n,toString:()=>String(n),isNull:()=>false,readUtf8String:()=>text,
+ add:i=>({readU8:()=> (text || '').charCodeAt(i) || 0})});
 """
         checks = """
 moduleObserver.onAdded({name:'sample.so',base:address});

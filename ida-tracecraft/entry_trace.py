@@ -11,6 +11,65 @@ import json
 import os
 import traceback
 
+# Shared by both generated runtimes. Event budgets count accepted entries/calls,
+# not diagnostic messages or the matching return event.
+RUNTIME = r'''
+function readBoundedString(value, type, limit) {
+    if (value.isNull()) return null;
+    const wide = type === 'utf16';
+    let length = 0;
+    for (; length < limit; ++length) {
+        const address = value.add(length * (wide ? 2 : 1));
+        if ((wide ? address.readU16() : address.readU8()) === 0) break;
+    }
+    return wide ? value.readUtf16String(length) : value.readUtf8String(length);
+}
+function makeTelemetry(config) {
+    const session = Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+    const began = Date.now(), counts = new Map();
+    let observed = 0, accepted = 0, filtered = 0, sampled = 0, capped = 0;
+    let lastEvent = null, reason = null, readErrors = 0;
+    // Windows process IDs are not thread IDs. The first enumerated thread is
+    // only a default candidate; explicit threadIds avoid that heuristic.
+    const mainThreadId = Process.platform === 'windows' ?
+        (Process.enumerateThreads()[0] || {}).id : Process.id;
+    function output(text, event = {}) {
+        if (config.logFormat !== 'jsonl') return text;
+        return JSON.stringify({ schema: 1, session, module: config.module,
+            time: Date.now(), ...event, message: text });
+    }
+    function finish(why) {
+        if (reason !== null) return;
+        reason = why;
+        setImmediate(() => { if (running) stop(); });
+    }
+    function allow(offset, condition = true, control = false) {
+        ++observed;
+        if (!condition) { ++filtered; return false; }
+        if (reason !== null) { ++capped; return false; }
+        const count = counts.get(offset) || { seen: 0, accepted: 0 };
+        counts.set(offset, count);
+        const ordinal = count.seen++;
+        if (!control && ordinal % config.sampleEvery !== 0) { ++sampled; return false; }
+        if (!control && config.perFunctionLimit && count.accepted >= config.perFunctionLimit) {
+            ++capped; return false;
+        }
+        ++count.accepted; ++accepted; lastEvent = Date.now();
+        if (config.maxEvents && accepted >= config.maxEvents) finish('max-events');
+        return true;
+    }
+    return { output, allow, finish, mainThreadId,
+        accepts(tid) { return !config.threadIds.length || config.threadIds.includes(tid); },
+        end() { if (reason === null) reason = 'manual'; },
+        readError() { ++readErrors; },
+        tick() { if (config.duration && Date.now() - began >= config.duration * 1000) finish('duration'); },
+        status: () => ({ session, mainThreadId, configuredThreadIds: config.threadIds,
+            observed, accepted, filtered, sampled, capped, readErrors,
+            lastEvent, stopReason: reason, elapsedMs: Date.now() - began,
+            perFunction: Array.from(counts, ([offset, value]) => ({ offset, ...value })) }) };
+}
+'''
+
 try:
     import idaapi
     import ida_nalt
@@ -34,6 +93,8 @@ WIDGETS = (idaapi.BWN_FUNCS, idaapi.BWN_DISASM, idaapi.BWN_PSEUDOCODE) if idaapi
 SCRIPT = r'''
 'use strict';
 const DATA = __DATA__;
+__RUNTIME__
+const telemetry = makeTelemetry(DATA);
 
 // Configure before loading. Android ART/JIT needs interpreter mode while stalking.
 if (DATA.mode !== 'hooks' && Process.arch === 'arm64') {
@@ -66,14 +127,15 @@ for (const delta of DATA.deltas.split(',')) {
 const threads = new Map(), listeners = [], pending = [];
 let moduleBase = null, moduleEnd = null, moduleObserver = null, threadObserver = null;
 let running = true, sequence = 0, hookSequence = 0, selectedThread = null;
-let scanTimer = null, moduleGeneration = 0, historySnapshots = 0, hookFailures = 0;
+let scanTimer = null, moduleGeneration = 0, historySnapshots = 0, hookFailures = 0, followFailures = 0;
+let lastThreads = [], lastInstalledHooks = 0;
 function makeThread() {
     const thread = { hits: 0, remaining: 0, following: false };
     if (MODE === 'history') { thread.history = []; thread.head = 0; }
     return thread;
 }
 function isVmInternal(thread) {
-    if (thread.id === Process.id) return false;
+    if (thread.id === telemetry.mainThreadId) return false;
     if (/^(HeapTaskDaemon|Jit thread pool|Jit worker|ReferenceQueueD|FinalizerDaemon|FinalizerWatchdog|Signal Catcher|Profile Saver|JDWP|ADB-JDWP)/.test(thread.name || ''))
         return true;
     const entry = thread.entrypoint;
@@ -87,17 +149,27 @@ function inTarget(address) {
 function discoverThread(thread) {
     if (!['full', 'history'].includes(MODE) || isVmInternal(thread)) return;
     const entry = thread.entrypoint;
-    if (thread.id === Process.id || (entry && entry.routine && inTarget(entry.routine)) ||
-            (thread.context && inTarget(thread.context.pc))) follow(thread.id);
+    const reason = DATA.threadIds.includes(thread.id) ? 'explicit-thread' :
+        thread.id === telemetry.mainThreadId ? 'main-thread-candidate' :
+        entry && entry.routine && inTarget(entry.routine) ? 'target-entrypoint' :
+        thread.context && inTarget(thread.context.pc) ? 'sampled-target-pc' : null;
+    if (reason) follow(thread.id, reason, thread.name || '');
 }
 function acceptsThread(tid) {
+    if (!telemetry.accepts(tid)) return false;
     if (MULTI_THREAD) return true;
-    if (selectedThread === null) selectedThread = MODE === 'window' ? tid : Process.id;
+    if (selectedThread === null) selectedThread = MODE === 'window' ? tid : telemetry.mainThreadId;
     return tid === selectedThread;
 }
 const started = LOG_MILLISECONDS ? Date.now() : 0;
 function flush() { if (pending.length) console.log(pending.splice(0).join('\n')); }
-function emit(line) { pending.push(line); if (pending.length >= 512) flush(); }
+function emit(line, event = { type: 'diagnostic' }) {
+    pending.push(telemetry.output(line, event)); if (pending.length >= 512) flush();
+}
+function emitEntry(tid, event, phase = 'entry', snapshot = null) {
+    emit(formatEntry(tid, event), { type: 'entry', phase, snapshot, tid,
+        id: event.id, offset: event.offset, name: names.get(event.offset), at: event.at });
+}
 function offsetOf(value) { return ptr(value).toString(); }
 function label(offset) { return DATA.module + '+' + offset + ' ' + (names.get(offset) || '?'); }
 function stamp(tid, at) {
@@ -127,17 +199,18 @@ function formatEntry(tid, event) {
 function recordHistory(tid, thread, id, offset, at, trigger) {
     const history = thread.history;
     if (trigger) {
+        thread.snapshot = historySnapshots + 1;
         emit('[history #' + (++historySnapshots) + '] T' + tid + ' BEFORE ' +
             label(offset) + ' available=' + history.length + '/' + HISTORY_SIZE);
         const first = history.length === HISTORY_SIZE ? thread.head : 0;
         for (let i = 0; i < history.length; ++i)
-            emit('  ' + formatEntry(tid, history[(first + i) % history.length]));
-        emit('[trigger] ' + formatEntry(tid, { id, offset, at }));
+            emitEntry(tid, history[(first + i) % history.length], 'before', historySnapshots);
+        emitEntry(tid, { id, offset, at }, 'trigger', historySnapshots);
         thread.remaining = WINDOW_SIZE;
         emit('[history] AFTER ' + WINDOW_SIZE + '; another trigger resets the window');
         flush();
     } else if (thread.remaining > 0) {
-        emit('  ' + formatEntry(tid, { id, offset, at }));
+        emitEntry(tid, { id, offset, at }, 'after', thread.snapshot);
         --thread.remaining;
         if (thread.remaining === 0) {
             emit('[history] END; retaining previous ' + HISTORY_SIZE + ' until next trigger');
@@ -156,6 +229,9 @@ function entry(tid, offset, trigger = false) {
     if (!running || !acceptsThread(tid)) return;
     const thread = threads.get(tid);
     if (!thread) return;
+    if (!trigger && MODE === 'window' && thread.remaining === 0) return;
+    // Triggers must always preserve window/history control semantics.
+    if ((!trigger || MODE === 'history') && !telemetry.allow(offset, true, trigger)) return;
     if (MODE === 'window') {
         if (trigger) {
             thread.remaining = WINDOW_SIZE;
@@ -170,23 +246,31 @@ function entry(tid, offset, trigger = false) {
     const id = ++sequence;
     const at = LOG_MILLISECONDS ? Date.now() - started : 0;
     if (MODE === 'history') recordHistory(tid, thread, id, offset, at, trigger);
-    else emit(formatEntry(tid, { id, offset, at }));
+    else emitEntry(tid, { id, offset, at });
     if (MODE === 'window' && thread.remaining === 0) {
         unfollow(tid);
         emit('[window] ' + stamp(tid) + ' END; waiting for trigger');
         setImmediate(() => Stalker.garbageCollect());
     }
 }
-function follow(tid) {
+function follow(tid, reason = 'trigger', name = '') {
     if (!running || !TRACING || !acceptsThread(tid)) return;
     let thread = threads.get(tid);
     if (!thread) {
         thread = makeThread();
         threads.set(tid, thread);
     }
-    if (!running || thread.following) return;
+    if (!running) return;
+    if (thread.following) {
+        if (thread.hits || (thread.rearms || 0) >= 3 || Date.now() - thread.followedAt < 500) return;
+        unfollow(tid);
+        thread.rearms = (thread.rearms || 0) + 1;
+    }
+    thread.reason = reason;
+    thread.name = name;
     const base = moduleBase, end = moduleEnd;
     thread.following = true;
+    thread.followedAt = Date.now();
     try {
         Stalker.follow(tid, {
             transform(iterator) {
@@ -205,6 +289,7 @@ function follow(tid) {
             }
         });
     } catch (error) {
+        ++followFailures;
         thread.following = false;
         emit('[error] follow T' + tid + ': ' + error);
     }
@@ -213,16 +298,15 @@ function readValue(value, type) {
     try {
         if (type === 'int') return value.toInt32();
         if (type === 'uint') return value.toUInt32();
-        if (type === 'cstring') return value.isNull() ? null : value.readUtf8String(DATA.maxString || 256);
-        if (type === 'utf16') return value.isNull() ? null : value.readUtf16String(DATA.maxString || 256);
+        if (type === 'cstring' || type === 'utf16') return readBoundedString(value, type, DATA.maxString || 256);
         return value.toString();
-    } catch (error) { return '<read-error: ' + error + '>'; }
+    } catch (error) { telemetry.readError(); return '<read-error: ' + error + '>'; }
 }
 function hookFunction(offset, logArguments, windowTrigger = false) {
     const callbacks = {
         onEnter(args) {
             if (!running) return;
-            if (logArguments) {
+            if (logArguments && acceptsThread(this.threadId) && telemetry.allow(offset)) {
                 this.id = ++hookSequence;
                 this.started = LOG_MILLISECONDS ? Date.now() : 0;
                 const spec = (DATA.specs || {})[offset] || {};
@@ -231,21 +315,30 @@ function hookFunction(offset, logArguments, windowTrigger = false) {
                 if (DATA.backtrace) emit('[backtrace] ' + Thread.backtrace(this.context,
                     Backtracer.ACCURATE).map(DebugSymbol.fromAddress).join(' -> '));
                 emit('[hook #' + this.id + '] ' + stamp(this.threadId) + ' ENTER ' +
-                    label(offset) + ' args=[' + values.join(', ') + '] caller=' + this.returnAddress);
+                    label(offset) + ' args=[' + values.join(', ') + '] caller=' + this.returnAddress,
+                    { type: 'enter', id: this.id, tid: this.threadId, offset,
+                      name: names.get(offset), args: values, caller: String(this.returnAddress) });
             }
             if (!windowTrigger || !acceptsThread(this.threadId)) return;
             const tid = this.threadId;
             if (!threads.has(tid))
                 threads.set(tid, makeThread());
+            // A remote follow requested while a newly spawned thread is still
+            // suspended may not activate. Re-arm on its first real trigger.
+            if (MODE === 'history' && threads.get(tid).following && threads.get(tid).hits === 0)
+                unfollow(tid);
             entry(tid, START_OFFSET, true);
             if (MODE === 'history' || threads.get(tid).remaining > 0) follow(tid);
         }
     };
     if (logArguments) callbacks.onLeave = function (value) {
         if (!running || this.id === undefined) return;
+        const result = readValue(value, ((DATA.specs || {})[offset] || {}).ret || 'pointer');
         emit('[hook #' + this.id + '] ' + stamp(this.threadId) + ' LEAVE ' +
-            label(offset) + ' return=' + readValue(value, ((DATA.specs || {})[offset] || {}).ret || 'pointer') +
-            (LOG_MILLISECONDS ? ' duration=' + (Date.now() - this.started) + 'ms' : ''));
+            label(offset) + ' return=' + result +
+            (LOG_MILLISECONDS ? ' duration=' + (Date.now() - this.started) + 'ms' : ''),
+            { type: 'leave', id: this.id, tid: this.threadId, offset,
+              name: names.get(offset), result });
     };
     listeners.push(Interceptor.attach(codeAddress(offset), callbacks));
 }
@@ -268,6 +361,10 @@ function installMatchedHooks(offsets, generation, index = 0) {
 }
 function clearModule() {
     ++moduleGeneration;
+    if (moduleBase !== null) {
+        lastThreads = threadStatuses();
+        lastInstalledHooks = listeners.length;
+    }
     if (threadObserver) { threadObserver.detach(); threadObserver = null; }
     if (scanTimer !== null) { clearInterval(scanTimer); scanTimer = null; }
     for (const tid of threads.keys()) unfollow(tid);
@@ -280,24 +377,36 @@ function clearModule() {
         setImmediate(() => Stalker.garbageCollect());
     }
 }
-const timer = setInterval(flush, 200);
+const timer = setInterval(() => { flush(); telemetry.tick(); }, 200);
 function stop() {
     if (!running) return status();
+    telemetry.end();
     running = false;
     if (moduleObserver) { moduleObserver.detach(); moduleObserver = null; }
     clearModule();
     clearInterval(timer);
-    emit('[trace] STOP entries=' + sequence + ' hooks=' + hookSequence);
+    emit('[trace] STOP entries=' + sequence + ' hooks=' + hookSequence,
+        { type: 'stop', ...status() });
     flush();
     return status();
 }
 function status() {
-    return { running, mode: MODE, multiThread: MULTI_THREAD, logMilliseconds: LOG_MILLISECONDS, selectedThread, entries: sequence, hooks: hookSequence,
-        installedHooks: listeners.length, hookFailures, historySnapshots,
+    return { ...telemetry.status(), running, moduleLoaded: moduleBase !== null,
+        moduleBase: moduleBase === null ? null : String(moduleBase),
+        coverage: 'main thread, target entrypoint or sampled PC; not all threads guaranteed',
+        state: !running ? 'stopped' : moduleBase === null ? 'waiting-module' :
+            hookFailures || followFailures ? 'partial' : 'ready',
+        mode: MODE, multiThread: MULTI_THREAD, logMilliseconds: LOG_MILLISECONDS, selectedThread, entries: sequence, hooks: hookSequence,
+        expectedHooks: new Set([...(DATA.hooks || []), ...HOOK_OFFSETS, ...(TRIGGERED ? [START_OFFSET] : [])]).size,
+        installedHooks: listeners.length, lastInstalledHooks, lastThreads, hookFailures, followFailures, historySnapshots,
         fridaHeapBytes: Frida.heapSize,
-        threads: Array.from(threads, ([tid, value]) => ({ tid, hits: value.hits,
+        threads: threadStatuses() };
+}
+function threadStatuses() {
+    return Array.from(threads, ([tid, value]) => ({ tid, name: value.name, reason: value.reason,
+            rearms: value.rearms || 0, hits: value.hits,
             following: value.following, remaining: value.remaining,
-            historyCount: value.history ? value.history.length : 0 })) };
+            historyCount: value.history ? value.history.length : 0 }));
 }
 if (!['full', 'window', 'history', 'hooks'].includes(MODE)) throw new Error('Unknown MODE: ' + MODE);
 function startModuleObserver() {
@@ -321,7 +430,11 @@ moduleObserver = Process.attachModuleObserver({
             }
             for (const value of hooks) {
                 if (!names.has(value)) throw new Error('Hook is not an IDA function entry: ' + value);
-                if (!(TRIGGERED && value === START_OFFSET)) hookFunction(value, true);
+                if (!(TRIGGERED && value === START_OFFSET)) {
+                    try { hookFunction(value, true); }
+                    catch (error) { ++hookFailures; emit('[error] hook ' + label(value) + ': ' + error,
+                        { type: 'hook-error', offset: value, error: String(error) }); }
+                }
             }
             if (TRIGGERED) {
                 if (!names.has(START_OFFSET)) throw new Error('Unknown START_OFFSET: ' + START_OFFSET);
@@ -329,8 +442,9 @@ moduleObserver = Process.attachModuleObserver({
                 hookFunction(START_OFFSET, hooks.has(START_OFFSET), true);
             }
             // Install outside the loader callback; also clean window states on thread exit.
+            const generation = moduleGeneration;
             setImmediate(() => {
-                if (!running || moduleBase === null) return;
+                if (!running || moduleBase === null || generation !== moduleGeneration) return;
                 threadObserver = Process.attachThreadObserver({
                     onAdded(thread) { discoverThread(thread); },
                     onRemoved(thread) {
@@ -345,7 +459,8 @@ moduleObserver = Process.attachModuleObserver({
             emit('[trace] READY ' + DATA.module + ' base=' + moduleBase +
                 ' mode=' + MODE + ' multi-thread=' + MULTI_THREAD + ' hook-list=' + HOOK_OFFSETS.length +
                 (TRIGGERED ? ' start=' + START_OFFSET : '') +
-                (MODE === 'history' ? ' before=' + HISTORY_SIZE + ' after=' + WINDOW_SIZE + ' (since thread tracking began)' : ''));
+                (MODE === 'history' ? ' before=' + HISTORY_SIZE + ' after=' + WINDOW_SIZE + ' (since thread tracking began)' : ''),
+                { type: 'status', ...status() });
             flush();
         } catch (error) { emit('[error] ' + error); stop(); }
     },
@@ -359,6 +474,8 @@ moduleObserver = Process.attachModuleObserver({
 });
 }
 rpc.exports = { stop, status };
+emit('[trace] waiting for ' + DATA.module, { type: 'status', ...status() });
+flush();
 try {
     const hasArt = Process.platform === 'linux' && Process.findModuleByName('libart.so') !== null;
     if (TRACING && JAVA_INTERPRETER && hasArt) {
@@ -431,6 +548,14 @@ if idaapi is not None:
             self.mode = mode
 
         def activate(self, ctx):
+            if self.mode in ('results', 'timeline'):
+                path = idaapi.ask_file(False, '*.jsonl', 'Open Tracecraft JSONL / Frida log')
+                if path:
+                    try:
+                        show_results(path, timeline=self.mode == 'timeline')
+                    except Exception as error:
+                        idaapi.warning('Tracecraft results: ' + str(error))
+                return 1
             if self.mode == "hooks":
                 substring = idaapi.ask_str("", 0, "Function name contains (case-sensitive)")
                 if substring is not None:
@@ -458,7 +583,7 @@ if idaapi is not None:
     class Popup(idaapi.UI_Hooks):
         def finish_populating_widget_popup(self, widget, popup):
             if idaapi.get_widget_type(widget) in WIDGETS:
-                for mode in MODES:
+                for mode in tuple(MODES) + ('results', 'timeline'):
                     idaapi.attach_action_to_popup(widget, popup, ACTION + ":" + mode, "Entry Trace/")
 
     class EntryTrace(idaapi.plugin_t):
@@ -472,7 +597,8 @@ if idaapi is not None:
             self.popup = None
             self.handlers = {}
             self.local_server = None
-            for mode, label in MODES.items():
+            for mode, label in list(MODES.items()) + [('results', 'Open trace results...'),
+                    ('timeline', 'Open trace timeline...')]:
                 handler = ExportAction(mode)
                 if not idaapi.register_action(idaapi.action_desc_t(ACTION + ":" + mode, label, handler)):
                     self.term()
@@ -515,17 +641,23 @@ COMPACT_SCRIPT = r'''// Entry Trace: edit CONFIG below to change targets, argume
 // Filters observe values; they do not modify arguments or return values.
 'use strict';
 const CONFIG = __CONFIG__;
+__RUNTIME__
+const telemetry = makeTelemetry(CONFIG);
 const listeners = [];
-let observer = null, base = null, running = true, matches = 0;
+let observer = null, base = null, running = true, matches = 0, hookFailures = 0;
+function log(text, event = { type: 'diagnostic' }) { console.log(telemetry.output(text, event)); }
 
 function read(value, type) {
     try {
         if (type === 'int') return value.toInt32();
         if (type === 'uint') return value.toUInt32();
-        if (type === 'cstring') return value.isNull() ? null : value.readUtf8String(CONFIG.maxString);
-        if (type === 'utf16') return value.isNull() ? null : value.readUtf16String(CONFIG.maxString);
+        if (type === 'cstring' || type === 'utf16') return readBoundedString(value, type, CONFIG.maxString);
         return value.toString();
-    } catch (_) { return undefined; }
+    } catch (_) { telemetry.readError(); return undefined; }
+}
+function readLogged(value, type) {
+    const result = read(value, type);
+    return result === undefined ? { error: 'read-failed', type } : result;
 }
 function match(args, when) {
     if (!when) return true;
@@ -549,45 +681,67 @@ function match(args, when) {
 }
 function clear() { for (const h of listeners.splice(0)) h.detach(); base = null; }
 function stop() {
+    if (!running) return status();
+    telemetry.end();
     running = false;
     if (observer) { observer.detach(); observer = null; }
+    if (timer !== null) clearInterval(timer);
     clear();
-    return { running, matches, installed: listeners.length };
+    log('[stop] capture stopped', { type: 'stop', ...status() });
+    return status();
 }
+function status() { return { ...telemetry.status(), running, matches,
+    moduleLoaded: base !== null, moduleBase: base === null ? null : String(base),
+    expected: CONFIG.hooks.length, installed: listeners.length, hookFailures,
+    state: !running ? 'stopped' : base === null ? 'waiting-module' :
+        hookFailures ? (listeners.length ? 'partial' : 'failed') : 'ready' }; }
+const timer = CONFIG.duration ? setInterval(() => telemetry.tick(), 200) : null;
+log('[waiting] ' + CONFIG.module, { type: 'status', ...status() });
 observer = Process.attachModuleObserver({
     onAdded(module) {
         if (!running || base !== null || module.name !== CONFIG.module) return;
         base = module.base;
+        hookFailures = 0;
         for (const hook of CONFIG.hooks) {
             let address = base.add(hook.offset);
             if (hook.thumb) address = address.or(1);
             try {
                 listeners.push(Interceptor.attach(address, {
                     onEnter(args) {
-                        this.accepted = running && (!CONFIG.singleThread || this.threadId === Process.id)
-                            && match(args, hook.when);
+                        this.accepted = running && telemetry.allow(hook.offset,
+                            telemetry.accepts(this.threadId) &&
+                            (!CONFIG.singleThread || this.threadId === telemetry.mainThreadId) && match(args, hook.when));
                         if (!this.accepted) return;
                         this.id = ++matches;
                         this.started = CONFIG.timestamps ? Date.now() : 0;
-                        const values = hook.args.map((type, i) => read(args[i], type));
-                        console.log('[ENTER #' + this.id + '] T' + this.threadId + ' ' + hook.name +
-                            ' +' + hook.offset + ' args=' + JSON.stringify(values));
-                        if (CONFIG.backtrace) console.log(Thread.backtrace(this.context, Backtracer.ACCURATE)
-                            .map(DebugSymbol.fromAddress).join('\n'));
+                        const values = hook.args.map((type, i) => readLogged(args[i], type));
+                        log('[ENTER #' + this.id + '] T' + this.threadId + ' ' + hook.name +
+                            ' +' + hook.offset + ' args=' + JSON.stringify(values),
+                            { type: 'enter', id: this.id, tid: this.threadId, offset: hook.offset,
+                              name: hook.name, args: values });
+                        if (CONFIG.backtrace) log(Thread.backtrace(this.context, Backtracer.ACCURATE)
+                            .map(DebugSymbol.fromAddress).join('\n'), { type: 'backtrace', id: this.id, tid: this.threadId });
                     },
                     onLeave(retval) {
                         if (!running || !this.accepted) return;
-                        console.log('[LEAVE #' + this.id + '] ' + hook.name + ' return=' + read(retval, hook.ret) +
-                            (CONFIG.timestamps ? ' duration=' + (Date.now()-this.started) + 'ms' : ''));
+                        const result = readLogged(retval, hook.ret);
+                        log('[LEAVE #' + this.id + '] ' + hook.name + ' return=' + JSON.stringify(result) +
+                            (CONFIG.timestamps ? ' duration=' + (Date.now()-this.started) + 'ms' : ''),
+                            { type: 'leave', id: this.id, tid: this.threadId, offset: hook.offset,
+                              name: hook.name, result, durationMs: CONFIG.timestamps ? Date.now()-this.started : null });
                     }
                 }));
-            } catch (error) { console.error('[hook error] ' + hook.name + ': ' + error); }
+            } catch (error) { ++hookFailures; log('[hook error] ' + hook.name + ': ' + error,
+                { type: 'hook-error', offset: hook.offset, name: hook.name, error: String(error) }); }
         }
-        console.log('[ready] ' + CONFIG.module + ' base=' + base + ' installed=' + listeners.length);
+        log('[' + status().state + '] ' + CONFIG.module + ' base=' + base + ' installed=' + listeners.length +
+            '/' + CONFIG.hooks.length + ' failed=' + hookFailures, { type: 'status', ...status() });
     },
-    onRemoved(module) { if (base !== null && module.base.equals(base)) clear(); }
+    onRemoved(module) { if (base !== null && module.base.equals(base)) {
+        clear(); log('[waiting] module unloaded', { type: 'status', ...status() });
+    } }
 });
-rpc.exports = { stop, status: () => ({ running, matches, installed: listeners.length }) };
+rpc.exports = { stop, status };
 '''
 
 
@@ -635,7 +789,7 @@ def validate_condition(condition, nesting=0):
 
 
 def collect_snapshot(selectors=(), query=None, mode='full', root=None,
-                     ai_level='off', max_functions=40, depth=1, **unused):
+                     ai_level='off', max_functions=40, depth=1, infer_types=False, **unused):
     """Read IDA analysis; never change names, types, bytes or comments."""
     if idaapi is None:
         raise RuntimeError('collect_snapshot must run inside IDA')
@@ -666,22 +820,28 @@ def collect_snapshot(selectors=(), query=None, mode='full', root=None,
 
     root_ea = resolve(root) if root is not None else None
     selected = {resolve(value) for value in selectors}
+    reasons = {ea: 'explicit' for ea in selected}
     if root_ea is not None:
         selected.add(root_ea)
+        reasons[root_ea] = 'root'
     if mode == 'hooks':
         if not query or not query.strip():
             raise ValueError('hooks requires query/--query')
         selected.update(ea for ea in entries if query in idc.get_func_name(ea))
+        for ea in selected:
+            reasons.setdefault(ea, 'substring')
     if mode == 'regex':
         if not query:
             raise ValueError('regex requires query/--query')
         pattern = re.compile(query)
         selected.update(ea for ea in entries if pattern.search(idc.get_func_name(ea)))
+        for ea in selected:
+            reasons.setdefault(ea, 'regex')
     if mode in ('callers', 'callees'):
         if not selected:
             raise ValueError('callers/callees requires selectors or root')
         frontier = set(selected)
-        for _ in range(depth):
+        for level in range(depth):
             adjacent = set()
             for ea in frontier:
                 if mode == 'callers':
@@ -695,6 +855,8 @@ def collect_snapshot(selectors=(), query=None, mode='full', root=None,
                     if fn is not None:
                         adjacent.add(fn.start_ea)
             frontier = adjacent - selected
+            for target in frontier:
+                reasons[target] = '%s:depth-%d' % (mode, level + 1)
             selected.update(adjacent)
     if mode in ('window', 'history') and root_ea is None:
         raise ValueError('window/history requires root/--root')
@@ -709,6 +871,9 @@ def collect_snapshot(selectors=(), query=None, mode='full', root=None,
             raise ValueError('Function precedes image base')
         item = dict(ea=hex(ea), offset=hex(ea-base), name=idc.get_func_name(ea),
                     thumb=idc.get_sreg(ea, 'T') == 1)
+        item['selection_reason'] = reasons.get(ea, 'module-entry')
+        if infer_types:
+            item['prototype'] = idc.get_type(ea)
         # Full trace still exports every entry, but AI context is bounded.
         if ai_level != 'off' and context_count < max_functions:
             item['prototype'] = idc.get_type(ea)
@@ -731,6 +896,179 @@ def collect_snapshot(selectors=(), query=None, mode='full', root=None,
                 selection_mode=mode, ai_level=ai_level)
 
 
+def runtime_options(request):
+    import math
+    result = {}
+    for source, target, default in (('max_events', 'maxEvents', 0),
+            ('per_function_limit', 'perFunctionLimit', 0), ('sample_every', 'sampleEvery', 1)):
+        value = request.get(source, default)
+        if isinstance(value, bool) or not isinstance(value, int) or value > 9007199254740991 or value < (1 if source == 'sample_every' else 0):
+            raise ValueError(source + ' must be an integer >= ' + ('1' if source == 'sample_every' else '0'))
+        result[target] = value
+    duration = float(request.get('duration', 0))
+    if not math.isfinite(duration) or duration < 0:
+        raise ValueError('duration must be finite and >= 0')
+    result['duration'] = duration
+    thread_ids = request.get('thread_ids') or []
+    if not isinstance(thread_ids, list) or any(isinstance(tid, bool) or not isinstance(tid, int) or tid <= 0 for tid in thread_ids):
+        raise ValueError('thread_ids must be an array of positive integers')
+    result['threadIds'] = thread_ids
+    result['logFormat'] = request.get('log_format', 'text')
+    if result['logFormat'] not in ('text', 'jsonl'):
+        raise ValueError('log_format must be text or jsonl')
+    return result
+
+
+def suggest_types(prototype):
+    """Infer only unambiguous scalar/pointer signatures; keep ABI doubts visible."""
+    import re
+    result = dict(args=None, ret=None, warnings=[])
+    if not prototype:
+        result['warnings'].append('No prototype; using raw pointers')
+        return result
+    match = re.fullmatch(r'\s*(.*?)\s*\(([^()]*)\)\s*;?\s*', prototype)
+    if not match:
+        result['warnings'].append('Complex prototype requires an explicit plan')
+        return result
+
+    def convert(declaration, argument=True):
+        declaration = re.sub(r'\b(?:const|volatile|__\w*call|__noreturn)\b', '', declaration).strip()
+        if '*' in declaration:
+            return 'pointer'
+        if re.search(r'\b(?:__int64|int64_t|uint64_t|long|double|float|short|char|bool)\b', declaration):
+            raise ValueError(declaration)
+        typ = r'(?:unsigned\s+int|signed\s+int|unsigned|signed|int32_t|uint32_t|__int32|int|void)'
+        scalar = re.fullmatch('(' + typ + (r')(?:\s+[A-Za-z_]\w*)?' if argument else ')'), declaration)
+        if scalar:
+            name = scalar.group(1)
+            return 'uint' if name.startswith(('unsigned', 'uint')) else 'int' if name != 'void' else None
+        raise ValueError(declaration)
+
+    try:
+        result['ret'] = convert(match.group(1), argument=False)
+        arguments = match.group(2).strip()
+        result['args'] = [] if arguments in ('', 'void') else [convert(part.strip()) for part in arguments.split(',')]
+        if len(result['args']) > 8 or None in result['args']:
+            raise ValueError('register/void argument')
+    except ValueError:
+        result.update(args=None, ret=None)
+        result['warnings'].append('ABI-sensitive prototype; supply an explicit plan (raw pointers retained)')
+    return result
+
+
+def preview_selection(request, snapshot, known, hooks, specs):
+    targets = []
+    hook_set = set(hooks)
+    for offset, function in known.items():
+        item = dict(name=function['name'], offset=offset, ea=function.get('ea'),
+                    reason=function.get('selection_reason', snapshot.get('selection_mode')),
+                    hooked=offset in hook_set)
+        if request.get('infer_types'):
+            item['type_suggestion'] = suggest_types(function.get('prototype'))
+        if offset in specs:
+            item['plan'] = specs[offset]
+        targets.append(item)
+    return dict(mode=request.get('mode', 'full'), module=request.get('module') or snapshot['module'],
+                functions=len(targets), hooks=len(hooks), excluded=len(snapshot['functions'])-len(targets),
+                detailed=sum('prototype' in f for f in known.values()),
+                context_limit=request.get('max_functions', 40), runtime=runtime_options(request), targets=targets)
+
+
+def read_results(path, tid=None, limit=200, session=None):
+    """Read raw JSONL or a Frida CLI log; retain only a bounded event tail."""
+    from collections import deque
+    if limit < 0:
+        raise ValueError('limit must be >= 0')
+    tail, functions, sessions, seen = deque(maxlen=limit), {}, set(), set()
+    skipped = events = 0
+    with open(path, encoding='utf-8-sig') as stream:
+        for line in stream:
+            if not line.strip():
+                continue
+            try:
+                event = json.loads(line)
+            except ValueError:
+                skipped += 1
+                continue
+            if (not isinstance(event, dict) or event.get('schema') != 1
+                    or not isinstance(event.get('session'), str)
+                    or not isinstance(event.get('module'), str)
+                    or not isinstance(event.get('type'), str)):
+                skipped += 1
+                continue
+            if event['type'] in ('entry', 'enter', 'leave'):
+                try:
+                    offset = int(event.get('offset', ''), 0)
+                    if offset < 0 or any(type(event.get(key)) is not int for key in ('id', 'tid')):
+                        raise ValueError('Invalid event fields')
+                    event['offset'] = hex(offset)
+                except (ValueError, TypeError):
+                    skipped += 1
+                    continue
+            if session is not None and event['session'] != session:
+                continue
+            if tid is not None and event.get('tid') != tid:
+                continue
+            sessions.add(event['session'])
+            events += 1
+            tail.append(event)
+            if event.get('type') not in ('entry', 'enter') or not isinstance(event.get('offset'), str):
+                continue
+            # History snapshots may repeat the same observed entry.
+            identity = (event['session'], event.get('tid'), event['type'], event.get('id'))
+            if identity in seen:
+                continue
+            seen.add(identity)
+            key = (event['session'], event.get('module'), event['offset'])
+            item = functions.setdefault(key, dict(session=key[0], module=key[1], offset=key[2],
+                name=event.get('name', '?'), hits=0, threads=set()))
+            item['hits'] += 1
+            if isinstance(event.get('tid'), int):
+                item['threads'].add(event['tid'])
+    ranking = [dict(item, threads=sorted(item['threads'])) for item in functions.values()]
+    ranking.sort(key=lambda item: (-item['hits'], item['offset']))
+    return dict(events=events, skipped_lines=skipped, sessions=sorted(sessions),
+                functions=ranking, timeline=list(tail), timeline_limit=limit)
+
+
+def show_results(path, tid=None, session=None, timeline=False, limit=2000):
+    """Open a native IDA chooser; double-click navigates by the current imagebase."""
+    if idaapi is None:
+        raise RuntimeError('show_results must run inside IDA')
+    report = read_results(path, tid=tid, session=session, limit=limit if timeline else 0)
+    rows = ([event for event in report['timeline'] if event.get('type') in ('entry', 'enter', 'leave')]
+            if timeline else report['functions'])
+    class Results(idaapi.Choose):
+        def __init__(self):
+            columns = ([['Thread', 10], ['Event', 12], ['Function', 35], ['Offset', 18],
+                ['Call / entry', 12], ['Phase', 12], ['Data', 60]] if timeline else
+                [['Hits', 10], ['Function', 40], ['Offset', 18], ['Threads', 20], ['Module', 25], ['Session', 25]])
+            title = 'Tracecraft timeline' if timeline else 'Tracecraft results'
+            super().__init__(title + ' — ' + os.path.basename(path), columns)
+
+        def OnGetSize(self):
+            return len(rows)
+
+        def OnGetLine(self, index):
+            row = rows[index]
+            if timeline:
+                return [str(row.get('tid', '')), row['type'], row.get('name', '?'),
+                    row['offset'], str(row.get('id', '')), row.get('phase', ''),
+                    json.dumps(row.get('args', row.get('result')), ensure_ascii=False)]
+            return [str(row['hits']), row['name'], row['offset'],
+                    ', '.join(map(str, row['threads'])), row['module'] or '', row['session']]
+
+        def OnSelectLine(self, index):
+            idaapi.jumpto(ida_nalt.get_imagebase() + int(rows[index]['offset'], 0))
+            return (self.NOTHING_CHANGED, index)
+
+        def OnGetEA(self, index):
+            return ida_nalt.get_imagebase() + int(rows[index]['offset'], 0)
+    chooser = Results()
+    chooser.Show(False)
+    return chooser
+
+
 def generate(request, snapshot=None):
     """Return script, snapshot and AI prompt. Works offline with a snapshot.
 
@@ -745,11 +1083,15 @@ def generate(request, snapshot=None):
     if mode not in tuple(MODES) + SELECT_MODES:
         raise ValueError('Unknown mode: ' + str(mode))
     snapshot = snapshot if snapshot is not None else collect_snapshot(**request)
-    functions = snapshot['functions']
+    import re
+    excludes = [re.compile(pattern) for pattern in request.get('exclude', [])]
+    functions = [f for f in snapshot['functions']
+                 if not any(pattern.search(f['name']) for pattern in excludes)]
     known = {hex(int(f['offset'], 0)): f for f in functions}
     runtime_mode = 'hooks' if mode in SELECT_MODES else mode
     hooks = list(known) if runtime_mode == 'hooks' else []
     specs = {}
+    runtime = runtime_options(request)
     default_args = request.get('arg_types') or ['pointer'] * 6
     default_ret = request.get('ret_type') or 'pointer'
     valid_types = ('pointer','int','uint','cstring','utf16')
@@ -788,7 +1130,7 @@ def generate(request, snapshot=None):
         raise ValueError('Snapshot root must be a function entry')
     data = dict(mode=runtime_mode, module=request.get('module') or snapshot['module'],
                 imagebase=snapshot['imagebase'], start=root or '0x0',
-                thumb=bool(root and known[root].get('thumb')), thumbs=[o for o,f in known.items() if f.get('thumb')],
+                thumb=bool(root in known and known[root].get('thumb')), thumbs=[o for o,f in known.items() if f.get('thumb')],
                 hooks=hooks, specs=specs, names=[], deltas='', query=request.get('query') or '',
                 multiThread=not request.get('single_thread', False), timestamps=bool(request.get('timestamps')),
                 javaInterpreter=not request.get('no_java_interpreter', False),
@@ -821,18 +1163,28 @@ def generate(request, snapshot=None):
               'For deep participation you may instead write a complete standalone Frida JS file, '
               'including delayed module loading, detach/stop, bounded reads, and error handling.\n'
               'User objective: ' + request.get('goal','Observe arguments, returns and call relationships.'))
-    script = SCRIPT.replace('__DATA__',json.dumps(data,ensure_ascii=True))
+    data.update(runtime)
+    script = SCRIPT.replace('__RUNTIME__', RUNTIME).replace('__DATA__',json.dumps(data,ensure_ascii=True))
     if runtime_mode == 'hooks':
         config = dict(module=data['module'], maxString=data['maxString'],
                       backtrace=data['backtrace'], timestamps=data['timestamps'],
                       singleThread=not data['multiThread'], hooks=[])
+        config.update(runtime)
         for offset in hooks:
             spec = specs.get(offset, dict(args=default_args,ret=default_ret,when=global_when))
+            if request.get('infer_types') and offset not in specs:
+                suggestion = suggest_types(known[offset].get('prototype'))
+                spec = dict(spec)
+                if not request.get('arg_types') and suggestion['args'] is not None:
+                    spec['args'] = suggestion['args']
+                if not request.get('ret_type') and suggestion['ret'] is not None:
+                    spec['ret'] = suggestion['ret']
             config['hooks'].append(dict(name=known[offset]['name'],offset=offset,
                                         thumb=bool(known[offset].get('thumb')), **spec))
-        script = COMPACT_SCRIPT.replace('__CONFIG__',json.dumps(config,ensure_ascii=True,indent=2))
+        script = COMPACT_SCRIPT.replace('__RUNTIME__', RUNTIME).replace('__CONFIG__',json.dumps(config,ensure_ascii=True,indent=2))
     return dict(script=script,
-                snapshot=snapshot, prompt=prompt, hook_count=len(hooks))
+                snapshot=snapshot, prompt=prompt, hook_count=len(hooks),
+                preview=preview_selection(request, snapshot, known, hooks, specs))
 
 
 def generate_file(request, path=None, snapshot=None):
@@ -846,7 +1198,7 @@ def generate_file(request, path=None, snapshot=None):
         path = os.path.join(os.path.dirname(input_path), 'entry_trace.generated.js')
     saved = write_script(path, result['script'])
     report = dict(script_path=saved, mode=request.get('mode', 'full'),
-                  functions=len(result['snapshot']['functions']), hooks=result['hook_count'])
+                  functions=result['preview']['functions'], hooks=result['hook_count'])
     print(json.dumps(report, ensure_ascii=False, indent=2))
     return report
 
@@ -1117,7 +1469,7 @@ class LocalService:
                     if not 0 < length <= 1048576:
                         raise ValueError('Request body must be 1..1048576 bytes')
                     request = json.loads(self.rfile.read(length))
-                    allowed = {'mode', 'root', 'selectors', 'query', 'ai_level', 'max_functions', 'depth'}
+                    allowed = {'mode', 'root', 'selectors', 'query', 'ai_level', 'max_functions', 'depth', 'infer_types'}
                     if not isinstance(request, dict) or set(request) - allowed:
                         raise ValueError('Unknown snapshot request fields')
                     if request.get('mode', 'full') not in tuple(MODES) + SELECT_MODES:
@@ -1377,7 +1729,7 @@ def discover_instance(port=None, port_range=None, instance=None, input_name=None
 
 
 def remote_snapshot(request, port=None, port_range=None, instance=None, timeout=120, input_name=None):
-    fields = ('mode', 'root', 'selectors', 'query', 'ai_level', 'max_functions', 'depth')
+    fields = ('mode', 'root', 'selectors', 'query', 'ai_level', 'max_functions', 'depth', 'infer_types')
     payload = {key: request[key] for key in fields if key in request}
     record = discover_instance(port, port_range, instance, input_name)
     if idaapi is not None and record['pid'] == os.getpid():
@@ -1418,8 +1770,23 @@ Duplicate filenames require a full path or --instance ID. IDs are stable for a l
 --port selects a CLI endpoint from instances; ports are assigned automatically, not MCP ports.
 Existing output files get numbered suffixes; use the returned script_path.
 See README.md for connection and mode examples.''')
-    parser.add_argument('command', choices=['generate','context','instances'], nargs='?', default='generate',
-                        help='generate JS (default), save context, or list endpoint/file mappings')
+    parser.add_argument('command', choices=['generate','context','instances','preview','results'], nargs='?', default='generate',
+                        help='generate JS, save context, list instances, preview targets, or read JSONL results')
+    parser.add_argument('--config', help='Load a reusable JSON configuration; explicit flags override it')
+    parser.add_argument('--save-config', help='Save effective options as reusable JSON')
+    parser.add_argument('--bundle', help='Save script, snapshot, configuration and manifest in this directory')
+    parser.add_argument('--log-format', choices=['text','jsonl'], default='text')
+    parser.add_argument('--max-events', type=int, default=0, help='Stop after N accepted entries/calls; 0 = unlimited')
+    parser.add_argument('--duration', type=float, default=0, help='Stop after seconds from script loading; 0 = unlimited')
+    parser.add_argument('--per-function-limit', type=int, default=0, help='Maximum accepted entries/calls per function; 0 = unlimited')
+    parser.add_argument('--sample-every', type=int, default=1, help='Keep the first and every Nth eligible entry/call')
+    parser.add_argument('--exclude', action='append', default=[], help='Exclude names matching regex; repeatable')
+    parser.add_argument('--infer-types', action='store_true', help='Use conservative IDA prototype suggestions; inspect preview warnings')
+    parser.add_argument('--thread-id', dest='thread_ids', action='append', type=int, default=[], help='Restrict capture to these thread IDs; repeatable')
+    parser.add_argument('--results-file', help='JSONL / Frida log to inspect with results command')
+    parser.add_argument('--tid', type=int, help='Filter results by thread ID')
+    parser.add_argument('--session', help='Filter results by capture session ID')
+    parser.add_argument('--limit', type=int, default=200, help='Maximum timeline rows in results (default 200)')
     parser.add_argument('--mode', choices=list(MODES)+list(SELECT_MODES), default='full',
                         help='full trace; window after root; history before/after root; other modes select argument/return hooks')
     parser.add_argument('--root', help='IDA VA, exact name, or +0xMODULE_OFFSET')
@@ -1440,7 +1807,7 @@ See README.md for connection and mode examples.''')
     parser.add_argument('--max-functions', type=int, default=40, help='AI detail limit, not tracing limit')
     parser.add_argument('--plan', help='AI hook plan JSON')
     parser.add_argument('--arg-types', help='Comma-separated argument types: int,cstring,pointer')
-    parser.add_argument('--ret-type', choices=['pointer','int','uint','cstring','utf16'],default='pointer')
+    parser.add_argument('--ret-type', choices=['pointer','int','uint','cstring','utf16'],default=None)
     parser.add_argument('--when', action='append', help='JSON argument condition; repeat for AND')
     parser.add_argument('--when-file', help='JSON condition tree (all/any) file')
     parser.add_argument('--where', action='append', help='ARG:TYPE:OP:VALUE, repeat for AND; e.g. 0:int:eq:7')
@@ -1456,7 +1823,62 @@ See README.md for connection and mode examples.''')
             ('single-thread', 'Trace one thread instead of multiple threads'),
             ('no-java-interpreter', 'Keep normal Java execution instead of interpreter compatibility mode')):
         parser.add_argument('--'+flag, action='store_true', help=description)
+    # Load defaults before parsing so CLI overrides work even when equal to defaults.
+    config_parser = argparse.ArgumentParser(add_help=False)
+    config_parser.add_argument('--config')
+    config_args, _ = config_parser.parse_known_args(argv)
+    if config_args.config:
+        try:
+            config = json.loads(Path(config_args.config).read_text(encoding='utf-8-sig'))
+            actions = {action.dest: action for action in parser._actions if action.option_strings}
+            if not isinstance(config, dict):
+                raise ValueError('Configuration must be a JSON object')
+            for key, value in config.items():
+                if key not in actions or key in ('help', 'config', 'save_config'):
+                    raise ValueError('Unknown configuration option: ' + key)
+                action = actions[key]
+                if value is None:
+                    continue
+                if isinstance(action, argparse._StoreTrueAction):
+                    if not isinstance(value, bool):
+                        raise ValueError(key + ' must be boolean')
+                elif isinstance(action, argparse._AppendAction):
+                    if not isinstance(value, list) or any(
+                            (isinstance(v, bool) or not isinstance(v, int)) if action.type is int else not isinstance(v, str)
+                            for v in value):
+                        raise ValueError('Invalid configuration array: ' + key)
+                elif action.type:
+                    if isinstance(value, bool):
+                        raise ValueError('Invalid configuration value: ' + key)
+                    converted = action.type(value)
+                    if converted != value:
+                        raise ValueError('Invalid configuration value: ' + key)
+                elif not isinstance(value, str):
+                    raise ValueError(key + ' must be a string')
+                if action.choices and value not in action.choices:
+                    raise ValueError('Invalid configuration choice: ' + key)
+            parser.set_defaults(**config)
+            tokens = list(argv) if argv is not None else __import__('sys').argv[1:]
+            for action in actions.values():
+                if isinstance(action, argparse._AppendAction) and any(
+                        token.split('=', 1)[0] in action.option_strings for token in tokens):
+                    parser.set_defaults(**{action.dest: []})
+        except (OSError, ValueError, TypeError) as error:
+            print('[entry-trace] ' + str(error), file=__import__('sys').stderr)
+            return 1
     args = parser.parse_args(argv)
+    effective_config = {key: value for key, value in vars(args).items()
+                        if key not in ('command','config','save_config','bundle')}
+    if args.command == 'results':
+        try:
+            if not args.results_file:
+                raise ValueError('results requires --results-file')
+            print(json.dumps(read_results(args.results_file, args.tid, args.limit, args.session),
+                             ensure_ascii=False, indent=2))
+            return 0
+        except (OSError, ValueError) as error:
+            print('[entry-trace] ' + str(error), file=__import__('sys').stderr)
+            return 1
     if args.command == 'instances':
         try:
             print(json.dumps(list_instances(args.port,args.port_range,args.instance,args.input),
@@ -1491,6 +1913,11 @@ See README.md for connection and mode examples.''')
             snapshot = remote_snapshot(request,args.port,args.port_range,args.instance,args.timeout,args.input)
         result = generate(request,snapshot)
         saved = {}
+        if args.save_config:
+            saved['config'] = write_script(args.save_config, json.dumps(effective_config, ensure_ascii=False, indent=2))
+        if args.command == 'preview':
+            print(json.dumps(dict(result['preview'], files=saved), ensure_ascii=False, indent=2))
+            return 0
         if args.context_out or args.command == 'context':
             saved['context'] = write_script(args.context_out or 'entry_trace.context.json',json.dumps(snapshot,ensure_ascii=False,indent=2))
         if args.prompt_out:
@@ -1498,7 +1925,17 @@ See README.md for connection and mode examples.''')
         if args.command == 'generate':
             script = Path(args.ai_script).read_text(encoding='utf-8-sig') if args.ai_script else result['script']
             saved['script'] = write_script(args.output,script)
-        print(json.dumps(dict(script_path=saved.get('script'), files=saved,functions=len(snapshot['functions']),hooks=result['hook_count'],
+        if args.bundle:
+            directory = Path(args.bundle).resolve()
+            directory.mkdir(parents=True, exist_ok=True)
+            saved['bundle_snapshot'] = write_script(str(directory / 'context.json'), json.dumps(snapshot, ensure_ascii=False, indent=2))
+            bundled_config = dict(effective_config, snapshot=saved['bundle_snapshot'])
+            saved['bundle_config'] = write_script(str(directory / 'config.json'), json.dumps(bundled_config, ensure_ascii=False, indent=2))
+            saved['bundle_script'] = write_script(str(directory / 'trace.js'),
+                Path(args.ai_script).read_text(encoding='utf-8-sig') if args.ai_script else result['script'])
+            saved['manifest'] = write_script(str(directory / 'manifest.json'), json.dumps(dict(
+                files=dict(saved), preview=result['preview']), ensure_ascii=False, indent=2))
+        print(json.dumps(dict(script_path=saved.get('script'), files=saved,functions=result['preview']['functions'],hooks=result['hook_count'],
                               ai_level=args.ai_level),ensure_ascii=False,indent=2))
         return 0
     except Exception as error:

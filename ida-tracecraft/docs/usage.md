@@ -1,5 +1,7 @@
 # Entry Trace：IDA / AI 单文件入口
 
+新增预览、配置复用、JSONL 采集与结果查看的完整流程见 [工作流说明](workflow.md)。
+
 帮助参数支持 `-h` 和 `--help`：普通终端执行 `python D:\IDA\plugins\entry_trace.py -h`；IDA 内加载模块后调用 `entry_trace.main(['-h'])`。帮助包含模式、参数和使用示例。
 
 每次通过菜单、generate_file() 或 main() 成功生成脚本，都会打印包含 script_path 绝对路径的 JSON；generate_file() 同时返回该字典。AI 应读取返回的实际路径继续编辑，因为文件重名时会自动编号。

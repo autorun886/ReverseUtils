@@ -10,6 +10,15 @@ Have the AI read the help, choose a mode for your observation goal, select the I
 
 [中文文档](README.md)
 
+Preview targets with `preview`, reuse options with `--config` / `--save-config`,
+and archive generated materials with `--bundle DIR`. Use `--log-format jsonl`
+with `--max-events`, `--duration`, `--per-function-limit`, and `--sample-every`
+to control capture volume. `results --results-file events.jsonl` summarizes hits
+and a bounded event timeline; `--tid` and `--session` filter the results.
+IDA's Entry Trace popup also opens result rankings and timelines with navigation.
+See the [workflow guide (Chinese)](docs/workflow.md) and
+[example configuration](examples/observe.json) for semantics and commands.
+
 ## Quick start
 
 1. Copy `entry_trace.py` into IDA's `plugins` directory, restart IDA, and open the target database.

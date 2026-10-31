@@ -10,6 +10,8 @@ python /path/to/entry_trace.py -h
 
 [English documentation](README.en.md)
 
+支持生成前预览、可复用配置、JSONL 日志、采集限额，以及 IDA 内的结果排行和时间线。完整流程见 [工作流说明](docs/workflow.md)。
+
 ## 快速开始
 
 1. 把 `entry_trace.py` 放入 IDA 的 `plugins` 目录，重启 IDA 并打开目标数据库。

@@ -1,0 +1,13 @@
+{
+  "mode": "selected",
+  "selectors": ["FUNC"],
+  "log_format": "jsonl",
+  "infer_types": true,
+  "max_events": 2000,
+  "duration": 30,
+  "per_function_limit": 500,
+  "sample_every": 1,
+  "exclude": [],
+  "thread_ids": [],
+  "timestamps": true
+}
