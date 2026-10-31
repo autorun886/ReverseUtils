@@ -53,10 +53,28 @@ python entry_trace.py context --mode selected --select FUNC --ai-level guided --
 python entry_trace.py --snapshot context.json --mode selected -o hooks.js
 ```
 
+## Multiple instances
+
+Each database registers automatically and receives an OS-assigned local port. Its short ID stays stable for that live database session; switching or reopening databases creates a new ID.
+
+```sh
+python entry_trace.py instances
+python entry_trace.py --input libsec2026.so --mode full -o sec.js
+python entry_trace.py --instance k7m2 --mode full -o trace.js
+```
+
+Replace `k7m2` with the returned ID. `--input` exactly matches a filename or full path, case-insensitively. Duplicate filenames require a full path or short ID. Legacy `--instance PID` selection still works. `--port` accepts the dynamic CLI port shown by `instances`, not the MCP port.
+
+Listings contain only `id`, `endpoint`, and `input_path`. Every snapshot validates database identity before and after collection. Expired IDs, ambiguous matches, and unavailable targets fail explicitly rather than routing to another database. Different instances can handle commands concurrently; busy instances do not hold a global routing lock.
+
+Registry records are published atomically and maintained by heartbeats. Closing removes the active record; confirmed dead-process records are pruned. Following the [ida-multi-mcp architecture](https://github.com/MeroZemory/ida-multi-mcp/blob/main/docs/architecture.md), independent records avoid lost concurrent updates, and there is no shared current-instance selection.
+
+Reload the plugin in already-open IDAs after upgrading, then run `instances` again.
+
 ## Notes
 
 - Select functions by exact name, IDA virtual address, or `+0xMODULE_OFFSET`. Database and runtime layouts must agree; `--module` overrides the runtime filename.
-- Use `--port` when the same file is open multiple times. Instance lists and ambiguity errors are JSON; online collection records its source PID/port.
+- Instance listings contain only `id`, `endpoint`, and `input_path`. Use a full path or `--instance ID` for duplicate filenames; use the listed dynamic CLI endpoint when selecting by `--port`.
 - Output avoids existing filenames. Use the returned absolute `script_path` for subsequent operations.
 - History starts when thread tracking begins; tracing does not guarantee every entry on every thread. ARM64 tracing requires Frida 17.10+. Android ART tracing enables Java interpreter mode by default, adding overhead.
 - The tool exports AI context; model calls happen externally. Offline snapshots fix the target set; recollect to change selection.
@@ -67,6 +85,7 @@ See `-h` for all options, mode semantics, and the AI workflow. See [conditional_
 
 ```sh
 python -m unittest -v test_entry_trace.py
+python tests/entry_trace/test_instances.py -v
 ```
 
 Tests need no IDA/Frida. Install Node.js to run generated-script event simulations.

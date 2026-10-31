@@ -144,3 +144,17 @@ Python 离线调用可向 generate(request, snapshot) 或 generate_file(request,
 python test_entry_trace.py
 python D:\IDA\plugins\entry_trace.py --help
 ```
+
+## 多实例选择与生命周期
+
+```powershell
+python entry_trace.py instances
+python entry_trace.py --input libsec2026.so --mode full -o sec.js
+python entry_trace.py --instance k7m2 --mode history --root FUNC --count 100 -o around.js
+```
+
+实例列表只返回 `id`、`endpoint`、`input_path`；示例 `k7m2` 应替换为当前 ID。`--input` 为不区分大小写的精确文件名/完整路径匹配。`--instance` 接受短 ID，也兼容旧 PID；`--port` 使用实例列表中的 CLI 端口，和 MCP 端口不同。
+
+每个数据库会话独立登记，默认动态分配端口。数据库切换、IDB 路径变化或关闭重开使旧 ID 失效。请求在采集前后校验归属，防止切换期间导出错库；目标暂时无响应也不自动改选同名实例。不同 IDA 的命令可并发，同一 IDA 的 SDK 采集在主线程串行执行。
+
+登记使用原子独立文件及后台心跳；确认进程退出后清理有效记录，已退休 ID 仅保留空标记避免复用。升级后重新加载已打开 IDA 的插件，再执行 `instances`。

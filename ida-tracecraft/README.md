@@ -53,10 +53,28 @@ python entry_trace.py context --mode selected --select FUNC --ai-level guided --
 python entry_trace.py --snapshot context.json --mode selected -o hooks.js
 ```
 
+## 多实例
+
+插件在数据库打开后自动登记，并由系统分配本地端口。短 ID 在当前数据库会话内稳定；更换数据库或关闭重开后获得新 ID。
+
+```sh
+python entry_trace.py instances
+python entry_trace.py --input libsec2026.so --mode full -o sec.js
+python entry_trace.py --instance k7m2 --mode full -o trace.js
+```
+
+将 `k7m2` 换成实例列表返回的 ID。`--input` 精确匹配文件名或完整路径，不区分大小写；同名多开时指定完整路径或短 ID。`--instance PID` 保持兼容。`--port` 仍可使用，但应读取实例列表中的动态端口，而不是 MCP 端口。
+
+实例列表只返回 `id`、`endpoint`、`input_path`。请求采集前后都会校验数据库归属；旧 ID 失效、同名歧义或目标暂时不可用时明确报错，不自动改选其他实例。不同实例可以并行处理命令，繁忙实例不会锁住其他实例的路由。
+
+登记文件原子写入共享目录，并由后台心跳维护；关闭时移除有效登记，确认失效的进程记录自动清理。参考 [ida-multi-mcp 架构](https://github.com/MeroZemory/ida-multi-mcp/blob/main/docs/architecture.md)，采用独立记录避免并发写入覆盖；没有共享的“当前实例”。
+
+升级后需重新加载已打开 IDA 中的插件。重新运行 `instances` 获取当前 ID 和端口。
+
 ## 使用要点
 
 - 函数可用精确名称、IDA 绝对地址或 `+0x模块偏移` 指定。数据库与运行时模块布局应一致；`--module` 可覆盖模块文件名。
-- 同一文件多开时用 `--port` 区分。实例列表和歧义错误均返回 JSON，在线采集结果记录来源 PID/端口。
+- 实例列表只包含 `id`、`endpoint`、`input_path`。同名文件用完整路径或 `--instance ID` 区分；`--port` 以实例列表返回的动态 CLI 端口为准。
 - 输出自动避开重名文件，后续操作以返回的绝对 `script_path` 为准。
 - 历史仅覆盖线程开始追踪后的记录；追踪不保证捕获所有线程的全部入口。ARM64 追踪要求 Frida 17.10+；Android ART 默认启用 Java 解释执行，会增加开销。
 - AI 上下文由工具导出，模型调用在外部完成。离线快照固定目标集合，改变选择需重新采集。
@@ -67,6 +85,7 @@ python entry_trace.py --snapshot context.json --mode selected -o hooks.js
 
 ```sh
 python -m unittest -v test_entry_trace.py
+python tests/entry_trace/test_instances.py -v
 ```
 
 测试不依赖 IDA/Frida；安装 Node.js 可运行生成脚本的事件模拟。

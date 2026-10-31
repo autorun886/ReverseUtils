@@ -851,6 +851,12 @@ def generate_file(request, path=None, snapshot=None):
     return report
 
 
+# Multi-instance control plane. Runtime trace generation above stays independent.
+INSTANCE_PROTOCOL = 2
+INSTANCE_HEARTBEAT = 15.0
+INSTANCE_STALE_AFTER = 120.0
+
+
 def state_directory():
     from pathlib import Path
     return Path(os.environ.get('LOCALAPPDATA', str(Path.home() / '.cache'))) / 'IDA-Tracecraft'
@@ -863,39 +869,211 @@ def parse_port_range(value):
     return range(first, last + 1)
 
 
-def collect_on_ida_thread(request, is_active=lambda: True):
+def _canonical_path(value):
+    return os.path.normcase(os.path.abspath(os.path.normpath(value))).casefold() if value else ''
+
+
+def _current_identity():
+    """Called only on IDA's main thread."""
+    import ida_loader
+    path = ida_nalt.get_input_file_path()
+    if not path:
+        return None
+    digest = ida_nalt.retrieve_input_file_sha256()
+    return dict(input_path=path, module=ida_nalt.get_root_filename(),
+                idb_path=ida_loader.get_path(ida_loader.PATH_TYPE_IDB) or '',
+                database_hash=digest.hex() if isinstance(digest, bytes) else str(digest or ''))
+
+
+def _identity_key(identity):
+    return (_canonical_path(identity.get('input_path', '')),
+            _canonical_path(identity.get('idb_path', '')), identity.get('database_hash', ''))
+
+
+def _pid_alive(pid):
+    """Conservative process check. Never send a signal to a Windows process."""
+    if os.name == 'nt':
+        import ctypes
+        from ctypes import wintypes
+        kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+        kernel.OpenProcess.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
+        kernel.OpenProcess.restype = wintypes.HANDLE
+        kernel.GetExitCodeProcess.argtypes = [wintypes.HANDLE, ctypes.POINTER(wintypes.DWORD)]
+        kernel.CloseHandle.argtypes = [wintypes.HANDLE]
+        handle = kernel.OpenProcess(0x1000, False, pid)
+        if not handle:
+            return False if ctypes.get_last_error() == 87 else None
+        try:
+            code = wintypes.DWORD()
+            return code.value == 259 if kernel.GetExitCodeProcess(handle, ctypes.byref(code)) else None
+        finally:
+            kernel.CloseHandle(handle)
+    try:
+        os.kill(pid, 0)
+        return True
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    except OSError:
+        return None
+
+
+class InstanceRegistry:
+    """Atomic per-instance records: concurrent IDAs never rewrite each other's entries."""
+    def __init__(self, directory=None):
+        from pathlib import Path
+        self.directory = Path(directory) if directory is not None else state_directory()
+
+    @staticmethod
+    def valid(record):
+        import re
+        return (isinstance(record, dict) and record.get('schema') == INSTANCE_PROTOCOL
+                and isinstance(record.get('id'), str)
+                and re.fullmatch(r'[a-z][a-z0-9]{3,15}', record['id']) is not None
+                and type(record.get('pid')) is int and record['pid'] > 0
+                and type(record.get('port')) is int and 1 <= record['port'] <= 65535
+                and isinstance(record.get('token'), str) and len(record['token']) >= 16
+                and isinstance(record.get('session'), str)
+                and type(record.get('generation')) is int
+                and isinstance(record.get('input_path'), str)
+                and isinstance(record.get('last_seen'), (int, float)))
+
+    def records(self):
+        rows = []
+        for path in self.directory.glob('*.json'):
+            try:
+                record = json.loads(path.read_text(encoding='utf-8'))
+                if self.valid(record) and path.name == record['id'] + '.json':
+                    rows.append(record)
+            except (OSError, ValueError):
+                continue
+        return rows
+
+    def publish(self, record):
+        import tempfile
+        import time
+        self.directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+        path = self.directory / (record['id'] + '.json')
+        fd, temporary = tempfile.mkstemp(prefix='.instance-', suffix='.tmp', dir=self.directory)
+        try:
+            with os.fdopen(fd, 'w', encoding='utf-8') as stream:
+                json.dump(record, stream, ensure_ascii=True)
+                stream.flush()
+                os.fsync(stream.fileno())
+            for attempt in range(5):
+                try:
+                    os.replace(temporary, path)
+                    break
+                except PermissionError:
+                    if attempt == 4:
+                        raise
+                    time.sleep(0.02)
+        finally:
+            if os.path.exists(temporary):
+                os.unlink(temporary)
+
+    def register(self, record, reserved_ids=()):
+        import hashlib
+        import time
+        seed = json.dumps([record['session'], record['generation'], _identity_key(record)])
+        number = int.from_bytes(hashlib.sha256(seed.encode('utf-8')).digest(), 'big')
+        first = 'abcdefghijklmnopqrstuvwxyz'[number % 26]
+        self.directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+        for length in range(4, 17):
+            value, tail = number // 26, ''
+            for _ in range(length - 1):
+                value, digit = divmod(value, 36)
+                tail = '0123456789abcdefghijklmnopqrstuvwxyz'[digit] + tail
+            candidate = dict(record, id=first + tail, schema=INSTANCE_PROTOCOL, last_seen=time.time())
+            if candidate['id'] in reserved_ids:
+                continue
+            path = self.directory / (candidate['id'] + '.json')
+            try:
+                fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+            except FileExistsError:
+                continue
+            os.close(fd)
+            if (self.directory / '.retired' / candidate['id']).exists():
+                path.unlink()
+                continue
+            try:
+                self.publish(candidate)
+            except BaseException:
+                path.unlink(missing_ok=True)
+                raise
+            return candidate
+        raise RuntimeError('Could not allocate an instance ID')
+
+    def _retire_id(self, instance_id):
+        directory = self.directory / '.retired'
+        directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+        try:
+            fd = os.open(directory / instance_id, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        except FileExistsError:
+            return
+        os.close(fd)
+
+    def remove(self, record):
+        path = self.directory / (record['id'] + '.json')
+        try:
+            current = json.loads(path.read_text(encoding='utf-8'))
+            owner = ('session', 'generation', 'token')
+            if isinstance(current, dict) and all(current.get(key) == record.get(key) for key in owner):
+                self._retire_id(record['id'])
+                path.unlink()
+        except (OSError, ValueError):
+            pass
+
+
+def _on_ida_thread(callback, is_active=lambda: True):
     import ida_kernwin
     result, errors = [], []
-
-    def collect():
+    def invoke():
         try:
             if not is_active():
                 raise RuntimeError('IDA service is stopping')
-            result.append(collect_snapshot(**request))
+            result.append(callback())
         except Exception as error:
             errors.append(error)
         return 1
-
-    ida_kernwin.execute_sync(collect, ida_kernwin.MFF_READ)
+    ida_kernwin.execute_sync(invoke, ida_kernwin.MFF_READ)
     if errors:
         raise errors[0]
     if not result:
-        raise RuntimeError('IDA did not execute the collection request')
+        raise RuntimeError('IDA did not execute the request')
     return result[0]
 
 
+def collect_on_ida_thread(request, is_active=lambda: True):
+    return _on_ida_thread(lambda: collect_snapshot(**request), is_active)
+
+
+class InstanceChangedError(RuntimeError):
+    pass
+
+
 class LocalService:
-    """Loopback-only, token-authenticated snapshot API; no Python evaluation."""
-    def __init__(self, port=None, port_range=None, dispatcher=None, identity=None):
+    """One database generation per ID. HTTP identity reads do not wait on IDA analysis."""
+    def __init__(self, port=None, port_range=None, dispatcher=None, identity=None,
+                 identity_provider=None, registry=None, heartbeat_interval=INSTANCE_HEARTBEAT):
         import secrets
         import threading
         import socket
         from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
         self.active = True
         self.token = secrets.token_urlsafe(32)
-        self.identity = identity or dict(module=ida_nalt.get_root_filename(),
-                                         input_path=ida_nalt.get_input_file_path())
-        self.dispatcher = dispatcher or (lambda request: collect_on_ida_thread(request, lambda: self.active))
+        self.session = secrets.token_hex(16)
+        self.registry = registry or InstanceRegistry()
+        self.identity_provider = identity_provider or ((lambda: identity) if identity is not None else _current_identity)
+        self.dispatcher = dispatcher or (lambda request: collect_snapshot(**request))
+        self._needs_ida = idaapi is not None and identity is None and identity_provider is None
+        self._lock = threading.RLock()
+        self._stop_event = threading.Event()
+        self._record, self.identity, self.generation = None, {}, 0
+        self._used_ids = set()
+        self._timer, self._hooks = None, None
+        self._closed = False
         service = self
 
         class Handler(BaseHTTPRequestHandler):
@@ -916,100 +1094,192 @@ class LocalService:
             def trusted(self):
                 return (self.headers.get('Host') == '127.0.0.1:%d' % service.port
                         and not self.headers.get('Origin')
-                        and secrets.compare_digest(self.headers.get('X-Tracecraft-Token',''), service.token))
+                        and secrets.compare_digest(self.headers.get('X-Tracecraft-Token', ''), service.token))
 
             def do_GET(self):
                 if not self.trusted():
-                    return self.reply(403, {'error':'Invalid local service credentials'})
+                    return self.reply(403, {'error': 'Instance credentials expired; refresh instances'})
                 if self.path != '/info':
-                    return self.reply(404, {'error':'Unknown endpoint'})
-                self.reply(200, dict(service='ida-tracecraft', protocol=1,
-                                     pid=os.getpid(), port=service.port, **service.identity))
+                    return self.reply(404, {'error': 'Unknown endpoint'})
+                with service._lock:
+                    info = dict(service='ida-tracecraft', protocol=INSTANCE_PROTOCOL,
+                                pid=os.getpid(), port=service.port,
+                                id=service._record['id'] if service._record else None, **service.identity)
+                self.reply(200, info)
 
             def do_POST(self):
                 if not self.trusted():
-                    return self.reply(403, {'error':'Invalid local service credentials'})
+                    return self.reply(403, {'error': 'Instance credentials expired; refresh instances'})
                 if self.path != '/snapshot':
-                    return self.reply(404, {'error':'Unknown endpoint'})
+                    return self.reply(404, {'error': 'Unknown endpoint'})
                 try:
                     length = int(self.headers.get('Content-Length', '0'))
                     if not 0 < length <= 1048576:
                         raise ValueError('Request body must be 1..1048576 bytes')
                     request = json.loads(self.rfile.read(length))
-                    allowed = {'mode','root','selectors','query','ai_level','max_functions','depth'}
-                    if not isinstance(request,dict) or set(request) - allowed:
+                    allowed = {'mode', 'root', 'selectors', 'query', 'ai_level', 'max_functions', 'depth'}
+                    if not isinstance(request, dict) or set(request) - allowed:
                         raise ValueError('Unknown snapshot request fields')
-                    if request.get('mode','full') not in tuple(MODES) + SELECT_MODES:
+                    if request.get('mode', 'full') not in tuple(MODES) + SELECT_MODES:
                         raise ValueError('Unknown mode')
-                    selectors = request.get('selectors',[])
-                    if not isinstance(selectors,list) or len(selectors) > 500:
+                    selectors = request.get('selectors', [])
+                    if not isinstance(selectors, list) or len(selectors) > 500:
                         raise ValueError('selectors must be an array of at most 500 functions')
-                    if not service.active:
-                        raise RuntimeError('IDA service is stopping')
-                    snapshot = service.dispatcher(request)
-                    self.reply(200, snapshot)
+                    expected = self.headers.get('X-Tracecraft-Instance')
+                    callback = lambda: service.snapshot(request, expected)
+                    value = _on_ida_thread(callback, lambda: service.active) if service._needs_ida else callback()
+                    self.reply(200, value)
+                except InstanceChangedError as error:
+                    self.reply(409, {'error': str(error)})
                 except ValueError as error:
-                    self.reply(400, {'error':str(error)})
+                    self.reply(400, {'error': str(error)})
                 except Exception as error:
-                    self.reply(500, {'error':str(error)})
+                    self.reply(500, {'error': str(error)})
 
         class Server(ThreadingHTTPServer):
             daemon_threads = True
             block_on_close = False
             allow_reuse_address = False
-
             def server_bind(self):
-                if hasattr(socket,'SO_EXCLUSIVEADDRUSE'):
-                    self.socket.setsockopt(socket.SOL_SOCKET,socket.SO_EXCLUSIVEADDRUSE,1)
+                if hasattr(socket, 'SO_EXCLUSIVEADDRUSE'):
+                    self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
                 super().server_bind()
 
-        port = port if port is not None else os.environ.get('TRACECRAFT_PORT')
-        ports = [int(port)] if port is not None else parse_port_range(
-            port_range or os.environ.get('TRACECRAFT_PORT_RANGE','18420:18439'))
+        explicit = port if port is not None else os.environ.get('TRACECRAFT_PORT')
+        configured_range = port_range or os.environ.get('TRACECRAFT_PORT_RANGE')
+        ports = [int(explicit)] if explicit is not None else parse_port_range(configured_range) if configured_range else [0]
         for candidate in ports:
-            if not 1 <= candidate <= 65535:
-                raise ValueError('Port must be 1..65535')
+            if not 0 <= candidate <= 65535:
+                raise ValueError('Port must be 0..65535')
             try:
-                self.httpd = Server(('127.0.0.1',candidate), Handler)
+                self.httpd = Server(('127.0.0.1', candidate), Handler)
                 break
             except OSError:
                 continue
         else:
-            raise RuntimeError('No available local port in configured range')
+            raise RuntimeError('No available local port')
         self.port = self.httpd.server_port
-        directory = state_directory()
-        self.record = directory / ('%d-%d.json' % (os.getpid(),self.port))
+        self._http_thread = None
         try:
-            directory.mkdir(parents=True,exist_ok=True,mode=0o700)
-            with self.record.open('x',encoding='utf-8') as stream:
-                os.chmod(self.record,0o600)
-                json.dump(dict(pid=os.getpid(),port=self.port,token=self.token),stream)
-            self.thread = threading.Thread(target=self.httpd.serve_forever,
-                                           kwargs={'poll_interval':0.1},daemon=True)
-            self.thread.start()
+            self.refresh_identity()
+            self._http_thread = threading.Thread(target=self.httpd.serve_forever,
+                                                 kwargs={'poll_interval': 0.1}, daemon=True)
+            self._http_thread.start()
+            self._heartbeat_thread = threading.Thread(target=self._heartbeat,
+                                                      args=(heartbeat_interval,), daemon=True)
+            self._heartbeat_thread.start()
+            if self._needs_ida:
+                self._install_identity_watch()
         except BaseException:
+            self.active = False
+            self._stop_event.set()
+            if self._http_thread is not None:
+                self.httpd.shutdown()
             self.httpd.server_close()
+            if self._record:
+                self.registry.remove(self._record)
             raise
 
+    def refresh_identity(self):
+        """Main-thread entrypoint in IDA; injected providers are usable in ordinary Python."""
+        identity = None if self._closed else self.identity_provider()
+        with self._lock:
+            if not self.active:
+                return
+            if not identity or not identity.get('input_path'):
+                if self._record:
+                    self.registry.remove(self._record)
+                self._record, self.identity = None, {}
+                return
+            identity = {key: identity.get(key, '') for key in ('input_path', 'idb_path', 'module', 'database_hash')}
+            identity['input_path'] = os.path.normpath(identity['input_path'])
+            if identity['idb_path']:
+                identity['idb_path'] = os.path.normpath(identity['idb_path'])
+            if not self._record or _identity_key(identity) != _identity_key(self.identity):
+                old = self._record
+                self.generation += 1
+                self._record = self.registry.register(dict(identity, pid=os.getpid(), port=self.port,
+                    token=self.token, session=self.session, generation=self.generation), self._used_ids)
+                self._used_ids.add(self._record['id'])
+                if old:
+                    self.registry.remove(old)
+            self.identity = identity
+
+    def _install_identity_watch(self):
+        import ida_kernwin
+        service = self
+        class Hooks(ida_kernwin.UI_Hooks):
+            def database_closed(self):
+                service._closed = True
+                service.refresh_identity()
+            def database_inited(self, is_new_database, idc_script):
+                service._closed = False
+                service.refresh_identity()
+        self._hooks = Hooks()
+        self._hooks.hook()
+        def tick():
+            if not self.active:
+                return -1
+            try:
+                self.refresh_identity()
+            except Exception:
+                pass  # Request-time refresh still fails explicitly; retry the watch next tick.
+            return 1000
+        self._timer = ida_kernwin.register_timer(1000, tick)
+
+    def _heartbeat(self, interval):
+        import time
+        while not self._stop_event.wait(interval):
+            try:
+                with self._lock:
+                    if self.active and self._record:
+                        self._record = dict(self._record, last_seen=time.time())
+                        self.registry.publish(self._record)
+            except OSError:
+                pass  # Preserve availability during a transient filesystem failure.
+
+    def snapshot(self, request, expected):
+        self.refresh_identity()
+        with self._lock:
+            if not self.active or not self._record or expected != self._record['id']:
+                raise InstanceChangedError("Database instance changed; run 'instances' and select again")
+            instance_id = self._record['id']
+        snapshot = self.dispatcher(request)
+        self.refresh_identity()
+        with self._lock:
+            if not self._record or self._record['id'] != instance_id:
+                raise InstanceChangedError('Database changed during collection; retry')
+        return dict(instance_id=instance_id, snapshot=snapshot)
+
     def stop(self):
+        if not self.active:
+            return
         self.active = False
+        self._stop_event.set()
+        if self._needs_ida:
+            import ida_kernwin
+            if self._timer is not None:
+                ida_kernwin.unregister_timer(self._timer)
+            if self._hooks is not None:
+                self._hooks.unhook()
+        self._heartbeat_thread.join(timeout=1)
         self.httpd.shutdown()
         self.httpd.server_close()
-        try:
-            self.record.unlink()
-        except FileNotFoundError:
-            pass
+        with self._lock:
+            if self._record:
+                self.registry.remove(self._record)
+            self._record, self.identity = None, {}
 
 
 _local_service = None
 
 
 def start_local_server(port=None, port_range=None):
-    """Start on the IDA main thread. Optional port/range also have environment overrides."""
     global _local_service
     if _local_service is None or not _local_service.active:
-        _local_service = LocalService(port=port,port_range=port_range)
-        print('[tracecraft] CLI service ready on 127.0.0.1:%d' % _local_service.port)
+        _local_service = LocalService(port=port, port_range=port_range)
+        print('[tracecraft] CLI instance %s on 127.0.0.1:%d' %
+              (_local_service._record['id'] if _local_service._record else '-', _local_service.port))
     return _local_service
 
 
@@ -1019,79 +1289,110 @@ def local_request(record, endpoint, payload=None, timeout=120):
     port = int(record['port'])
     if not 1 <= port <= 65535:
         raise ValueError('Invalid instance port')
-    request = Request('http://127.0.0.1:%d/%s' % (port,endpoint),
-                      data=json.dumps(payload).encode() if payload is not None else None,
-                      headers={'Content-Type':'application/json','X-Tracecraft-Token':record['token']})
+    headers = {'Content-Type': 'application/json', 'X-Tracecraft-Token': record['token']}
+    if endpoint == 'snapshot':
+        headers['X-Tracecraft-Instance'] = record['id']
+    request = Request('http://127.0.0.1:%d/%s' % (port, endpoint),
+                      data=json.dumps(payload).encode() if payload is not None else None, headers=headers)
     try:
-        with build_opener(ProxyHandler({})).open(request,timeout=timeout) as response:
+        with build_opener(ProxyHandler({})).open(request, timeout=timeout) as response:
             return json.loads(response.read())
     except HTTPError as error:
         try:
             detail = json.loads(error.read())['error']
-        except (ValueError,KeyError):
+        except (ValueError, KeyError):
             detail = str(error)
         raise RuntimeError(detail) from error
 
 
 def _matches_input(input_path, name):
-    """Match an exact basename, or an explicit path, case-insensitively."""
     if not input_path:
         return False
     if os.path.dirname(name):
-        return os.path.normcase(os.path.abspath(input_path)).casefold() == os.path.normcase(os.path.abspath(name)).casefold()
+        return _canonical_path(input_path) == _canonical_path(name)
     return os.path.basename(os.path.normpath(input_path)).casefold() == name.casefold()
 
 
-def _live_instances(port=None, port_range=None, instance=None, input_name=None):
+def _live_instances(port=None, port_range=None, instance=None, input_name=None, strict=False):
+    from concurrent.futures import ThreadPoolExecutor
+    import time
     if input_name is not None and not input_name.strip():
-        raise ValueError("--input must be a non-empty filename or path")
+        raise ValueError('--input must be a non-empty filename or path')
     allowed = set(parse_port_range(port_range)) if port_range else None
-    instances = []
-    for path in sorted(state_directory().glob('*.json')):
+    registry = InstanceRegistry()
+    records = [record for record in registry.records()
+               if (port is None or record['port'] == int(port))
+               and (allowed is None or record['port'] in allowed)
+               and (instance is None or (record['pid'] == int(instance) if str(instance).isdecimal()
+                                        else record['id'] == str(instance).lower()))
+               and (input_name is None or _matches_input(record['input_path'], input_name))]
+
+    def probe(record):
+        alive = _pid_alive(record['pid'])
+        if alive is False:
+            registry.remove(record)
+            return None
         try:
-            record = json.loads(path.read_text(encoding='utf-8'))
-            if port is not None and record['port'] != int(port):
-                continue
-            if allowed is not None and record['port'] not in allowed:
-                continue
-            if instance is not None and record['pid'] != int(instance):
-                continue
-            info = local_request(record,'info',timeout=0.5)
-            if info.get('service') == 'ida-tracecraft' and info.get('protocol') == 1 and info['pid'] == record['pid']:
-                if input_name is None or _matches_input(info.get('input_path',''),input_name):
-                    instances.append((record,info))
-        except (OSError,ValueError,KeyError,RuntimeError):
-            continue
-    return instances
+            info = local_request(record, 'info', timeout=0.75)
+            if (info.get('service') != 'ida-tracecraft' or info.get('protocol') != INSTANCE_PROTOCOL
+                    or info.get('pid') != record['pid'] or info.get('id') != record['id']
+                    or info.get('port') != record['port']
+                    or _identity_key(info) != _identity_key(record)):
+                if strict:
+                    raise InstanceChangedError("Instance changed; run 'instances' and select again")
+                return None
+            if input_name is None or _matches_input(info.get('input_path', ''), input_name):
+                return record, info
+        except (OSError, ValueError, KeyError, RuntimeError) as error:
+            # Busy or temporarily unreachable processes retain their identity.
+            if alive is None and time.time() - record['last_seen'] > INSTANCE_STALE_AFTER:
+                registry.remove(record)
+            elif strict:
+                raise RuntimeError("IDA instance %s unavailable or changed; refresh instances or select an explicit ID" % record['id']) from error
+        return None
+
+    if not records:
+        return []
+    with ThreadPoolExecutor(max_workers=min(8, len(records))) as pool:
+        rows = [row for row in pool.map(probe, records) if row is not None]
+    return sorted(rows, key=lambda row: (_canonical_path(row[1]['input_path']), row[0]['id']))
 
 
 def list_instances(port=None, port_range=None, instance=None, input_name=None):
-    """Return only live CLI endpoints and their input files; never expose credentials."""
-    return [dict(endpoint='http://127.0.0.1:%d' % record['port'],
-                 input_path=os.path.normpath(info['input_path']) if info.get('input_path') else '')
+    return [dict(id=record['id'], endpoint='http://127.0.0.1:%d' % record['port'],
+                 input_path=os.path.normpath(info['input_path']))
             for record, info in _live_instances(port, port_range, instance, input_name)]
 
 
 def discover_instance(port=None, port_range=None, instance=None, input_name=None):
     if port is None and instance is None and input_name is None:
         port = os.environ.get('TRACECRAFT_PORT')
-    instances = _live_instances(port, port_range, instance, input_name)
-    if not instances:
-        if input_name is not None:
-            raise RuntimeError('No Tracecraft instance matches --input %r' % input_name)
-        raise RuntimeError('No Tracecraft instance found. Load the plugin in IDA, or use --snapshot for offline generation.')
-    if len(instances) > 1:
-        listing = '; '.join('PID %s port %s: %s' % (r['pid'],r['port'],i.get('input_path','')) for r,i in instances)
-        raise RuntimeError('Multiple IDA instances; choose --input with a full path, --port or --instance. ' + listing)
-    return instances[0][0]
+    rows = _live_instances(port, port_range, instance, input_name, strict=True)
+    if not rows:
+        raise RuntimeError("No matching live IDA instance; run 'python entry_trace.py instances'")
+    if len(rows) > 1:
+        listing = '; '.join('%s: %s' % (record['id'], info['input_path']) for record, info in rows)
+        raise RuntimeError('Multiple IDA instances; choose --input, --instance ID, or --port. ' + listing)
+    return rows[0][0]
 
 
 def remote_snapshot(request, port=None, port_range=None, instance=None, timeout=120, input_name=None):
-    fields = ('mode','root','selectors','query','ai_level','max_functions','depth')
-    payload = {key:request[key] for key in fields if key in request}
-    snapshot = local_request(discover_instance(port,port_range,instance,input_name),'snapshot',payload,timeout)
-    if input_name is not None and not _matches_input(snapshot.get('input_path',''),input_name):
-        raise RuntimeError('IDA input changed during collection; retry with --input')
+    fields = ('mode', 'root', 'selectors', 'query', 'ai_level', 'max_functions', 'depth')
+    payload = {key: request[key] for key in fields if key in request}
+    record = discover_instance(port, port_range, instance, input_name)
+    if idaapi is not None and record['pid'] == os.getpid():
+        if _local_service is None:
+            raise RuntimeError('Use the loaded plugin module or run the CLI outside IDA')
+        result = _on_ida_thread(lambda: _local_service.snapshot(payload, record['id']), lambda: _local_service.active)
+    else:
+        result = local_request(record, 'snapshot', payload, timeout)
+    if result.get('instance_id') != record['id']:
+        raise RuntimeError('Response belongs to a different database instance')
+    snapshot = result['snapshot']
+    if _canonical_path(snapshot.get('input_path', '')) != _canonical_path(record['input_path']):
+        raise RuntimeError('IDA input changed during collection; retry')
+    if input_name is not None and not _matches_input(snapshot['input_path'], input_name):
+        raise RuntimeError('IDA input no longer matches --input')
     return snapshot
 
 
@@ -1104,16 +1405,17 @@ def main(argv=None):
         epilog='''Examples:
   python entry_trace.py instances
   python entry_trace.py instances --input libsec2026.so
+  python entry_trace.py --instance k7m2 --mode full -o trace.js
   python entry_trace.py --input libgodot_android.so --mode full -o godot.js
   python entry_trace.py --input libsec2026.so --mode full -o sec.js
   python entry_trace.py --input libsec2026.so --mode history --root FUNC --count 100 -o around.js
   python entry_trace.py --input libsec2026.so --mode hooks --query FUNC -o hook.js
   python entry_trace.py --snapshot context.json --mode selected -o selected.js
 
-instances returns only endpoint and input_path.
+instances returns only id, endpoint and input_path.
 --input matches an exact filename or full path, case-insensitively.
-Duplicate filenames require a full path or --port/--instance.
---port is the entry_trace CLI service port, not the IDA MCP port.
+Duplicate filenames require a full path or --instance ID. IDs are stable for a live database session.
+--port selects a CLI endpoint from instances; ports are assigned automatically, not MCP ports.
 Existing output files get numbered suffixes; use the returned script_path.
 See README.md for connection and mode examples.''')
     parser.add_argument('command', choices=['generate','context','instances'], nargs='?', default='generate',
@@ -1129,7 +1431,7 @@ See README.md for connection and mode examples.''')
     parser.add_argument('--input',metavar='NAME_OR_PATH',help='Select the input filename or full path (case-insensitive, exact match)')
     parser.add_argument('--port',type=int,help='entry_trace CLI service port (not MCP); see instances')
     parser.add_argument('--port-range',help='Restrict discovery to FIRST:LAST')
-    parser.add_argument('--instance',type=int,help='Select an IDA process by PID')
+    parser.add_argument('--instance',metavar='ID_OR_PID',help='Select a short instance ID (legacy PID also accepted)')
     parser.add_argument('--timeout',type=float,default=120,help='Local collection timeout in seconds')
     parser.add_argument('--context-out', help='Save IDA snapshot JSON')
     parser.add_argument('--prompt-out', help='Save AI task + snapshot JSON')
@@ -1183,7 +1485,7 @@ See README.md for connection and mode examples.''')
             snapshot = json.loads(Path(args.snapshot).read_text(encoding='utf-8-sig'))
             if snapshot.get('selection_mode') != args.mode:
                 raise ValueError('--mode must match snapshot selection_mode; recollect to change selection')
-        elif idaapi is not None:
+        elif idaapi is not None and all(value is None for value in (args.port,args.port_range,args.instance,args.input)):
             snapshot = collect_snapshot(**request)
         else:
             snapshot = remote_snapshot(request,args.port,args.port_range,args.instance,args.timeout,args.input)

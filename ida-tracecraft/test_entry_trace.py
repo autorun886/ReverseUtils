@@ -134,8 +134,9 @@ if (matches!==1 || output.filter(s=>s.startsWith('[ENTER')).length!==1 ||
             self.assertIn('--input',stdout.getvalue())
             self.assertIn('instances',stdout.getvalue())
             for mode in ('full', 'window', 'history', 'hooks', 'selected', 'regex', 'callers', 'callees'):
-                self.assertRegex(stdout.getvalue(), r'(?m)^  ' + mode + r' +\S')
-            self.assertIn('AI workflow:', stdout.getvalue())
+                self.assertIn(mode,stdout.getvalue())
+            self.assertIn('--ai-level', stdout.getvalue())
+            self.assertIn('--plan', stdout.getvalue())
 
     @unittest.skipIf(trace.idaapi is not None, 'Outside-IDA CLI contract')
     def test_outside_ida_reports_missing_plugin(self):
@@ -183,7 +184,8 @@ class LocalCLI(unittest.TestCase):
         trace.os.environ.pop('TRACECRAFT_PORT',None)
         self.services = []
         self.snapshot = dict(module='sample.so',imagebase='0x1000',root='0x10',
-                             selection_mode='window',functions=[dict(offset='0x10',name='trigger',thumb=False)])
+                             selection_mode='window',input_path=str(Path(self.directory.name)/'sample.so'),
+                             functions=[dict(offset='0x10',name='trigger',thumb=False)])
 
     def tearDown(self):
         for service in self.services:
@@ -198,9 +200,11 @@ class LocalCLI(unittest.TestCase):
             port = occupied.getsockname()[1]
             if port > 65530:
                 self.skipTest('Ephemeral port too close to maximum')
+            identity = dict(module='sample.so',input_path=self.snapshot['input_path'])
             service = trace.LocalService(port_range='%d:%d' % (port,port+5),
-                dispatcher=lambda request:self.snapshot,
-                identity=dict(module='sample.so',input_path='sample.so'))
+                dispatcher=lambda request:dict(self.snapshot,input_path=identity['input_path']),
+                identity=identity)
+            service.test_identity = identity
             self.services.append(service)
             self.assertNotEqual(service.port,port)
             return service
@@ -223,34 +227,36 @@ class LocalCLI(unittest.TestCase):
         self.assertEqual(trace.discover_instance(port=second.port)['port'],second.port)
         self.assertEqual(trace.discover_instance(port_range='%d:%d' % (first.port,first.port))['port'],first.port)
 
-    def test_instance_listing_and_structured_ambiguity(self):
+    def test_instance_listing_and_ambiguity(self):
         first, second = self.start(), self.start()
         stdout, stderr = io.StringIO(), io.StringIO()
         with redirect_stdout(stdout):
             self.assertEqual(trace.main(['instances']), 0)
         report = json.loads(stdout.getvalue())
-        self.assertEqual(report['count'], 2)
-        self.assertEqual({i['port'] for i in report['instances']}, {first.port, second.port})
+        self.assertEqual(len(report), 2)
+        self.assertEqual({i['id'] for i in report}, {first._record['id'], second._record['id']})
+        self.assertTrue(all(set(row) == {'id','endpoint','input_path'} for row in report))
         self.assertNotIn('token', stdout.getvalue())
         with redirect_stderr(stderr):
             self.assertEqual(trace.main(['--mode', 'window', '--root', 'trigger']), 1)
-        error = json.loads(stderr.getvalue())
-        self.assertEqual(error['error'], 'instance_ambiguous')
-        self.assertEqual(error['instances'], report['instances'])
+        self.assertIn('Multiple IDA instances', stderr.getvalue())
         self.assertNotIn('token', stderr.getvalue())
 
     def test_exact_path_selection_and_explicit_override(self):
         first, second = self.start(), self.start()
-        first.identity['input_path'] = str(Path(self.directory.name) / 'one' / 'sample.so')
-        second.identity['input_path'] = str(Path(self.directory.name) / 'two' / 'sample.so')
+        first.test_identity['input_path'] = str(Path(self.directory.name) / 'one' / 'sample.so')
+        second.test_identity['input_path'] = str(Path(self.directory.name) / 'two' / 'sample.so')
+        first.refresh_identity()
+        second.refresh_identity()
         with patch.dict(trace.os.environ, {'TRACECRAFT_PORT': str(first.port)}):
             path = str(Path(self.directory.name) / 'two' / '..' / 'two' / 'sample.so')
-            self.assertEqual(trace.discover_instance(input_path=path)['port'], second.port)
+            self.assertEqual(trace.discover_instance(input_name=path)['port'], second.port)
             self.assertEqual(trace.discover_instance(port=second.port)['port'], second.port)
-        second.identity['input_path'] = first.identity['input_path']
-        with self.assertRaises(trace.InstanceSelectionError):
-            trace.discover_instance(input_path=first.identity['input_path'])
-        self.assertEqual(trace.discover_instance(input_path=first.identity['input_path'],
+        second.test_identity['input_path'] = first.identity['input_path']
+        second.refresh_identity()
+        with self.assertRaisesRegex(RuntimeError,'Multiple IDA'):
+            trace.discover_instance(input_name=first.identity['input_path'])
+        self.assertEqual(trace.discover_instance(input_name=first.identity['input_path'],
                                                port=second.port)['port'], second.port)
 
     def test_stale_registry_and_no_matching_instances(self):
@@ -259,14 +265,14 @@ class LocalCLI(unittest.TestCase):
         stderr = io.StringIO()
         with redirect_stderr(stderr):
             self.assertEqual(trace.main(['--input', 'missing.so']), 1)
-        self.assertEqual(json.loads(stderr.getvalue())['error'], 'instance_not_found')
+        self.assertIn('No matching live IDA instance', stderr.getvalue())
         service = self.start()
         stdout = io.StringIO()
         with redirect_stdout(stdout):
             self.assertEqual(trace.main(['instances', '--port', str(service.port)]), 0)
-        self.assertEqual(json.loads(stdout.getvalue())['count'], 1)
+        self.assertEqual(len(json.loads(stdout.getvalue())), 1)
         snapshot = trace.remote_snapshot({'mode': 'window'}, port=service.port)
-        self.assertEqual(snapshot['source_instance']['port'], service.port)
+        self.assertEqual(snapshot['input_path'], service.identity['input_path'])
 
     def test_authentication_validation_and_cleanup(self):
         service = self.start()
@@ -275,9 +281,10 @@ class LocalCLI(unittest.TestCase):
             trace.local_request(dict(record,token='invalid'),'info')
         with self.assertRaisesRegex(RuntimeError,'Unknown snapshot'):
             trace.local_request(record,'snapshot',{'code':'arbitrary code'})
+        record_path = service.registry.directory / (service._record['id'] + '.json')
         service.stop()
         self.services.remove(service)
-        self.assertFalse(service.record.exists())
+        self.assertFalse(record_path.exists())
 
     def test_database_work_runs_through_execute_sync(self):
         import types
