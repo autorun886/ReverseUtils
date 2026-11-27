@@ -1,65 +1,57 @@
-﻿# utils
+# 逆向工具与脚本推荐
 
-逆向分析常用工具、IDA 插件与 Android 动态分析脚本集合。各工具独立使用，依赖和运行环境以对应目录的说明为准。
+按当前目录中的独立工具归类，项目内部的模块与依赖合并列出。GitHub 链接指向上游项目；本地副本可能包含适配或修改，不代表与上游版本完全一致。整理日期：2026-11-27。
 
-## 工具一览
+## Android 分析与转储
 
-| 目录 | 来源 | 用途 / 文档 |
+| 工具 / 本地位置 | GitHub 地址 | 简短介绍 |
 | --- | --- | --- |
-| [GAMBA/](GAMBA/) | [DenuvoSoftwareSolutions/GAMBA](https://github.com/DenuvoSoftwareSolutions/GAMBA) | 混合布尔算术（MBA）表达式化简，见 [README](GAMBA/README.md) |
-| [deflat/](deflat/) | [cq674350529/deflat](https://github.com/cq674350529/deflat) | 基于 angr 的 OLLVM 控制流平坦化与虚假控制流还原，见 [README](deflat/README.md) |
-| [deflat-angr/](deflat-angr/) | [Qmeimei10086/deflat-angr](https://github.com/Qmeimei10086/deflat-angr) | 查找真实块、分析块关系并修补控制流，见 [README](deflat-angr/README.md) |
-| [eBPF/](eBPF/) | [SeeFlowerX/stackplz](https://github.com/SeeFlowerX/stackplz)、[LLeavesG/eBPFDexDumper](https://github.com/LLeavesG/eBPFDexDumper) | Android 堆栈追踪、DEX / SO 转储与修复；见 [stackplz 常用命令](eBPF/stackplz-常用命令.md)、[eBPFDexDumper 常用命令](eBPF/eBPFDexDumper-常用命令.md) |
-| [frida-script/](frida-script/) | 自研 / 收集 | 观察 SO 加载、`dlsym` 与 `pthread_create`；含原版 Frida 脚本、rustfrida 适配脚本和 Python 启动器，见 [README](frida-script/README.md) |
-| [frida_dump/](frida_dump/) | [lasting-yang/frida_dump](https://github.com/lasting-yang/frida_dump) | 运行时转储 Android DEX / SO，见 [README](frida_dump/README.md) |
-| [ida-export-cli/](ida-export-cli/) | [OrientalGlass/ida-export-cli](https://github.com/OrientalGlass/ida-export-cli) | 通过 IDA idalib 无界面导出反编译快照，提供 CLI 与 Python 接口，见 [README](ida-export-cli/README.md) |
-| [ida-tracecraft/](ida-tracecraft/) | 仓库内维护 | 从 IDA 数据库生成 Frida Stalker / Interceptor 脚本，支持多实例、条件 Hook 和离线快照，见 [中文说明](ida-tracecraft/README.md)、[English](ida-tracecraft/README.en.md) |
-| [IDA-Plugins/](IDA-Plugins/) | 自研 / 收集 | IDA 插件集合，包括入口追踪、D810、Keypatch、Patching、FindCrypt、LazyIDA、Dereferencing、DataExportPlus 等 |
-| [rustfrida/](rustfrida/) | [kkkbbb/rustFrida](https://github.com/kkkbbb/rustFrida) | Android ARM64 动态分析工具及配套文件；见 [JS API](rustfrida/JS_API.md)、[使用注意事项](rustfrida/NOTES.md) |
+| frida_dump：`frida_dump/` | [lasting-yang/frida_dump](https://github.com/lasting-yang/frida_dump) | 使用 Frida 在运行时转储 DEX 和 SO，包含按类加载、内存扫描等方式提取 DEX 的脚本。 |
+| rustFrida：`rustfrida/` | [kkkbbb/rustFrida](https://github.com/kkkbbb/rustFrida) | 面向 Android ARM64 的动态分析工具，提供 JavaScript Hook 接口；本地附有 API 说明和使用笔记。 |
+| stackplz：`eBPF/` | [SeeFlowerX/stackplz](https://github.com/SeeFlowerX/stackplz) | 基于 eBPF 的 Android 堆栈追踪工具，适合观察函数调用、系统调用和参数。 |
+| eBPFDexDumper：`eBPF/` | [LLeavesG/eBPFDexDumper](https://github.com/LLeavesG/eBPFDexDumper) | 基于 eBPF 的 Android DEX 转储工具，本地目录附有常用命令说明。 |
 
-`brpatch` 已独立维护于 [autorun886/brpatch](https://github.com/autorun886/brpatch)，本仓库不再跟踪该目录。
+## 反混淆
 
-## 按任务选择
+| 工具 / 本地位置 | GitHub 地址 | 简短介绍 |
+| --- | --- | --- |
+| GAMBA：`GAMBA/` | [DenuvoSoftwareSolutions/GAMBA](https://github.com/DenuvoSoftwareSolutions/GAMBA) | 化简混合布尔算术（MBA）表达式，帮助理解被算术与位运算混淆的逻辑。 |
+| deflat-angr：`deflat-angr/` | [Qmeimei10086/deflat-angr](https://github.com/Qmeimei10086/deflat-angr) | 基于 angr 分析真实基本块、恢复块间关系并修补平坦化控制流，入口包括 `find_all_block.py`、`find_block_relation.py` 和 `patch_all.py`。地址来自本仓库 README，本次网页访问未完成核实。 |
+| D-810：`IDA-Plugins/D810.py`、`d810/` | [zhkl0228/d810](https://github.com/zhkl0228/d810)（GitHub 分支） | 通过优化 Hex-Rays 微码进行反混淆，包含表达式化简和控制流还原规则。原项目位于 [eshard/d810（GitLab）](https://gitlab.com/eshard/d810)，所列 GitHub 分支供参考，本地副本的具体来源分支待确认。 |
 
-- **反混淆**：MBA 表达式用 `GAMBA`；OLLVM 控制流还原用 `deflat` / `deflat-angr`。
-- **动态分析**：观察加载与符号解析用 `frida-script`；从 IDA 生成函数追踪和参数 Hook 用 `ida-tracecraft`。
-- **转储与追踪**：Frida 转储用 `frida_dump`；eBPF 堆栈追踪与转储用 `eBPF`。
-- **批量导出**：通过 `ida-export-cli` 生成可供后续分析的反编译快照。
-- **IDA 交互分析**：按需选用 `IDA-Plugins` 中的插件；Tracecraft 的安装入口是 `ida-tracecraft/entry_trace.py`。
+## IDA Python 插件
 
-## 快速开始
+以下本地位置均相对于 `IDA-Plugins/`。
 
-### 使用 rustfrida Hook 脚本
+| 插件 / 本地位置 | GitHub 地址 | 简短介绍 |
+| --- | --- | --- |
+| FindCrypt：`findcrypt3.py`、`findcrypt3.rules` | [polymorf/findcrypt-yara](https://github.com/polymorf/findcrypt-yara) | 使用 YARA 规则识别密码算法常量及其他特征，辅助定位加密相关代码。 |
+| Keypatch：`keypatch.py` | [keystone-engine/keypatch](https://github.com/keystone-engine/keypatch) | 基于 Keystone 的多架构汇编修补插件，支持指令修改、区域填充和搜索。 |
+| Patching：`patching.py`、`patching/` | [gaasedelen/patching](https://github.com/gaasedelen/patching) | 提供交互式汇编修改、补丁预览和保存功能，方便在 IDA 中编辑二进制。 |
+| LazyIDA：`LazyIDA.py` | [L4ys/LazyIDA](https://github.com/L4ys/LazyIDA) | 集成数据转换、数据提取等便捷操作，减少 IDA 中的重复操作。 |
+| deREferencing：`dereferencing.py`、`dereferencing/` | [danigargu/deREferencing](https://github.com/danigargu/deREferencing) | 增强调试时的寄存器和栈视图，展示指针解引用后的内容。 |
+| DataExportPlus：`DataExportPlus.py` | [Krietz7/IDA-DataExportPlus](https://github.com/Krietz7/IDA-DataExportPlus) | 增强选中数据的导出，支持数据类型、进制、大小端以及 C / Python 变量等格式。 |
+| Auto Enum：`enumlib/` | [junron/auto-enum](https://github.com/junron/auto-enum) | 自动识别标准函数参数中的枚举值，提升反编译代码的可读性。 |
+| iOS Helper：`ida_plugin_stub.py` | [yoavst/ida-ios-helper](https://github.com/yoavst/ida-ios-helper) | 辅助 iOS、Objective-C 和内核代码分析；本地仅包含加载入口，实际功能依赖 `ida-ios-helper` Python 包。 |
 
-在仓库根目录执行：
+## 本仓库维护及来源说明
 
-```powershell
-# 默认 spawn，并加载 dlsym、pthread_create、SO 加载三个观察脚本
-python .\frida-script\run_rustfrida.py -n com.example.app
+| 脚本 / 位置 | 地址 | 简短介绍 |
+| --- | --- | --- |
+| Frida Hook 脚本：`frida-script/` | [autorun886/ReverseUtils](https://github.com/autorun886/ReverseUtils/tree/main/frida-script)（本仓库） | 观察 SO 加载、`dlsym` 和 `pthread_create`，包含原版 Frida 脚本、rustFrida 适配版本及 Python 启动器；未确认独立上游。 |
+| IDA 追踪脚本：`IDA-Plugins/entry_trace.py` | [autorun886/ReverseUtils](https://github.com/autorun886/ReverseUtils/blob/main/IDA-Plugins/entry_trace.py)（本仓库） | 从 IDA 函数信息生成 Frida 追踪或 Hook 脚本，支持全模块、窗口、历史及名称匹配模式；未确认独立上游。 |
+| AI 分析导出：`IDA-Plugins/INP.py` | [autorun886/ReverseUtils](https://github.com/autorun886/ReverseUtils/blob/main/IDA-Plugins/INP.py)（本仓库） | 导出反编译结果、反汇编、字符串、内存及导入导出信息，供后续分析使用；独立上游来源待确认。 |
+| IDA Feeds：`IDA-Plugins/ida_feeds/` | [Hex-Rays 官方说明](https://docs.hex-rays.com/9.0/user-guide/plugins/plugins-shipped-with-ida/ida-feeds) | IDA 随附的 FLIRT 签名管理工具，本地代码还包含 Rust 签名生成功能；未确认独立 GitHub 源码仓库。 |
+| Bochs 配套脚本：`IDA-Plugins/bochs/` | IDA 随附组件，未确认独立 GitHub 源码仓库 | 为 IDA 的 Bochs 调试器提供启动逻辑及部分 Windows API 模拟。 |
 
-# 只加载 dlsym，附加已运行进程，同时保存日志
-python .\frida-script\run_rustfrida.py -n com.example.app --attach --only dlsym -o hooks.log
-```
+这里只整理脚本及其所属项目；IDA 自带 DLL、Qt 运行库、缓存与内嵌依赖未逐一列出。
 
-需要 Python 3.9+、PATH 中的 `adb`、已连接的 ARM64 Android 设备及可用的 `su -c`。若设备 shell 已是 root，可传入 `--no-su`。启动器默认使用本仓库 `rustfrida/rustfrida`，更多参数见 [脚本说明](frida-script/README.md)。
+## 补充推荐
 
-### 从 IDA 生成 Frida 追踪脚本
+其他值得关注的逆向分析项目：
 
-将 `ida-tracecraft/entry_trace.py` 放入 IDA 的 `plugins` 目录，重启 IDA 并打开目标数据库。保留仓库中的副本作为命令行入口：
-
-```powershell
-python .\ida-tracecraft\entry_trace.py -h
-python .\ida-tracecraft\entry_trace.py instances
-python .\ida-tracecraft\entry_trace.py --input "D:/samples/libsample.so" --mode full -o trace.js
-frida -U -f com.example.app -l trace.js
-```
-
-支持 `full`、`window`、`history`、`hooks`、`selected`、`regex`、`callers`、`callees` 八种模式。ARM64 Stalker 追踪要求 Frida 17.10+；模式与参数见 [Tracecraft 文档](ida-tracecraft/README.md)。
-
-## 使用说明
-
-- 本仓库包含源码、脚本及部分预编译工具，无统一安装步骤；先阅读所选工具的文档，再配置依赖。
-- `IDA-Plugins` 中的插件对 IDA、Python、Qt 和 Hex-Rays 版本的要求各不相同，按需安装。
-- `rustfrida` 的 JS 接口与原版 Frida 存在差异；原版脚本位于 `frida-script/`，适配版本位于 `frida-script/rustfrida/`。
-- QBDI helper 与 KPM 等配套组件是否需要加载，取决于使用功能；版本和环境注意事项见 [rustfrida/NOTES.md](rustfrida/NOTES.md)。
-- 第三方工具的版权与许可遵循各自项目及目录中的声明。
+| 项目 | GitHub 地址 | 简短介绍 |
+| --- | --- | --- |
+| ASC | [MG1937/ASC](https://github.com/MG1937/ASC) | 面向 Agent 和移动研究人员的轻量 Android 反编译工具。 |
+| unidbg 修改版 | [LunFengChen/unidbg](https://github.com/LunFengChen/unidbg) | 基于 unidbg 增加实用功能的修改版，侧重 trace 加速及减少部分环境补全工作。 |
+| xdec | [zhuzhu-Top/xdec](https://github.com/zhuzhu-Top/xdec) | 以库为核心的可编程反编译与去虚拟化框架，将 AArch64 机器码或自定义 VM 字节码转换为 SSA 中间表示，支持 OLLVM 控制流还原、MBA 化简及 C / Objective-C 输出，并提供 Python 绑定和 MCP 服务。 |
